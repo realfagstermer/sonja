@@ -1,0 +1,13 @@
+\select@language {norsk}
+\contentsline {section}{\numberline {1}Innledning}{1}{section.1}
+\contentsline {section}{\numberline {2}Testing, trening og oppl\IeC {\ae }ring}{2}{section.2}
+\contentsline {section}{\numberline {3}S\IeC {\o }king og trefflisteklikk}{2}{section.3}
+\contentsline {section}{\numberline {4}Behandling av indekstermer}{2}{section.4}
+\contentsline {section}{\numberline {5}Behandling av strenger}{4}{section.5}
+\contentsline {section}{\numberline {6}Omveier-menyen}{6}{section.6}
+\contentsline {section}{\numberline {7}Annen funksjonalitet}{6}{section.7}
+\contentsline {section}{\numberline {8}S\IeC {\o }k-menyen}{7}{section.8}
+\contentsline {section}{\numberline {9}Valg-menyen}{7}{section.9}
+\contentsline {section}{\numberline {10}Eksport-menyen}{8}{section.10}
+\contentsline {section}{\numberline {11}Jobbe med strenger}{8}{section.11}
+\contentsline {section}{\numberline {12}Hjelp-menyen}{8}{section.12}

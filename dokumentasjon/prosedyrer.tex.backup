@@ -1,0 +1,144 @@
+\documentclass[a4paper,10pt,norsk]{article}
+\usepackage[utf8x]{inputenc}
+\usepackage{babel,csquotes}
+
+%opening
+\title{Beskrivelse av kontroller og handlinger for ulike typer rettelser i Realfagstermene ved bruk av programmet Sonja}
+\author{Knut Hegna}
+
+\begin{document}
+
+\maketitle
+\tableofcontents
+\newpage
+
+\section*{Generelt}
+Dersom en av kontrollene går ut i feil, blir ingenting gjort med termen.
+Handlingene utføres bare dersom alle kontrollene er uten lyte.
+
+\subsection*{Om IDer}
+\begin{itemize}
+\item Et emnes ID forekommer på termen selv, 
+\item Et emnes ID kan forekomme i andre termers SO-liste (samme register).
+\item Et emnes ID kan forekomme som et ledd i én eller flere strenger av og til i ulike roller
+\item en strengs ID forekommer på strengen selv
+\item en strengs ID forekommer i strengelista til den termen som forekommer først i strengen. Hva betyr dette for strengen som begynner med sted og/eller tid og/eller form som emne?
+\end{itemize}
+\subsection*{Om logg}
+Det bør føres en endringslogg som bør kunne kjøres baklengs for å opprette en tidligere tilstand.
+\section{Legge inn ny term}\label{nyterm}
+\subsection*{Kontroll}
+\begin{itemize}
+ \item sjekke at termen ikke allerede eksisterer som emneterm, formterm, stedsterm eller tidsterm.
+\item sjekke at termen ikke allerede eksisterer som BF til emneterm, formterm, stedsterm eller tidsterm.
+\end{itemize}
+\subsection*{Handlinger}
+\begin{itemize}
+\item tildele ID
+\item legge ny term inn i riktig register
+\item oppdatere data for web-søk.
+\item oppdatere data for RII.
+\end{itemize}
+
+\section{Fjerne term}
+\subsection*{Kontroller}
+\begin{itemize}
+ \item sjekk om termen fins i strenger
+\end{itemize}
+\subsection*{Handlinger}
+\begin{itemize}
+\item må avgjøre om strengen skal beholdes dersom fjerning betyr bare ett ledd igjen.
+\end{itemize}
+\section{Fjerne streng}
+\subsection*{Kontroller}
+\begin{itemize}
+\item sjekk om den fins i strenger
+\item sjekk om den fins som SO hos andre termer i samme register
+\end{itemize}
+\subsection*{Handlinger}
+\begin{itemize}
+\item ved fjerning fra streng: dersom strengen bare består av ett ledd, fjernes strengen også.
+\item ID-en fjernes som andre termers SO-lister
+\end{itemize}
+
+\section{Legge inn BF-term på eksisterende term}
+\subsection*{Kontroller}
+\begin{itemize}
+\item 
+\end{itemize}
+\subsection*{Handlinger}
+\begin{itemize}
+\item 
+\end{itemize}
+
+\section{Fjerne BF-term fra eksisterende term}
+\subsection*{Kontroller}
+\begin{itemize}
+\item 
+\end{itemize}
+\subsection*{Handlinger}
+\begin{itemize}
+\item 
+\end{itemize}
+
+\section{Legge inn SO-term på eksisterende term}
+\subsection*{Kontroller}
+\begin{itemize}
+\item sjekke om termen det vises til  fins i samme register. Viss ikke, spørre om den skal genereres, se avsnitt \ref{nyterm}.
+\end{itemize}
+\subsection*{Handlinger}
+\begin{itemize}
+\item legge inn SO-termens ID i termens SO-liste
+\item spørre bruker om den inverse SO-relasjonen skal genereres
+\end{itemize}
+
+\section{Fjerne SO-term fra eksisterende term}
+Fjernes i skjemaet og lagres med standardkontroller (?). Hva da med eventuell invers relasjon? Fjernes i egen handling? Skal brukeren varsles om at den fins og kanskje få handlingsvalg?
+\subsection*{Kontroller}
+\begin{itemize}
+\item 
+\end{itemize}
+\subsection*{Handlinger}
+\begin{itemize}
+\item 
+\end{itemize}
+
+\section{Legge inn engelsk, nynorsk eller latin}
+\subsection*{Kontroller}
+\begin{itemize}
+\item 
+\end{itemize}
+\subsection*{Handlinger}
+\begin{itemize}
+\item 
+\end{itemize}
+\section{Fjerne engelsk, nynorsk eller latin}
+\subsection*{Kontroller}
+\begin{itemize}
+\item 
+\end{itemize}
+\subsection*{Handlinger}
+\begin{itemize}
+\item 
+\end{itemize}
+
+\section{Slå sammen to emnetermer}
+\subsection*{Kontroller}
+\begin{itemize}
+\item 
+\end{itemize}
+\subsection*{Handlinger}
+\begin{itemize}
+\item erstatte utgående terms ID med nåværende terms ID i alle relevante strenger.
+\item erstatte utgående terms ID med nåværende terms ID i alle relevante SO-forekomster
+\item BF-termer flyttes over (uproblematisk?)
+\item SO-termer flyttes over, dubletter og SO til nåværende term må fjernes.
+\item Engelske termer adderes og dubletter fjernes
+\item Vitenskapelige termer?
+\item Nynorsk termer adderes og dubletter fjernes?
+\item Forkortelser?
+\item Definisjon?
+\item Intern note?
+\end{itemize}
+Mulig å addere alle eller noen opplysninger fra termen som utgår til nåværende term og la bruker rydde opp før lagring.
+\end{document}

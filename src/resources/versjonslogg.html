@@ -1,0 +1,177 @@
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Versjonslogg</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    </head>
+    <body>
+        <div>
+            <ul><li><b>2016-06-21</b> Slettet termer er markert med rødt i trefflistene.</li>
+            <li><b>2016-06-09</b>Legger ikke lenger ut python-kommandoer på strenger som ikke fins på postene.</li>
+                <li><b>2016-05-25</b>Fjernet en rekke kategorioverskridende kontroller ved innlegging av betegnelser.</li>
+                <li><b>2016-05-20</b>Lagt inn oppsamling av pythonkommandoer for DSMs lokar-skript for Alma.</li>
+                <li><b>2016-02-03</b>Slettedato blir lagt inn og termens liv 
+                    forlenges i lista, men med slettedato og rød skrift. Dersom termen 
+                    er slått inn under en annen vises også dette.</li>
+                <li><b>2016-01-10</b>Katalogsøk gjøres nå enten i Oria eller emnesøket.</li>
+                <li><b>2015-10-28</b>Søker nå i Okapi om man ikke ber om noe annet. Se valg-menyen.</li>
+                <li><b>2015-04-09</b>Tillegg og fjerning av over- og undeordnet 
+                    er lagt til. Dessuten en enkel kontroll på at en term 
+                    ikke kan være både over- og underordnet til samme term.</li>
+                <li><b>2015-03-10</b> Datoer på strenger blir nå tatt vare på.</li>
+                <li><b>2015-03-10</b> Lagt inn ny kontroll ved bytte 
+                    indeksterm/BF-term på at BF-termen ikke fins som indeksterm fra før.</li>
+                <li><b>2015-02-20</b> Forenklet grensesnittet ved hjelp av kontekstmenyer.</li>
+                <li><b>2015-02-20</b> Bruktfor-termer mulig på strenger</li>
+                <li><b>2015-02-20</b> Fellesfelt for nynorsk, engelsk, latin, forkortelser, msc og dewey.</li>
+                <li><b>2015-02-20</b> Flere Dewey og MSC mulig</li>
+                <li><b>2015-02-20</b> Lagt til hierarkiske relasjoner (overordnet og underordnet).</li>
+                <li><b>2015-02-20</b> Endret internt datoformat til UTC</li>
+                <li><b>2015-02-02</b> Rettet feil i lokarstreng-generering ved sammenslåing av to termer.</li>
+                <li><b>2014-12-04</b> lagt inn administrasjonsrutiner for å legge 
+                    til, fjerne og vise (med forskjellige formater) overordnete og underordnete termer i Term-klassen</li>
+                <li><b>2014-11-25</b> Endretdato hang igjen i skjermbildet etter første retting. Rettet.</li>
+                <li><b>2014-11-14</b> Nå mulig å se endringsloggen ved å velge 
+                    "Vis endringslogg" fra Omveier-menyen. Loggen blir vist 
+                    under fanen "Logg og meldinger".</li>
+                <li><b>2014-10-28</b> Rettet id for broader i strenger i rdf/xml-eksport fra REALnnnnnn til nnnnnn</li>
+                <li><b>2014-10-17</b> Rettet id for se-også termer i rdf/xml-eksport fra REALnnnnnn til nnnnnn</li>
+                <li><b>2014-10-17</b> Trunkert søk på identifikator er nå mulig (Alt-I).</li>
+                <li><b>2014-10-16</b> Lagt inn lokar-klipp når term fjernes.</li>
+                <li><b>2014-10-09</b> Lagt inn mulighet for å velge delbase i 
+                    BIBSYS-søk. Se valg-menyen</li>
+                <li><b>2014-10-09</b> Lagt inn lokar-klipp når to termer slås sammen.</li>
+                <li><b>2014-10-08</b> Når indekstermen endres (enten direkte 
+                    eller når BF og term bytter plass), blir det generert 
+                    et systemklipp som kan klistres inn i lokar-skjermen i BIBSYS</li>
+                <li><b>2014-10-08</b> Lagt inn mulighet for å endre indekstermen.</li>
+                
+                <li><b>2014-09-30</b> En indeksterms betegnelse kan forekomme 
+                    i termens felter for engelsk, nynorsk, latin og akronym, 
+                    men ikke i disse feltene under andre indekstermer. 
+                    
+                <p>En indeksterms betegnelse kan IKKE legges inn som se-henvisning 
+                    eller se-også-henvisning under samme term. </p>
+                
+                <p>En se-henvisning kan bare forekommer under en indeksterm</p></li>
+                <li><b>2014-09-30</b> Erstatter multiple blanke 
+                    med en blank i all bruker-input.</li>
+                <li><b>2014-09-29</b> Lagt inn mulighet for at engelsk og norsk term kan være like.</li>
+                <li><b>2014-09-29</b> Lagt inn to nye LaTeX-eksporter i Knuts private meny</li>
+                <li><b>2014-09-25</b> Lagt eksport av diverse LaTeX-utskrifter.</li>
+                <li><b>2014-09-02</b> Lagt inn eksport av data i CSV-format: 
+                    tegnet '@' skiller celler, tegnet ';' skiller verdier i 
+                    en celle. Linjeskift skiller rader. Skilletegnene kan 
+                    enkelt endres. Eksporten er foreløpig bare tilgjengelig for Knut.</li>
+                <li><b>2014-08-27</b> Datoer blir eksport til RDF/XML-filen.</li>
+                <li><b>2014-08-27</b> Hver term har fått tillagt tre 
+                    dato-attributter: <em>opprettet</em>, <em>endret</em> og 
+                    <em>slettet</em>. Alle gamle termer fikk 20140825 
+                    som opprettingsdato, forøvrig blir endringsdato dato for 
+                    siste endring (ingen historikk annet enn i loggen). 
+                    Hvordan slettet-datoen skal utnyttes og publiseres er 
+                    uklart. Foreløpig forsvinner termen helt uten spor, 
+                    men kanskje bør de beholdes et sted.</li>
+                <li><b>2014-08-27</b> Strømlinjeformet logging av endringer.</li>
+                <li><b>2014-08-19</b> Lagt inn mulighet for å flytte en engelsk 
+                    eller en nynorsk term øverst i lista si, slik at den kan 
+                    bli eksportert som prefLabel for aktuelt språk. 
+                    De øvrige blir da altLabel. Om det bare er to termer i 
+                    lista, bytter de plass, forøvrig må man velge i en liste. 
+                    Funksjonen er lagt i knappen under +--knappene.</li>
+                <li><b>2014-08-14</b> Logger nå også sletting av strenger i 
+                    forbindelse med sletting av termer som inngår i dem.</li>
+                <li><b>2014-07-04</b> Fikset strengeknapper så de ikke kan misbrukes.</li>
+                <li><b>2014-07-04</b> Rettet feil med innlogging og brukernavnfil</li>
+                <li><b>2014-07-04</b> Lagt inn logging av fillagring i logg-filen</li>
+                <li><b>2014-07-03</b> Ved hver lagring av endrete data, 
+                    tas backup av de gamle. De lagres med dato som prefiks 
+                    på det gamle navnet i backup-katalogen.</li>
+                <li><b>2014-07-02</b> Loggfører alle endringer i admin/logg.txt </li>
+                <li><b>2014-07-01</b> Laget parallelle drifts- og test-miljøer:
+                    <ul>
+                        <li>Drift: Z:/ureal/rii/</li>
+                        <li>Test: Z:/test/ureal/rii/</li>
+                    </ul>
+                    Termer, strenger, former, tider og steder ligger 
+                        på toppen. I tillegg er det tre underkataloger:
+                        <ul>
+                            <li><b>admin</b> inneholder<br>
+                            <tt>ID.txt</tt> (siste brukte ID)<br>
+                                <tt>ledigstatusfil.txt</tt> (inneholder en av 
+                                tekstene "ledig" eller "opptatt")<br>
+                                <tt>brukerinfofil.txt</tt> (Navnet på den brukeren 
+                                som er innlogget.<br>
+                                <tt>logg.txt</tt> (logg av alle endringer i datagrunnlaget).
+                            
+                            </li>
+                            <li><b>backup</b> inneholder backupfilene etter 
+                                hvert som de genereres. Ett sett pr dag 
+                                (siste den dagen). Filnavnene er prefikset med dagens dato.
+                            </li>
+                            <li><b>eksport</b> inneholder<br>
+                            <tt>grunnfil.txt</tt> data for web-søket i den gamle formen<br>
+                            <tt>realfagstermer.xml</tt> Realfagstermene i SKOs-form. Skal kunne aksesseres via denne lenken:
+                            <a href="http://app.uio.no/ub/emnesok/ureal/rii/eksport/realfagstermer.xml">http://app.uio.no/ub/emnesok/ureal/rii/eksport/realfagstermer.xml</a>
+                            </li>
+                        </ul>
+                        I disse katalogene:
+                        <ul>
+                        <li>Drift: U:/Prosjekt687/roald2/data/</li>
+                        <li>Test: U:/Prosjekt687/roald2/test/data/</li>
+                    </ul>
+                        ligger strengeforslag fordelt på disse to filene: <br>
+                <tt>arbeidskasse.txt</tt> gamle ubehandlete forslag samles opp her.<br>
+                <tt>strengeforslag.txt</tt> nye forslag som ikke er åpnet ennå. De blir inkludert i arbeidskassa når de leses i programmet. Filen blir da også tømt.<br>
+                        
+                        
+                </li>
+                <li><b>2014-06-16</b> Lar oppbygd streng stå i strengefeltet 
+                    inntil det kommer en ny streng eller man går over til 
+                    neste post.</li>
+                <li><b>2014-05-19</b> Laget opplegg for sparing av huskeliste 
+                    av nødvendige rettelser i BIBSYS på fil.</li>
+                <li><b>2014-05-17</b> Ledighetskontroll og brukernavnpassord-
+                    kontroll lagt inn</li>
+                <li><b>2014-05-17</b> Lagt inn meny og snarveier for søk i de 
+                    forskjellige variantene.</li>
+                <li><b>2014-05-15</b> Akseptere og forkaste strengeforslag 
+                    er nå operativ.</li>
+                <li><b>2014-05-10</b> Lagt inn kontroll på lagring av 
+                    endrete data. Endrete data kan nå enten lagres underveis 
+                    i sesjonen fra menyvalg eller ved asvlutning av programmet 
+                    via Fil-meny eller lukking av vindu.</li>
+                <li><b>2014-05-10</b> Filhåndtering i forbindelse med 
+                    strengeforslag er fikset. Forslagene tømmes over i 
+                    en arbeidsfil. </li>
+                <li><b>2014-05-09</b> Lagt inn forslagstiller på 
+                    strengeforslag.</li>
+                <li><b>2014-05-08</b> Lagt inn spørsmål om det skal legges invers 
+                    seogså-relasjon dersom den ikke fins.</li>
+                <li><b>2014-05-08</b> Lagt inn spørsmål om  invers 
+                    seogså-relasjon skal fjernes dersom den fins.</li>
+                <li><b>2014-05-08</b> Når man ønsker å legge inn en so-term 
+                    som ikke fins, blir det spurt om den skal legges inn.</li>
+                <li><b>2014-05-08</b> Mulig å velge fontfarge i skjemafeltene 
+                    (en farge for alle)</li>
+                <li><b>2014-05-07</b> Lagt inn Feedback-logg i Hjelp-menyen.</li>
+                <li><b>2014-05-06</b> Strengeforslag kan nå beskues og blas i. 
+                    Gjelder bare de forslagene som lå i driftsdataene i dag.</li>
+                <li><b>2014-05-06</b> Lagt inn lesing og presentasjon av strengeforslag</li>
+                <li><b>2014-05-06</b> Rettet funksjonalitet når man fjerner term-</li>
+                <li><b>2014-05-06</b> Lagt inn søk i BIBSYS på aktuell term eler streng.</li>
+                <li><b>2014-05-05</b> Rettet feil i tilknytning til utskiftning 
+                    av ID for termer som flettes (basistermen be lagt inn på 
+                    samtlige termer).</li>
+                <li><b>2014-05-04</b> Generert første testversjon</li>
+                <li><b>2014-04-07</b> Lagt inn versjonslogg i Hjelp-meny</li>
+                <li><b>2014-04-07</b> Lagt inn notater i Hjelp-meny</li>
+                <li><b>2014-04-07</b> Lagt inn Hjelp-meny for notater og 
+                    versjonslogg og kanskje bruksanvisning etter hvert.</li>
+            </ul></div>
+    </body>
+</html>

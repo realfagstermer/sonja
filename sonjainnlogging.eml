@@ -1,0 +1,110 @@
+
+MIME-Version: 1.0
+
+--------------040009020107000901000507
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 8bit
+
+I Passord:
+
+    private void sjekkpassord() {
+         if (Pwsjekk.sjekkbruker(jTextField1.getText(), 
+jPasswordField1.getPassword())) {
+             this.dispose();
+             Pwsjekk.forsok = 4;
+         } else {
+             System.out.println(
+                     "Autoriseringsfeil. "
+                     + "Kombinasjonen brukernavn/passord var feil!\n");
+             Pwsjekk.forsok++;
+         }
+     }
+
+I Pwsjekk:
+
+     static int forsok = 0;
+     static Vindu vindu;
+     public static void main(String[] args) {
+         // TODO code application logic here
+
+         Passord pa = new Passord();
+         pa.setVisible(true);
+         while (forsok < 3){
+         pa.setVisible(true);
+
+         }
+         if (forsok == 4) {
+             System.out.println("OK");
+             vindu = new Vindu();
+             vindu.setVisible(true);
+         } else {
+             System.out.println("feil");
+             System.exit(0);
+         }
+     }
+
+-- 
+Førstebibliotekar / Senior academic librarian
+Science library, informatics dept.
+Box 1128 Blindern
+0316 Oslo
+Norway
+
+
+--------------040009020107000901000507
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+
+<html><head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  </head>
+  <body bgcolor="#FFFFFF" text="#000000">
+    <font face="Courier New, Courier, monospace">I Passord:<br>
+      <br>
+      &nbsp;&nbsp; private void sjekkpassord() {<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (Pwsjekk.sjekkbruker(jTextField1.getText(),
+      jPasswordField1.getPassword())) {<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; this.dispose();<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Pwsjekk.forsok = 4;<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } else {<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; System.out.println(<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &quot;Autoriseringsfeil. &quot;<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &#43; &quot;Kombinasjonen brukernavn/passord var
+      feil!\n&quot;);<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Pwsjekk.forsok&#43;&#43;;<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+      &nbsp;&nbsp;&nbsp; }<br>
+      <br>
+      I Pwsjekk:<br>
+      <br>
+      &nbsp;&nbsp;&nbsp; static int forsok = 0;<br>
+      &nbsp;&nbsp;&nbsp; static Vindu vindu;<br>
+      &nbsp;&nbsp;&nbsp; public static void main(String[] args) {<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; // TODO code application logic here<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Passord pa = new Passord();<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pa.setVisible(true);<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; while (forsok &lt; 3){<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; pa.setVisible(true);<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } <br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if (forsok == 4) {<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; System.out.println(&quot;OK&quot;);<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; vindu = new Vindu();<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; vindu.setVisible(true);<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; } else {<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; System.out.println(&quot;feil&quot;);<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; System.exit(0);<br>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; }<br>
+      &nbsp;&nbsp;&nbsp; }<br>
+    </font>
+    <pre class="moz-signature" cols="72">-- 
+Førstebibliotekar / Senior academic librarian
+Science library, informatics dept.
+Box 1128 Blindern
+0316 Oslo
+Norway</pre>
+  </body>
+</html>
+
+--------------040009020107000901000507--

@@ -1,0 +1,12 @@
+\select@language {norsk}
+\contentsline {section}{\numberline {1}Legge inn ny term}{2}
+\contentsline {section}{\numberline {2}Fjerne term}{2}
+\contentsline {section}{\numberline {3}Fjerne streng}{3}
+\contentsline {section}{\numberline {4}Legge inn BF-term p\IeC {\r a} eksisterende term}{3}
+\contentsline {section}{\numberline {5}Fjerne BF-term fra eksisterende term}{3}
+\contentsline {section}{\numberline {6}Svitsje Emneterm med BF-term}{4}
+\contentsline {section}{\numberline {7}Legge inn SO-term p\IeC {\r a} eksisterende term}{4}
+\contentsline {section}{\numberline {8}Fjerne SO-term fra eksisterende term}{4}
+\contentsline {section}{\numberline {9}Legge inn engelsk, nynorsk eller latin}{5}
+\contentsline {section}{\numberline {10}Fjerne engelsk, nynorsk eller latin}{5}
+\contentsline {section}{\numberline {11}Sl\IeC {\r a} sammen to emnetermer}{5}

@@ -1,0 +1,33 @@
+1. Jeg har så lyst til å kunne slå opp i BIBSYS på samme måte som fra Roald.
+
+2. Har fjernet noen termer, dvs forsøkt: Fjerne term, ingenting skjer (jeg har blanket ut søkefeltet og søkt på nytt, termen er fortsatt der). 
+
+Men nå sjekket følgende flere ganger: 
+
+Jeg fjerner en term som forekommer i streng. Det som da skjer, er at strengen forsvinner, mens den enslige termen blir stående igjen. Der det er flere strenger, forsvinner bare en av dem. 
+
+3. Jeg søkte etter en SO-term som ikke fantes. Får da beskjeden: "Ingen treff. Skal den legges til som ny term" og bare ett valg: OK. Her må ledeteksten endres, ellers blir jeg fælt forvirra.
+
+Dette er kanskje litt søkt, men: 
+
+Jeg fletter to termer. Begge forekommer i streng. Strenger duplikatsjekkes tydeligvis ikke, så nå oppstår dubletter. 
+
+Juhu, nå kan jeg endre den foretrukne termen uten å slette den og
+opprette ny! Tilsiktet eller farlig?
+
+Uansett: Vi har emneordet (stedsnavnet) Sola, som noen tror er Sola,
+og andre tror er Solen. For å oppklare det vil jeg legge til en
+kvalifikator, slik at emneordet blir
+
+Sola (stjerne)
+
+Ved behov kan vi da siden legge til Sola (Rogaland) eller lignende. 
+
+Før måtte jeg ha slettet termen og opprettet en ny. Nå har jeg prøvd følgende:
+
+Søk opp termen
+Legg til Sola (stjerne) som synonym
+Bytt term og BF
+Evt. Slett Sola som synonym. 
+
+Kjempebra!

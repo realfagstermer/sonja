@@ -1,0 +1,91 @@
+Application sharing REAL001529 REAL002269
+ - presisert den første
+Applications REAL007956 REAL014033
+ - innført apps under applikasjoner
+Cloud computing REAL012451 REAL013934
+ - presisert den siste
+Cognitive science REAL013256 REAL014043
+ - presisert den siste
+Computer aided instruction REAL005343 REAL007895
+ - presisert den første
+Conferencing systems REAL002756 REAL007654
+ - presisert den siste
+Copyright REAL008491 REAL009067
+ - presisert den siste
+Distributed processing REAL000705 REAL008318
+ - presisert den første
+Domain name server REAL003647 REAL011120
+ - presisert den første
+Evolutionary algorithms REAL012542 REAL013548
+ - presisert den første
+Graphs REAL001480 REAL013204
+ - presisert den siste
+High level architecture REAL002987 REAL005421
+ - presisert den siste
+Humanities REAL001308 REAL007520
+ - presisert den første
+Integration REAL000725 REAL012478
+ fjernet første
+Learning technology REAL006394 REAL013054
+ - presisert den siste
+Management REAL007967 REAL013626
+ - presisert den første
+Operations research REAL013175 REAL013176
+ - presisert den siste
+Pair programming REAL002433 REAL003988
+ - presisert den siste
+Probability REAL013372 REAL014027
+ fjernet første
+Quality control REAL000295 REAL013354
+ - fjernet siste
+Ranking REAL002441 REAL013105
+ - presisert den første
+Salmo salar REAL012698 REAL012700
+------------------------------------------
+Atferd REAL012753 REAL028617
+ fattig streng fjernet også fra idtermer
+Baltikum REAL030295 REAL030471
+ dublett i idsteder, sjekket strengene
+Beringstredet REAL030659 REAL030936
+ dublett i idsteder, sjekket strengene
+Bokmål REAL013985 REAL016200
+ fattig streng fjernet også fra idtermer
+Bokmål : Ordbøker REAL026168 REAL029456
+ strengedublett
+Eksperimenter : Barnelitteratur REAL021920 REAL029584
+ strengedublett
+Hardangervidda REAL030269 REAL030845
+ dublett i idsteder, sjekket strengene
+Jernforekomster REAL006980 REAL023045
+ fattig streng fjernet også fra idtermer
+Miljøaspekter REAL007113 REAL029945
+ fattig streng fjernet også fra idtermer
+Paleozoikum REAL013398 REAL028695
+ fattig streng fjernet også fra idtermer
+Prekambrium REAL012391 REAL026289
+ fattig streng fjernet også fra idtermer
+Regionalgeologi REAL000909 REAL024818
+ fattig streng fjernet også fra idtermer
+Regionalgeologi REAL000909 REAL028378
+ fattig streng fjernet også fra idtermer
+Regionalgeologi REAL024818 REAL028378
+ fattig streng fjernet også fra idtermer
+Riksmål REAL013987 REAL016789
+ fattig streng fjernet også fra idtermer
+Rusmidler : Historie REAL016112 REAL024942
+ strengdublett. ene fjernet og rettet i idtermer
+Schleswig-Holstein REAL030286 REAL030735
+ dublett i idsteder, sjekket strengene
+Silur REAL012386 REAL016757
+ fattig streng fjernet også fra idtermer
+Stater REAL011443 REAL015812
+ fattig streng fjernet også fra idtermer
+Stratigrafi REAL010172 REAL028781
+ fattig streng fjernet også fra idtermer
+Vegetasjonstyper REAL002157 REAL025149
+ fattig streng fjernet også fra idtermer
+Vegetasjonsøkologi REAL001582 REAL014993
+ fattig streng fjernet også fra idtermer
+Veiutbygging REAL009156 REAL027373
+ fattig streng fjernet også fra idtermer
+Villrein REAL005794 REAL029160

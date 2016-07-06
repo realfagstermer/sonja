@@ -1,0 +1,2700 @@
+id= REAL030200
+te= Europa
+
+id= REAL030201
+te= Sverige
+
+id= REAL030202
+te= Tyskland
+
+id= REAL030203
+te= Svalbard
+
+id= REAL030204
+te= Afrika
+
+id= REAL030205
+te= Danmark
+
+id= REAL030206
+te= Antarktis
+
+id= REAL030207
+te= Norden
+
+id= REAL030208
+te= Oslo
+so= REAL030343
+so= REAL030542
+
+id= REAL030209
+te= Nordsjøen
+
+id= REAL030210
+te= England
+
+id= REAL030211
+te= Grønland
+
+id= REAL030212
+te= Australia
+
+id= REAL030213
+te= Amerika
+
+id= REAL030214
+te= Frankrike
+
+id= REAL030215
+te= Russland
+
+id= REAL030216
+te= Italia
+
+id= REAL030217
+te= Skandinavia
+
+id= REAL030218
+te= Sveits
+
+id= REAL030219
+te= Island
+
+id= REAL030220
+te= Asia
+
+id= REAL030221
+te= Tropene
+
+id= REAL030222
+te= Norskehavet
+
+id= REAL030223
+te= Japan
+
+id= REAL030224
+te= Østerrike
+
+id= REAL030225
+te= Middelhavet
+
+id= REAL030226
+te= Nord-Amerika
+
+id= REAL030227
+te= Kanariøyene
+
+id= REAL030228
+te= India
+
+id= REAL030229
+te= Irland
+
+id= REAL030230
+te= Alaska
+
+id= REAL030231
+te= Polen
+
+id= REAL030232
+te= Spania
+
+id= REAL030233
+te= Skottland
+
+id= REAL030234
+te= Brasil
+
+id= REAL030235
+te= Hellas
+
+id= REAL030236
+te= Spitsbergen
+
+id= REAL030237
+te= Nordland
+
+id= REAL030238
+te= Hedmark
+
+id= REAL030239
+te= Buskerud
+
+id= REAL030240
+te= Telemark
+
+id= REAL030241
+te= Stillehavet
+
+id= REAL030242
+te= Harestua
+
+id= REAL030243
+te= Etiopia
+
+id= REAL030244
+te= Oppland
+
+id= REAL030245
+te= New Zealand
+
+id= REAL030246
+te= Østersjøen
+
+id= REAL030247
+te= Hordaland
+
+id= REAL030248
+te= Ungarn
+
+id= REAL030249
+te= Portugal
+
+id= REAL030250
+te= Sør-Trøndelag
+
+id= REAL030251
+te= Fennoskandia
+
+id= REAL030252
+te= Belgia
+
+id= REAL030253
+te= Oslofjorden
+
+id= REAL030254
+te= Sogn
+
+id= REAL030255
+te= Romsdal
+
+id= REAL030256
+te= Nordkalotten
+
+id= REAL030257
+te= Færøyene
+
+id= REAL030258
+te= Mexico
+
+id= REAL030259
+te= Estland
+
+id= REAL030260
+te= Alpene
+
+id= REAL030261
+te= Egypt
+
+id= REAL030262
+te= Grønlandshavet
+
+id= REAL030263
+te= Troms
+
+id= REAL030264
+te= Indonesia
+
+id= REAL030265
+te= Tanzania
+
+id= REAL030266
+te= Trøndelag
+
+id= REAL030267
+te= Møre
+
+id= REAL030268
+te= Vestfold
+
+id= REAL030269
+te= Hardangervidda
+
+id= REAL030270
+te= Østfold
+
+id= REAL030271
+te= Madeira
+
+id= REAL030272
+te= Romania
+
+id= REAL030273
+te= Vesuv
+
+id= REAL030274
+te= Tsjekkoslovakia
+
+id= REAL030275
+te= Trondheim
+
+id= REAL030276
+te= Sentral-Afrika
+
+id= REAL030277
+te= Chile
+
+id= REAL030278
+te= London
+
+id= REAL030279
+te= Hawaii
+
+id= REAL030280
+te= Skagerrak
+
+id= REAL030281
+te= Nord-Norge
+
+id= REAL030282
+te= Madagaskar
+
+id= REAL030283
+te= Gardermoen
+
+id= REAL030284
+te= Amazonas
+
+id= REAL030285
+te= Bergen
+
+id= REAL030286
+te= Schleswig-Holstein
+
+id= REAL030287
+te= Mali
+
+id= REAL030288
+te= Aust-Agder
+
+id= REAL030289
+te= Argentina
+
+id= REAL030290
+te= Nord-Sverige
+
+id= REAL030291
+te= Lund
+
+id= REAL030292
+te= Jan Mayen
+
+id= REAL030293
+te= Israel
+
+id= REAL030294
+te= Bjørnøya
+
+id= REAL030295
+te= Baltikum
+
+id= REAL030296
+te= Marokko
+
+id= REAL030297
+te= Lappland
+
+id= REAL030298
+te= Kenya
+
+id= REAL030299
+te= Jæren
+
+id= REAL030300
+te= Iran
+
+id= REAL030301
+te= Dovrefjell
+
+id= REAL030302
+te= Tsjernobyl
+
+id= REAL030303
+te= Erice
+
+id= REAL030304
+te= Azorene
+
+id= REAL030305
+te= Akershus
+
+id= REAL030306
+te= Wales
+
+id= REAL030307
+te= Tsjekkia
+
+id= REAL030308
+te= Tromsø
+
+id= REAL030309
+te= Preussen
+
+id= REAL030310
+te= Sogn Og Fjordane
+
+id= REAL030311
+te= Skåne
+
+id= REAL030312
+te= Peru
+
+id= REAL030313
+te= Nord-Atlanteren
+
+id= REAL030314
+te= Kreta
+
+id= REAL030315
+te= Helsinki
+
+id= REAL030316
+te= Cambridge
+
+id= REAL030317
+te= Arabia
+
+id= REAL030318
+te= Makaronesia
+
+id= REAL030319
+te= Latvia
+
+id= REAL030320
+te= Jotunheimen
+
+id= REAL030321
+te= Indiske Hav
+
+id= REAL030322
+te= Atlanterhavet
+
+id= REAL030323
+te= Øst-Afrika
+
+id= REAL030324
+te= Venezuela
+
+id= REAL030325
+te= Ukraina
+
+id= REAL030326
+te= Pyreneene
+
+id= REAL030327
+te= Palestina
+
+id= REAL030328
+te= Bolivia
+
+id= REAL030329
+te= Bayern
+
+id= REAL030330
+te= Vest-Agder
+
+id= REAL030331
+te= Rondane
+
+id= REAL030332
+te= Nord-Europa
+
+id= REAL030333
+te= Nepal
+
+id= REAL030334
+te= Libya
+
+id= REAL030335
+te= Canada
+
+id= REAL030336
+te= Gudbrandsdalen
+
+id= REAL030337
+te= Finse
+
+id= REAL030338
+te= Ecuador
+
+id= REAL030339
+te= Colombia
+
+id= REAL030340
+te= Bærum
+
+id= REAL030341
+te= Burma
+
+id= REAL030342
+te= Schlesien
+bf= Silesia
+
+id= REAL030343
+te= Kristiania
+so= REAL030208
+
+id= REAL030344
+te= Tyrkia
+
+id= REAL030345
+te= Thailand
+
+id= REAL030346
+te= Texas
+
+id= REAL030347
+te= Tajmyr
+
+id= REAL030348
+te= Syria
+
+id= REAL030349
+te= Sydney
+
+id= REAL030350
+te= Oslomarka
+
+id= REAL030351
+te= Nordpolen
+
+id= REAL030352
+te= Lofoten
+
+id= REAL030353
+te= Litauen
+
+id= REAL030354
+te= Helgeland
+
+id= REAL030355
+te= Golfstrømmen
+
+id= REAL030356
+te= Bulgaria
+
+id= REAL030357
+te= Amsterdam
+
+id= REAL030358
+te= Alta
+
+id= REAL030359
+te= Yorkshire
+
+id= REAL030360
+te= Vietnam
+
+id= REAL030361
+te= Vest-Afrika
+
+id= REAL030362
+te= Tunis
+
+id= REAL030363
+te= Sørishavet
+
+id= REAL030364
+te= Sydpolen
+
+id= REAL030365
+te= Sahel
+
+id= REAL030366
+te= Sahara
+
+id= REAL030367
+te= Norrbotten
+
+id= REAL030368
+te= Nigeria
+
+id= REAL030369
+te= Namibia
+
+id= REAL030370
+te= Mongolia
+
+id= REAL030371
+te= Libanon
+
+id= REAL030372
+te= Jordan
+
+id= REAL030373
+te= Haltenbanken
+
+id= REAL030374
+te= Gotland
+
+id= REAL030375
+te= Falklandsøyene
+
+id= REAL030376
+te= Eurasia
+
+id= REAL030377
+te= Dovre
+
+id= REAL030378
+te= Costa Rica
+
+id= REAL030379
+te= Balearene
+
+id= REAL030380
+te= Wisconsin
+
+id= REAL030381
+te= Vinje
+
+id= REAL030382
+te= Ulvik
+
+id= REAL030383
+te= Svartehavet
+
+id= REAL030384
+te= Stillehavsøyene
+
+id= REAL030385
+te= Shetland
+
+id= REAL030386
+te= Rødehavet
+
+id= REAL030387
+te= Romerike
+
+id= REAL030388
+te= Ringerike
+
+id= REAL030389
+te= Pasvik
+
+id= REAL030390
+te= Novaja Zemlja
+
+id= REAL030391
+te= Norrland
+
+id= REAL030392
+te= Mexicogulfen
+
+id= REAL030393
+te= Mallorca
+
+id= REAL030394
+te= Kattegat
+
+id= REAL030395
+te= Karpatene
+
+id= REAL030396
+te= Karmøy
+
+id= REAL030397
+te= Jugoslavia
+
+id= REAL030398
+te= Harvard
+
+id= REAL030399
+te= Gutulia Nasjonalpark
+
+id= REAL030400
+te= Guinea-Bissau
+
+id= REAL030401
+te= Great Barrier Reef
+
+id= REAL030402
+te= Drammen
+
+id= REAL030403
+te= Cuba
+
+id= REAL030404
+te= Bornholm
+
+id= REAL030405
+te= Berlin
+
+id= REAL030406
+te= Baltiske Hav
+
+id= REAL030407
+te= Australasia
+
+id= REAL030408
+te= Asker
+
+id= REAL030409
+te= Vøringbassenget
+
+id= REAL030410
+te= Sovjetunionen
+
+id= REAL030411
+te= Uppsala
+
+id= REAL030412
+te= Sumatra
+
+id= REAL030413
+te= Stabbursdalen
+
+id= REAL030414
+te= Praha
+
+id= REAL030415
+te= Okhotskhavet
+
+id= REAL030416
+te= København
+
+id= REAL030417
+te= Kristiansand
+
+id= REAL030418
+te= Kolahalvøya
+
+id= REAL030419
+te= Jylland
+
+id= REAL030420
+te= Japanhavet
+
+id= REAL030421
+te= Hamburg
+
+id= REAL030422
+te= Gøteborg
+
+id= REAL030423
+te= Filippinene
+
+id= REAL030424
+te= Elfenbenskysten
+
+id= REAL030425
+te= Edinburgh
+
+id= REAL030426
+te= Colorado
+
+id= REAL030427
+te= Bømlo
+
+id= REAL030428
+te= Borneo
+
+id= REAL030429
+te= Bamble
+
+id= REAL030430
+te= Antillene
+
+id= REAL030431
+te= Anarjokka
+
+id= REAL030432
+te= Abisko
+
+id= REAL030433
+te= Tampen
+bf= Nordsjøtampen
+
+id= REAL030434
+te= Zambia
+
+id= REAL030435
+te= Vøringplatået
+
+id= REAL030436
+te= Utah
+
+id= REAL030437
+te= Tyrol
+
+id= REAL030438
+te= Sør-Norge
+
+id= REAL030439
+te= Sør-Varanger
+
+id= REAL030440
+te= Sør-England
+
+id= REAL030441
+te= Setesdal
+
+id= REAL030442
+te= Oseania
+
+id= REAL030443
+te= Numedal
+
+id= REAL030444
+te= Missouri
+
+id= REAL030445
+te= Malaysia
+
+id= REAL030446
+te= Luxemburg
+
+id= REAL030447
+te= Latin-Amerika
+
+id= REAL030448
+te= Langtjern
+
+id= REAL030449
+te= Kypros
+
+id= REAL030450
+te= Kyoto
+
+id= REAL030451
+te= Kongsberg
+
+id= REAL030452
+te= Kongo
+
+id= REAL030453
+te= Kaspiske Hav
+
+id= REAL030454
+te= Karahavet
+
+id= REAL030455
+te= Kansas
+
+id= REAL030456
+te= Kaledonidene
+
+id= REAL030457
+te= Irskesjøen
+
+id= REAL030458
+te= Iowa
+
+id= REAL030459
+te= Hvaler
+
+id= REAL030460
+te= Nederland
+
+id= REAL030461
+te= Hardanger
+
+id= REAL030462
+te= Gulehavet
+
+id= REAL030463
+te= Glomma
+
+id= REAL030464
+te= Folldal
+
+id= REAL030465
+te= Firenze
+
+id= REAL030466
+te= Finnmarksvidda
+
+id= REAL030467
+te= Iberiske Halvøy
+
+id= REAL030468
+te= Børgefjell
+
+id= REAL030469
+te= Bøhmen
+
+id= REAL030470
+te= Bunnefjorden
+
+id= REAL030471
+te= Baltikum
+
+id= REAL030472
+te= Babylon
+
+id= REAL030473
+te= Angola
+
+id= REAL030474
+te= Algerie
+
+id= REAL030475
+te= Yellowstone
+
+id= REAL030476
+te= Vosges
+
+id= REAL030477
+te= Vest-Europa
+
+id= REAL030478
+te= Ural
+
+id= REAL030479
+te= Tyrifjorden
+
+id= REAL030480
+te= Tibet
+
+id= REAL030481
+te= Sørøst-Asia
+
+id= REAL030482
+te= Surnadal
+
+id= REAL030483
+te= Sunnhordland
+
+id= REAL030484
+te= Sudan
+
+id= REAL030485
+te= Stryn
+
+id= REAL030486
+te= Stor-Elvdal
+
+id= REAL030487
+te= Somalia
+
+id= REAL030488
+te= Slovakia
+
+id= REAL030489
+te= Serengeti
+
+id= REAL030490
+te= Mellom-Europa
+
+id= REAL030491
+te= Senegal
+
+id= REAL030492
+te= Sarek
+
+id= REAL030493
+te= Salzburg
+
+id= REAL030494
+te= Saltfjellet
+
+id= REAL030495
+te= Sachsen
+
+id= REAL030496
+te= Rocky Mountains
+
+id= REAL030497
+te= Rana
+
+id= REAL030498
+te= Persiabukta
+
+id= REAL030499
+te= Oxford
+
+id= REAL030500
+te= Oppdal
+
+id= REAL030501
+te= Odda
+
+id= REAL030502
+te= Nicaragua
+
+id= REAL030503
+te= Nesodden
+
+id= REAL030504
+te= Moskva
+
+id= REAL030505
+te= Mongstad
+
+id= REAL030506
+te= Maridalen
+
+id= REAL030507
+te= Manchester
+
+id= REAL030508
+te= Malawi
+
+id= REAL030509
+te= Lindås
+
+id= REAL030510
+te= Lillehammer
+
+id= REAL030511
+te= Larvik
+
+id= REAL030512
+te= Kuwait
+
+id= REAL030513
+te= Kroatia
+
+id= REAL030514
+te= Kragerø
+
+id= REAL030515
+te= Kaukasus
+
+id= REAL030516
+te= Karibiske Hav
+
+id= REAL030517
+te= Karelen
+
+id= REAL030518
+te= Kapp Verde
+
+id= REAL030519
+te= Hong Kong
+
+id= REAL030520
+te= Hemnes
+
+id= REAL030521
+te= Hamar
+
+id= REAL030522
+te= Galapagos
+
+id= REAL030523
+te= Taiwan
+
+id= REAL030524
+te= Florida
+
+id= REAL030525
+te= Donau
+
+id= REAL030526
+te= Sri Lanka
+
+id= REAL030527
+te= Bouvetøya
+
+id= REAL030528
+te= Boulder
+
+id= REAL030529
+te= Bologna
+
+id= REAL030530
+te= Birmingham
+
+id= REAL030531
+te= Berkeley
+
+id= REAL030532
+te= Barentsregionen
+
+id= REAL030533
+te= Baltimore
+
+id= REAL030534
+te= Balkan
+
+id= REAL030535
+te= Appalachene
+
+id= REAL030536
+te= Los Angeles
+
+id= REAL030537
+te= Andøya
+
+id= REAL030538
+te= Andesfjellene
+
+id= REAL030539
+te= Alabama
+
+id= REAL030540
+te= Sør-Atlanteren
+bf= Syd-Atlanteren
+
+id= REAL030541
+te= Sør-Georgia
+bf= Syd-Georgia
+
+id= REAL030542
+te= Christiania
+so= REAL030208
+
+id= REAL030543
+te= Øverbygd
+
+id= REAL030544
+te= Østerrike-Ungarn
+
+id= REAL030545
+te= Öland
+
+id= REAL030546
+te= Ås
+
+id= REAL030547
+te= Århus
+
+id= REAL030548
+te= Wien
+
+id= REAL030549
+te= Våler
+
+id= REAL030550
+te= Vågå
+
+id= REAL030551
+te= Karibia
+
+id= REAL030552
+te= Palearktis
+
+id= REAL030553
+te= Varangerhalvøya
+
+id= REAL030554
+te= Vadehavet
+
+id= REAL030555
+te= Tynset
+
+id= REAL030556
+te= Tydal
+
+id= REAL030557
+te= Trysil
+
+id= REAL030558
+te= Trondheimsfjorden
+
+id= REAL030559
+te= Tristan Da Cunha
+
+id= REAL030560
+te= Tolga
+
+id= REAL030561
+te= Tasmania
+
+id= REAL030562
+te= Sør-Amerika
+
+id= REAL030563
+te= Svartisen
+
+id= REAL030564
+te= Stugusjøen
+
+id= REAL030565
+te= Stockholm
+
+id= REAL030566
+te= Snåsa
+
+id= REAL030567
+te= Sicilia
+
+id= REAL030568
+te= Selbusjøen
+
+id= REAL030569
+te= Røros
+
+id= REAL030570
+te= Rjukan
+
+id= REAL030571
+te= Rendalen
+
+id= REAL030572
+te= Rago
+
+id= REAL030573
+te= Porsanger
+
+id= REAL030574
+te= Pommern
+
+id= REAL030575
+te= Polynesia
+
+id= REAL030576
+te= Polarområdene
+
+id= REAL030577
+te= Paris
+
+id= REAL030578
+te= Pakistan
+
+id= REAL030579
+te= Oulu
+
+id= REAL030580
+te= Orlando
+
+id= REAL030581
+te= Papua New Guinea
+
+id= REAL030582
+te= Norskekysten
+
+id= REAL030583
+te= Nord-Afrika
+
+id= REAL030584
+te= Nord-Irland
+
+id= REAL030585
+te= New York
+
+id= REAL030586
+te= Namsskogan
+
+id= REAL030587
+te= Målselv
+
+id= REAL030588
+te= Mosjøen
+
+id= REAL030589
+te= Montpellier
+
+id= REAL030590
+te= Moldavia
+
+id= REAL030591
+te= Minnesota
+
+id= REAL030592
+te= Midtøsten
+
+id= REAL030593
+te= Maryland
+
+id= REAL030594
+te= Man
+
+id= REAL030595
+te= Malmøya
+
+id= REAL030596
+te= Maldivene
+
+id= REAL030597
+te= Makedonia
+
+id= REAL030598
+te= Luster
+
+id= REAL030599
+te= Langøya
+
+id= REAL030600
+te= Kvitsjøen
+
+id= REAL030601
+te= Kurilene
+
+id= REAL030602
+te= Kong Karls Land
+
+id= REAL030603
+te= Kentucky
+
+id= REAL030604
+te= Katla
+
+id= REAL030605
+te= Kamerun
+
+id= REAL030606
+te= Jämtland
+
+id= REAL030607
+te= Jostedalsbreen
+
+id= REAL030608
+te= Jersey
+
+id= REAL030609
+te= Janusfjellet
+
+id= REAL030610
+te= Jamaica
+
+id= REAL030611
+te= Nordishavet
+
+id= REAL030612
+te= Irak
+
+id= REAL030613
+te= Indiana
+
+id= REAL030614
+te= Hviterussland
+
+id= REAL030615
+te= Holleia
+
+id= REAL030616
+te= Hisøy
+
+id= REAL030617
+te= Herøy
+
+id= REAL030618
+te= Heidelberg
+
+id= REAL030619
+te= Haukelifjell
+
+id= REAL030620
+te= Haugesund
+
+id= REAL030621
+te= Hampshire
+
+id= REAL030622
+te= Göttingen
+
+id= REAL030623
+te= Gjevilvatnet
+
+id= REAL030624
+te= Giessen
+
+id= REAL030625
+te= Ghana
+
+id= REAL030626
+te= Gausdal
+
+id= REAL030627
+te= Gambia
+
+id= REAL030628
+te= Fusa
+
+id= REAL030629
+te= Friggfeltet
+
+id= REAL030630
+te= Framstredet
+
+id= REAL030631
+te= Fort Rae
+
+id= REAL030632
+te= Forollhogna
+
+id= REAL030633
+te= Folgefonna
+
+id= REAL030634
+te= Flisa
+
+id= REAL030635
+te= Fjærland
+
+id= REAL030636
+te= Finland
+
+id= REAL030637
+te= Finnavassdraget
+
+id= REAL030638
+te= Evenstad
+
+id= REAL030639
+te= Etna
+
+id= REAL030640
+te= Espedalen
+
+id= REAL030641
+te= Engerdal
+
+id= REAL030642
+te= Elverum
+
+id= REAL030643
+te= Eiker
+
+id= REAL030644
+te= Egeerhavet
+
+id= REAL030645
+te= Durham
+
+id= REAL030646
+te= Dividal
+
+id= REAL030647
+te= Dallas
+
+id= REAL030648
+te= Calgary
+
+id= REAL030649
+te= Børsjøen
+
+id= REAL030650
+te= Bykle
+
+id= REAL030651
+te= Bygdøy
+
+id= REAL030652
+te= Brighton
+
+id= REAL030653
+te= Bremen
+
+id= REAL030654
+te= Bremanger
+
+id= REAL030655
+te= Boston
+
+id= REAL030656
+te= Bogstad
+
+id= REAL030657
+te= Blankvann
+
+id= REAL030658
+te= Birkenes
+
+id= REAL030659
+te= Beringstredet
+
+id= REAL030660
+te= Beringhavet
+
+id= REAL030661
+te= Midthordaland
+
+id= REAL030662
+te= Benelux
+
+id= REAL030663
+te= Beijing
+
+id= REAL030664
+te= Batavia
+
+id= REAL030665
+te= Basel
+
+id= REAL030666
+te= Bajkalsjøen
+
+id= REAL030667
+te= Bajkal
+
+id= REAL030668
+te= Auma
+
+id= REAL030669
+te= Armenia
+
+id= REAL030670
+te= Arizona
+
+id= REAL030671
+te= Aralsjøen
+
+id= REAL030672
+te= Antwerpen
+
+id= REAL030673
+te= Sachsen-Anhalt
+
+id= REAL030674
+te= Andorra
+
+id= REAL030675
+te= Alvdal
+
+id= REAL030676
+te= Alnaelva
+
+id= REAL030677
+te= Alna
+
+id= REAL030678
+te= Adriaterhavet
+
+id= REAL030679
+te= Alsten
+bf= Alsta
+
+id= REAL030680
+te= Arabiske Hav
+bf= Arabiahavet
+
+id= REAL030681
+te= USA
+bf= Amerikas Forente Stater
+
+id= REAL030682
+te= Bjerkreimvassdraget
+bf= Bjerkreimselva
+
+id= REAL030683
+te= Kalahari
+bf= Kalahariørkenen
+
+id= REAL030684
+te= Mosambik
+bf= Moçambique
+
+id= REAL030685
+te= Kvamshesten
+bf= Storehesten
+
+id= REAL030686
+te= Østlandet
+
+id= REAL030687
+te= Øvre Eiker
+
+id= REAL030688
+te= Øst-Finnmark
+
+id= REAL030689
+te= Øst-Europa
+
+id= REAL030690
+te= Øst-Asia
+
+id= REAL030691
+te= Ålborg
+
+id= REAL030692
+te= Sørlandet
+
+id= REAL030693
+te= Stavanger
+
+id= REAL030694
+te= Rogaland
+
+id= REAL030695
+te= Rennebu
+
+id= REAL030696
+te= Okstindan
+
+id= REAL030697
+te= Java
+
+id= REAL030698
+te= Himalaya
+
+id= REAL030699
+te= Femundsmarka
+
+id= REAL030700
+te= Ytre Helgeland
+
+id= REAL030701
+te= Württemberg
+
+id= REAL030702
+te= Wollongong
+
+id= REAL030703
+te= Vorma
+
+id= REAL030704
+te= Vestlandet
+
+id= REAL030705
+te= Vesterålen
+
+id= REAL030706
+te= Vegårdsvassdraget
+
+id= REAL030707
+te= Vegårshei
+
+id= REAL030708
+te= Valle
+
+id= REAL030709
+te= Valdres
+
+id= REAL030710
+te= Utrecht
+
+id= REAL030711
+te= Uganda
+
+id= REAL030712
+te= Tunna
+
+id= REAL030713
+te= Trollheimen
+
+id= REAL030714
+te= Terjevann
+
+id= REAL030715
+te= Sørøst-Europa
+
+id= REAL030716
+te= Sør-Afrika (område)
+
+id= REAL030717
+te= Sørkedalen
+
+id= REAL030718
+te= Sør-Europa
+
+id= REAL030719
+te= Sør-Asia
+
+id= REAL030720
+te= Sør-Afrika
+
+id= REAL030721
+te= Sølna
+
+id= REAL030722
+te= Szklarska Por_ba
+
+id= REAL030723
+te= Sør-Tyskland
+
+id= REAL030724
+te= Svelvik
+
+id= REAL030725
+te= Svartberget
+
+id= REAL030726
+te= Sunnmøre
+
+id= REAL030727
+te= Suldalslågen
+
+id= REAL030728
+te= Suldal
+
+id= REAL030729
+te= Stråholmen
+
+id= REAL030730
+te= Strindamarka
+
+id= REAL030731
+te= Storbritannia
+
+id= REAL030732
+te= Stonehenge
+
+id= REAL030733
+te= Sogndal
+
+id= REAL030734
+te= Slovenia
+
+id= REAL030735
+te= Schleswig-Holstein
+
+id= REAL030736
+te= Skjåk
+
+id= REAL030737
+te= Sigdal
+
+id= REAL030738
+te= Transylvania
+
+id= REAL030739
+te= Mellom-Amerika
+
+id= REAL030740
+te= Sibir
+
+id= REAL030741
+te= Røyrvik
+
+id= REAL030742
+te= Rwanda
+
+id= REAL030743
+te= Rotterdam
+
+id= REAL030744
+te= Roma
+
+id= REAL030745
+te= Rindal
+
+id= REAL030746
+te= Dronning Elizabeth-Øyene
+
+id= REAL030747
+te= Paraguay
+
+id= REAL030748
+te= Odessa
+
+id= REAL030749
+te= Nøtterøy
+
+id= REAL030750
+te= Nürnberg
+
+id= REAL030751
+te= Numedalslågen
+
+id= REAL030752
+te= Normandie
+
+id= REAL030753
+te= Norge
+
+id= REAL030754
+te= Nordvestpassasjen
+
+id= REAL030755
+te= Nordmarka (Klæbu)
+
+id= REAL030756
+te= California
+
+id= REAL030757
+te= Nord-Tyskland
+
+id= REAL030758
+te= Nordmøre
+
+id= REAL030759
+te= Nord-Finland
+
+id= REAL030760
+te= Nord-Aurdal
+
+id= REAL030761
+te= Nord-Trøndelag
+
+id= REAL030762
+te= Nord-Fron
+
+id= REAL030763
+te= Noordwijk
+
+id= REAL030764
+te= Nome
+
+id= REAL030765
+te= Nissedal
+
+id= REAL030766
+te= Nilen
+
+id= REAL030767
+te= Nice
+
+id= REAL030768
+te= Ngorongoro
+
+id= REAL030769
+te= Newfoundland
+
+id= REAL030770
+te= Newcastle
+
+id= REAL030771
+te= Nesna
+
+id= REAL030772
+te= Nes
+
+id= REAL030773
+te= Natal
+
+id= REAL030774
+te= Nannestad
+
+id= REAL030775
+te= Namibørkenen
+
+id= REAL030776
+te= München
+
+id= REAL030777
+te= Møysalen
+
+id= REAL030778
+te= Møsvatn
+
+id= REAL030779
+te= Møsstrond
+
+id= REAL030780
+te= Møre Og Romsdal
+
+id= REAL030781
+te= Mølen
+
+id= REAL030782
+te= Murmansk
+
+id= REAL030783
+te= Montreal
+
+id= REAL030784
+te= Mombasa
+
+id= REAL030785
+te= Minneapolis
+
+id= REAL030786
+te= Mikronesia
+
+id= REAL030787
+te= Midt-Norge
+
+id= REAL030788
+te= Michigan
+
+id= REAL030789
+te= Mesopotamia
+
+id= REAL030790
+te= Meldal
+
+id= REAL030791
+te= Melanesia
+
+id= REAL030792
+te= Mecklenburg-Vorpommern
+
+id= REAL030793
+te= Masfjorden
+
+id= REAL030794
+te= Malvik
+
+id= REAL030795
+te= Madrid
+
+id= REAL030796
+te= Lyon
+
+id= REAL030797
+te= Lyngdalsvassdraget
+
+id= REAL030798
+te= Lombardia
+
+id= REAL030799
+te= Lom
+
+id= REAL030800
+te= Lindesnes
+
+id= REAL030801
+te= Liguria
+
+id= REAL030802
+te= Lierne
+
+id= REAL030803
+te= Liege
+
+id= REAL030804
+te= Leiden
+
+id= REAL030805
+te= Leipzig
+
+id= REAL030806
+te= Laos
+
+id= REAL030807
+te= Lade
+
+id= REAL030808
+te= Labrador
+
+id= REAL030809
+te= Kåfjord
+
+id= REAL030810
+te= Kviteseid
+
+id= REAL030811
+te= Kvinnherad
+
+id= REAL030812
+te= Kvikkjokk
+
+id= REAL030813
+te= Kvam
+
+id= REAL030814
+te= Krokskogen
+
+id= REAL030815
+te= Kristinfeltet
+
+id= REAL030816
+te= Korea
+
+id= REAL030817
+te= Kongsvoll
+
+id= REAL030818
+te= Komorene
+
+id= REAL030819
+te= Kjørholmane
+
+id= REAL030820
+te= Kiruna
+
+id= REAL030821
+te= Kautokeino
+
+id= REAL030822
+te= Kasakhstan
+
+id= REAL030823
+te= Karpacz
+
+id= REAL030824
+te= Karlsruhe
+
+id= REAL030825
+te= Karasjok
+
+id= REAL030826
+te= Kamtsjatkahalvøya
+
+id= REAL030827
+te= Kabodsja
+
+id= REAL030828
+te= Junkerdalen
+
+id= REAL030829
+te= Jevnaker
+
+id= REAL030830
+te= Indokina
+
+id= REAL030831
+te= Illinois
+
+id= REAL030832
+te= Idaho
+
+id= REAL030833
+te= Håøya
+
+id= REAL030834
+te= Håkedal
+
+id= REAL030835
+te= Hå
+
+id= REAL030836
+te= Hurum
+
+id= REAL030837
+te= Hornsund
+
+id= REAL030838
+te= Hopen
+
+id= REAL030839
+te= Hol
+
+id= REAL030840
+te= Hitra
+
+id= REAL030841
+te= Herøya
+
+id= REAL030842
+te= Bosnia-Hercegovina
+
+id= REAL030843
+te= Hebridene
+
+id= REAL030844
+te= Hardangerfjorden
+
+id= REAL030845
+te= Hardangervidda
+
+id= REAL030846
+te= Hannover
+
+id= REAL030847
+te= Hallingdal
+
+id= REAL030848
+te= Halland
+
+id= REAL030849
+te= Haiti
+
+id= REAL030850
+te= Haag
+
+id= REAL030851
+te= Gullkysten
+
+id= REAL030852
+te= Groruddalen
+
+id= REAL030853
+te= Grenland
+
+id= REAL030854
+te= Greenwich
+
+id= REAL030855
+te= Grand Canyon
+
+id= REAL030856
+te= Gobiørkenen
+
+id= REAL030857
+te= Glittertinden
+
+id= REAL030858
+te= Gjende
+
+id= REAL030859
+te= Gironde
+
+id= REAL030860
+te= Gera
+
+id= REAL030861
+te= Geilo
+
+id= REAL030862
+te= Ganddal
+
+id= REAL030863
+te= Galdhøpiggen
+
+id= REAL030864
+te= Fåberg
+
+id= REAL030865
+te= Fyresdal
+
+id= REAL030866
+te= Fyn
+
+id= REAL030867
+te= Frøya
+
+id= REAL030868
+te= Frierfjorden
+
+id= REAL030869
+te= Freiburg
+
+id= REAL030870
+te= Fredrikstad
+
+id= REAL030871
+te= Frankfurt
+
+id= REAL030872
+te= Fogo
+
+id= REAL030873
+te= Flåmsdalen
+
+id= REAL030874
+te= Flå
+
+id= REAL030875
+te= Flesberg
+
+id= REAL030876
+te= Finndalsfjellet
+
+id= REAL030877
+te= Finnmark
+
+id= REAL030878
+te= Fiji
+
+id= REAL030879
+te= Fauske
+
+id= REAL030880
+te= Fana
+
+id= REAL030881
+te= Fairbanks
+
+id= REAL030882
+te= Etnavassdraget
+
+id= REAL030883
+te= Erlangen
+
+id= REAL030884
+te= Eritrea
+
+id= REAL030885
+te= Enare
+
+id= REAL030886
+te= Ellesmereøya
+
+id= REAL030887
+te= Eidanger
+
+id= REAL030888
+te= Dønnaterrassen
+
+id= REAL030889
+te= Dønna
+
+id= REAL030890
+te= Dødehavet
+
+id= REAL030891
+te= Dundee
+
+id= REAL030892
+te= Dublin
+
+id= REAL030893
+te= Drøbak
+
+id= REAL030894
+te= Dronning Maud Land
+
+id= REAL030895
+te= Drammenselva
+
+id= REAL030896
+te= Drammensfjorden
+
+id= REAL030897
+te= Domkirkeodden
+
+id= REAL030898
+te= Dominikanske Republikk
+
+id= REAL030899
+te= Dolomittene
+
+id= REAL030900
+te= Delft
+
+id= REAL030901
+te= Britiske Øyer
+
+id= REAL030902
+te= Davos
+
+id= REAL030903
+te= Davisstredet
+
+id= REAL030904
+te= Danmarkstredet
+
+id= REAL030905
+te= Dalmatia
+
+id= REAL030906
+te= Black Hills
+
+id= REAL030907
+te= Czerniawka
+
+id= REAL030908
+te= Connecticut
+
+id= REAL030909
+te= Coloradofjella
+
+id= REAL030910
+te= Kina
+
+id= REAL030911
+te= Chemnitz
+
+id= REAL030912
+te= Cantal
+
+id= REAL030913
+te= Canberra
+
+id= REAL030914
+te= Bøelva
+
+id= REAL030915
+te= Bødalsbreen
+
+id= REAL030916
+te= Bukovina
+
+id= REAL030917
+te= Budapest
+
+id= REAL030918
+te= Brøggerhalvøya
+
+id= REAL030919
+te= Brussel
+
+id= REAL030920
+te= Briksdalen
+
+id= REAL030921
+te= Bretagne
+
+id= REAL030922
+te= Brekken
+
+id= REAL030923
+te= Breheimen
+
+id= REAL030924
+te= Braunschweig
+
+id= REAL030925
+te= Botswana
+
+id= REAL030926
+te= Borussia
+
+id= REAL030927
+te= Bonn
+
+id= REAL030928
+te= Bockfjorden
+
+id= REAL030929
+te= Blekinge
+
+id= REAL030930
+te= Biskayabukta
+
+id= REAL030931
+te= Bindalen
+
+id= REAL030932
+te= Bidjovagge
+
+id= REAL030933
+te= Bhutan
+
+id= REAL030934
+te= Besseggen
+
+id= REAL030935
+te= Bermuda
+
+id= REAL030936
+te= Beringstredet
+
+id= REAL030937
+te= Bergslagen
+
+id= REAL030938
+te= Beograd
+
+id= REAL030939
+te= Bengalbukta
+
+id= REAL030940
+te= Belize
+
+id= REAL030941
+te= Begnavassdraget
+
+id= REAL030942
+te= Baroniet Rosendal
+
+id= REAL030943
+te= Barentshavet
+
+id= REAL030944
+te= Barcelona
+
+id= REAL030945
+te= Bangladesh
+
+id= REAL030946
+te= Bandung
+
+id= REAL030947
+te= Balestrand
+
+id= REAL030948
+te= Baffinbukta
+
+id= REAL030949
+te= Baden-Württemberg
+
+id= REAL030950
+te= Ayers Rock
+
+id= REAL030951
+te= Averøy
+
+id= REAL030952
+te= Aurskog-Høland
+
+id= REAL030953
+te= Aurskog
+
+id= REAL030954
+te= Aurlandsdalen
+
+id= REAL030955
+te= Aurland
+
+id= REAL030956
+te= Assyria
+
+id= REAL030957
+te= Aruba
+
+id= REAL030958
+te= Arkansas
+
+id= REAL030959
+te= Arendal
+
+id= REAL030960
+te= Apenninene
+
+id= REAL030961
+te= Andalucia
+
+id= REAL030962
+te= Anacapri
+
+id= REAL030963
+te= Stora Alvaret
+
+id= REAL030964
+te= Altaelva
+
+id= REAL030965
+te= Alstahaug
+
+id= REAL030966
+te= Alkmaar
+
+id= REAL030967
+te= Alice Springs
+
+id= REAL030968
+te= Alberta
+
+id= REAL030969
+te= Alamos
+
+id= REAL030970
+te= Akerselva
+
+id= REAL030971
+te= Jomfruland
+
+id= REAL030972
+te= Arktis
+
+id= REAL030973
+te= Hunsrück
+
+id= REAL030974
+te= Mozambik
+
+id= REAL030975
+te= Helgoland
+de= Øy i Tyskland
+
+id= REAL030976
+te= LabVIEW
+de= Grafisk programmeringsmiljø for å lage måle- og styringsapplikasjoner
+
+id= REAL030977
+te= Ekvatorial-Afrika
+de= Ekvatorial-Afrika, område mellom Kongo i sør og Libya i nord. Omfatter det tidligere Spansk Ekvatorial-Afrika og det tidligere Fransk Ekvatorial-Afrika. [SNL]
+
+id= REAL030978
+te= Iapetushavet
+
+id= REAL030979
+te= Io (måne)
+ba= na
+
+id= REAL030980
+te= Mjølnirkrateret
+ba= nc
+
+id= REAL030981
+te= Vest-Tyskland
+bf= Vesttyskland
+
+id= REAL030982
+te= Pangea
+bf= Pangaea
+de= Superkontinent som eksisterte for omkring 300?200 mill. år siden og som omfattet mesteparten av den kontinentale jordskorpen. [SNL]
+
+id= REAL030983
+te= Aten
+bf= Athen
+
+id= REAL030984
+te= Aden
+de= By i Jemen
+
+id= REAL030985
+te= Andromedagalaksen
+ba= na
+
+id= REAL030986
+te= Arabiske Halvøy
+ba= nc
+
+id= REAL030987
+te= Arktisk-Alpine Områder
+bf= Arktisk-alpine strøk
+bf= Arktisk-alpin region
+
+id= REAL030988
+te= Askja
+ba= nc
+
+id= REAL030989
+te= Atlantis
+de= Atlantis, en sagnøy som Platon har beskrevet i dialogene Timaios og Kritias [SNL]
+
+id= REAL030990
+te= Bamblefeltet
+ba= nc
+
+id= REAL030991
+te= Ceres
+ba= na
+de= Dvergplanet
+
+id= REAL030992
+te= Charon
+ba= na
+de= Plutos måne
+
+id= REAL030993
+te= Chicxulub
+ba= nc
+
+id= REAL030994
+te= Egersundbassenget
+ba= nc
+
+id= REAL030995
+te= Ekofisk
+ba= nc
+
+id= REAL030996
+te= Gardermoendeltaet
+ba= nc
+
+id= REAL030997
+te= Gondwanaland
+bf= Gondwana
+
+id= REAL030998
+te= Greenwichmeridianen
+ba= na
+
+id= REAL030999
+te= Gullfaks
+ba= nc
+bf= Gullfaksfeltet
+no= Gullfaksfeltet (ikke selve boreplattformene). ML
+
+id= REAL031000
+te= Hafslo
+ba= nk
+
+id= REAL031001
+te= Halleys Komet
+ba= na
+en= Halley's comet
+
+id= REAL031002
+te= Hedmarkbassenget
+ba= nc
+
+id= REAL031003
+te= Hekla
+ba= nc
+
+id= REAL031004
+te= Hildfeltet
+ba= nc
+
+id= REAL031005
+te= Holarktiske Region
+ba= nb
+
+id= REAL031006
+te= Hornelenbassenget
+ba= nc
+
+id= REAL031007
+te= Jorda
+ba= nc
+bf= Jorden
+la= Tellus
+
+id= REAL031008
+te= Jotundekket
+ba= nc
+
+id= REAL031009
+te= Jupiter
+ba= na
+
+id= REAL031010
+te= Krabbetåken
+ba= na
+en= Crab nebula
+
+id= REAL031011
+te= Krakatau
+ba= nc
+
+id= REAL031012
+te= Kuiperbeltet
+ba= na
+
+id= REAL031013
+te= Mars
+ba= na
+
+id= REAL031014
+te= Melkeveien
+ba= na
+ba= ns
+bf= Melkeveisystemet
+
+id= REAL031015
+te= Merkur
+ba= na
+
+id= REAL031016
+te= Månen
+ba= na
+ba= nc
+ba= nf
+ba= ns
+de= Jordas måne
+
+id= REAL031017
+te= Mørebassenget
+ba= nc
+
+id= REAL031018
+te= Nearktiske Subregion
+ba= nb
+
+id= REAL031019
+te= Neotropiske Region
+de= Dyre- og plantegeografisk betegnelse for Sør- og Mellom-Amerika med sin særegne flora og fauna. [SNL]
+
+id= REAL031020
+te= Nullmeridianen
+ba= na
+
+id= REAL031021
+te= Oriontåken
+ba= na
+en= Orion nebula
+
+id= REAL031022
+te= Oslofeltet
+ba= nc
+ba= ne
+ba= ngh
+ba= ns
+bf= Christianiafeltet
+bf= Christianiaområdet
+
+id= REAL031023
+te= Osloriften
+ba= nc
+
+id= REAL031024
+te= Parismeridianen
+ba= na
+
+id= REAL031025
+te= Pluto
+ba= na
+
+id= REAL031026
+te= Polarområder
+ba= nb
+ba= ngh
+ba= ns
+bf= Polområder
+bf= Polare strøk
+
+id= REAL031027
+te= Saturn
+ba= na
+
+id= REAL031028
+te= Seiland Nasjonalpark
+ba= nb
+
+id= REAL031029
+te= Skjækerfjella
+ba= nb
+
+id= REAL031030
+te= Sola
+bf= Solen
+de= Stjerne
+
+id= REAL031031
+te= Sollia
+ba= ngh
+
+id= REAL031032
+te= Sørkedalsvassdraget
+ba= ngh
+
+id= REAL031033
+te= Subtropiske Områder
+bf= Subtropiske strøk
+
+id= REAL031034
+te= Tethys
+ba= nc
+
+id= REAL031035
+te= Trollfeltet
+ba= nc
+
+id= REAL031036
+te= Trondheimsfeltet
+ba= nc
+
+id= REAL031037
+te= Uranus
+ba= na
+
+id= REAL031038
+te= Varangerhalvøya Nasjonalpark
+ba= nb
+
+id= REAL031039
+te= Venus
+ba= na
+
+id= REAL031040
+te= Verden
+ba= nb
+ba= ns
+
+id= REAL031041
+te= Afghanistan
+bf= Afganistan
+
+id= REAL031042
+te= Middelhavsområdet
+bf= MIddelhavslandene
+
+id= REAL031043
+te= Boreal Sone
+ba= nk
+
+id= REAL031044
+te= Agder
+
+id= REAL031045
+te= Blåfjella
+
+id= REAL031046
+te= Franz Josef Land
+
+id= REAL031047
+te= Gautefallheia
+
+id= REAL031048
+te= Gjerstadskogene
+
+id= REAL031049
+te= Guinea
+
+id= REAL031050
+te= Hiroshima
+
+id= REAL031051
+te= Kambodsja
+
+id= REAL031052
+te= Narvik
+
+id= REAL031053
+te= New South Wales
+
+id= REAL031054
+te= Nordatlantiske Område
+
+id= REAL031055
+te= Nord-Grønland
+
+id= REAL031056
+te= Nord-Russland
+
+id= REAL031057
+te= Reykjavik
+
+id= REAL031058
+te= Sentral-Asia
+
+id= REAL031059
+te= Seychellene
+
+id= REAL031060
+te= Sørlige Afrika
+
+id= REAL031061
+te= Sørnesset
+
+id= REAL031062
+te= Øst-Tyskland
+

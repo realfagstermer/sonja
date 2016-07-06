@@ -1,0 +1,90 @@
+id= null
+da= REAL007617
+db= REAL002643
+fa= Heidi
+
+id= null
+da= REAL009218
+db= REAL004691
+fa= Line
+
+id= null
+da= REAL006864
+dz= REAL030981
+fa= Dan
+
+id= null
+da= REAL006864
+dx= REAL030119
+dz= REAL030350
+fa= Bente
+
+id= null
+da= REAL013506
+db= REAL005179
+fa= Gro
+
+id= null
+da= REAL002858
+dx= REAL030087
+fa= Viola
+
+id= null
+da= REAL011663
+dx= REAL030087
+fa= Knut
+
+id= null
+da= REAL006243
+db= REAL002356
+fa= Wenche
+
+id= null
+da= REAL004826
+db= REAL013959
+fa= Karoline
+
+id= null
+da= REAL007694
+db= REAL011177
+fa= Wenche
+
+id= null
+da= REAL010407
+db= REAL012836
+fa= Karoline
+
+id= null
+da= REAL002072
+db= REAL012628
+fa= Wenche
+
+id= null
+da= REAL008955
+dx= REAL030100
+fa= Karoline
+
+id= null
+da= REAL030105
+dx= REAL030125
+fa= Mari
+
+id= null
+da= REAL030105
+dx= REAL030174
+fa= Mari
+
+id= null
+da= REAL013975
+dx= REAL030088
+fa= Mari
+
+id= null
+da= REAL006270
+dx= REAL030075
+fa= Mari
+
+id= null
+da= REAL006096
+db= REAL009793
+fa= Knut

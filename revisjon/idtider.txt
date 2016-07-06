@@ -1,0 +1,103 @@
+id= REAL030178
+te= 1970-tallet
+ba= ns
+
+id= REAL030179
+te= Barokken
+ba= na
+
+id= REAL030180
+te= Opplysningstiden
+ba= nk
+
+id= REAL030181
+te= Renessansen
+ba= ne
+
+id= REAL030182
+te= 1500-tallet
+ba= ns
+
+id= REAL030183
+te= 2000-tallet
+ba= ns
+
+id= REAL030184
+te= 1980-tallet
+ba= ns
+
+id= REAL030185
+te= 1600-tallet
+ba= ns
+
+id= REAL030186
+te= 1800-tallet
+ba= ns
+bf= Nittende århundre
+
+id= REAL030187
+te= 1700-tallet
+ba= fa
+ba= ns
+bf= Attende århundre
+
+id= REAL030188
+te= Folkevandringstiden
+ba= nb
+de= Periode i Europas historie, ca 400 - 600 e.Kr. [UBO]
+
+id= REAL030189
+te= Middelalder
+ba= nc
+bf= Mellomalder
+bf= Mellomalderen
+de= Periode i Europas historie ca 500-ca 1500. Brukes også om tilsvarende periode i ikke-europeisk historie/kulturhistorie [UBO]
+
+id= REAL030190
+te= Antikken
+ba= fa
+ba= ns
+de= Antikken, den klassiske oldtid, betegnelse for epoken som var dominert av den gresk-romerske kulturkretsen, fra ca. 500 f.Kr. til ca. 500 e.Kr. [SNL]
+
+id= REAL030191
+te= Etterkrigstiden
+ba= nb
+de= Tiden etter den andre verdenskrig og fram til århundreskiftet [UBO]
+
+id= REAL030192
+te= Mellomkrigstiden
+ba= ns
+de= Tiden mellom de to verdenskriger, 1918-39 [SNL]
+
+id= REAL030193
+te= Romersk oldtid
+ba= nb
+bf= Romersk antikk
+bf= Romersk periode
+bf= Romersk tid
+de= Periode i Europas historie, ca 700 f.Kr. - 500 e.Kr. [UBO]
+
+id= REAL030194
+te= 1900-tallet
+ba= ns
+bf= 20. århundre
+bf= Tjuende århundre
+
+id= REAL030195
+te= Bronsealder
+ba= ns
+de= Ca 1500 - 500 f.Kr. [UBO]
+
+id= REAL030196
+te= Jernalder
+ba= ns
+
+id= REAL030197
+te= Oldtiden
+
+id= REAL030198
+te= 1990-tallet
+
+id= REAL030199
+te= 1400-tallet
+

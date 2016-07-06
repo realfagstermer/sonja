@@ -1,0 +1,44 @@
+\documentclass[a4paper,norsk,11pt]{article}
+\usepackage[utf8x]{inputenc}
+\usepackage{babel}
+\usepackage[firstpage]{draftwatermark}
+
+%opening
+\title{Bruksanvisning for Sonja}
+\author{}\date{}
+\SetWatermarkColor{red}
+\SetWatermarkText{Dette dokumentet er under arbeid!}
+\SetWatermarkLightness{0.7}
+\begin{document}
+
+\maketitle
+
+
+
+\section{Noen tips for å komme i gang med testinga}
+
+Metoder:
+\begin{enumerate}
+\item sjekk at programmet har oppførsel som stemmer overens med dine forventninger.
+\item forsøk å gjøre endringer/rettelser som mener er feil og som du forventer at programmet skal reagere på
+ \item gjør endringer i originale data og lagre dem. Start programmet på nytt med oppdaterte data og sjekk at rettelser og tilføyelser er med.
+\end{enumerate}
+ 
+\begin{description}
+ \item[\textbf{Datagrunnlag}] Det første du blir bedt om, er hvilket datasett du vil bruke. Du kan velge mellom to: et originalt som er identisk med det som i øyeblikket brukes i websøket (Test - originaldata); det andre er datasettet lagret av deg etter at du har gjort rettelser og tilføyelser (Test - oppdaterte data). De øvrige valgene skal du ikke bry deg om.
+\item[\textbf{Søking}] Når dataene er initiert, kan du søke på samme vis som i Roald.
+\item[\textbf{Trefflista}] her er det flere muligheter:
+\begin{itemize}
+ \item et vanlig klikk markerer et treff og viser detaljer om termen eller strengen.
+\item et høyreklikk vil sette inn treffet som seogså term til den termen som er valgt med vanlig klikk (gjelder termer)
+\item dersom du er i ferd med å bygge en streng vil Ctrl-klikk sette inn valgt term i det feltet du holder på å bygge.
+\end{itemize}
+\item[Registrere ny term] velg funksjon fra Omveier-menyen og skriv inn betegnelsen og velg termtype.
+\item[Fjerne term] velg funksjon fra omveier-menyen
+\item[Flette to termer] velg funksjon fra omveier-menyen, oppgi først dem som skal bli stående, deretter den som skal slås inn under første term.
+\item[Bytte BF og term] velg funksjon fra omveier-menyen. Viss det er mer enn én BF, kommer det opp en meny som du kan velge fra.
+\item[Endre data] klikk i feltene for å legge til eller endre data. Eller bruk knappene ved sidene av feltene
+\item[Lagre data] velg Lagre grunnlag fra Eksport
+\end{description}
+
+\end{document}
