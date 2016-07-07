@@ -28,6 +28,7 @@ create table concepts
 , deprecated_by		varchar(100)
 , definition		text
 , replaced_by		int				references concepts(concept_ID)
+, used_by_libs      varchar(200)
 , constraint  		valid_type check(concept_type in ('general','form','time','place'))
 , unique			(vocab_ID,external_ID)
 );
