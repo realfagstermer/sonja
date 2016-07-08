@@ -12,13 +12,14 @@ CREATE TABLE mappings
 , target_vocabulary_id    INT           NOT NULL      REFERENCES external_vocabularies(external_vocabulary_id)
 , mapping_relation        CHAR(10)      NOT NULL
 , CONSTRAINT VALID_TYPE CHECK(mapping_relation in ('exact','close','broader','narrower','related'))
+, UNIQUE (source_concept_id, target_concept_id, target_vocabulary_id)
 );
 
 CREATE TABLE external_vocabularies
 ( external_vocabulary_id  SERIAL        PRIMARY KEY
 , created                 TIMESTAMP(0)  NOT NULL      DEFAULT CURRENT_TIMESTAMP
-, shortname               CHAR(10)      NOT NULL
-, name                    VARCHAR(100)  NOT NULL
+, shortname               CHAR(10)      NOT NULL      UNIQUE
+, name                    VARCHAR(100)  NOT NULL      UNIQUE
 , concept_uri_pattern     VARCHAR(255)  NOT NULL
 , graph_uri               VARCHAR(255)
 , concept_scheme_uri      VARCHAR(255)
