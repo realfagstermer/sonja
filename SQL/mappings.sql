@@ -16,9 +16,8 @@ CREATE TABLE mappings
 );
 
 CREATE TABLE external_vocabularies
-( external_vocabulary_id  SERIAL        PRIMARY KEY
+( external_vocabulary_id  CHAR(10)      PRIMARY KEY
 , created                 TIMESTAMP(0)  NOT NULL      DEFAULT CURRENT_TIMESTAMP
-, shortname               CHAR(10)      NOT NULL      UNIQUE
 , name                    VARCHAR(100)  NOT NULL      UNIQUE
 , concept_uri_pattern     VARCHAR(255)  NOT NULL
 , graph_uri               VARCHAR(255)
