@@ -26,5 +26,5 @@ CREATE TABLE mappings
 , target_vocabulary_id    CHAR(10)      NOT NULL      REFERENCES external_vocabularies(external_vocabulary_id)
 , mapping_relation        CHAR(10)      NOT NULL
 , CONSTRAINT VALID_TYPE CHECK(mapping_relation in ('exact','close','broader','narrower','related'))
-, UNIQUE (source_concept_id, target_concept_id, target_vocabulary_id)
+, UNIQUE (source_concept_id, target_concept_id, target_vocabulary_id, mapping_relation)
 );
