@@ -186,6 +186,7 @@ public class Sonja {
             System.exit(0);
         }
 
+        /*
         Passord pa = new Passord();
         pa.setVisible(true);
         while (true) {
@@ -208,6 +209,7 @@ public class Sonja {
         if (vokabular.equals("REAL") && currentuser.equals("SMR")) {
             System.exit(0);
         }
+        */
         settopptattfil("opptatt");
         if (BASEFOLDER.contains("test")) {
             Sonjavindu.melding("OBS", "Du kjører i testmodus");
