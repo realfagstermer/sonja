@@ -6,14 +6,15 @@ CREATE TABLE external_vocabularies
 ( external_vocabulary_id  CHAR(10)      PRIMARY KEY
 , created                 TIMESTAMP(0)  NOT NULL      DEFAULT CURRENT_TIMESTAMP
 , name                    VARCHAR(100)  NOT NULL      UNIQUE
+, note                    TEXT
 , concept_uri_pattern     VARCHAR(255)
 , graph_uri               VARCHAR(255)
 , concept_scheme_uri      VARCHAR(255)
 , sparql_endpoint         VARCHAR(255)
 );
 
-INSERT INTO external_vocabularies (external_vocabulary_id, name, concept_uri_pattern) VALUES ('ddc','Dewey Decimal Classification','http://dewey.info/class/{notation}/e23/');
-INSERT INTO external_vocabularies (external_vocabulary_id, name) VALUES ('msc','Mathematics Subject Classification');
+INSERT INTO external_vocabularies (external_vocabulary_id, name, note, concept_uri_pattern) VALUES ('ddc23','Dewey Decimal Classification 23rd edition','Inkluderer WebDewey, både den engelske og den norske utgaven.','http://dewey.info/class/{notation}/e23/');
+INSERT INTO external_vocabularies (external_vocabulary_id, name, note) VALUES ('msc1970','Mathematics Subject Classification 1970 edition','For mer info, se https://github.com/realfagstermer/realfagstermer/issues/48');
 
 CREATE TABLE mappings 
 ( mapping_id              SERIAL        PRIMARY KEY
