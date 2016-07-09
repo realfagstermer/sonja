@@ -11,6 +11,7 @@ create table terms
 , lexical_value			varchar(500)
 , lang_id				char(3)			not null	references languages(lang_id)
 , constraint  			valid_status	check(status in ('preferred', 'non-pref', 'hidden'))
+, unique (concept_id, lang_id, lexical_value)
 );
 
 create index lexical_index on terms (lexical_value);
