@@ -1,5 +1,7 @@
 DROP TABLE IF EXISTS group_memberships ;
 DROP TABLE IF EXISTS groups ;
+DROP TABLE IF EXISTS mappings ;
+DROP TABLE IF EXISTS external_vocabularies ;
 DROP TABLE IF EXISTS terms;
 DROP TABLE IF EXISTS strings;
 DROP TABLE IF EXISTS relationships;
