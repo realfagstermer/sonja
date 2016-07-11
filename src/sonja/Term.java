@@ -4,6 +4,7 @@
  */
 package sonja;
 
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -1357,6 +1358,104 @@ public class Term implements Comparable {
         }
 
         return sb.toString() + "\n";
+    }
+    
+    public void toSQL(PrintWriter concepts, PrintWriter termFile) {
+	//Dump sequel to file
+	
+        concepts.print("INSERT INTO concepts (external_id,vocabulary_id,concept_type,editorial_note, created, modified, deprecated, definition,replaced_by, used_by_libs) VALUES (");
+        
+        //end insert
+        concepts.println(");");
+
+//        sb.append("id= ").append(minID).append("\n");
+//        
+//        sb.append("te= ").append(term).append("\n");
+//
+//        if (bibkoder.size() > 0) {
+//            for (int i = 0; i < bibkoder.size(); i++) {
+//                sb.append("ba= ").append(bibkoder.get(i)).append("\n");
+//            }
+//        }
+//        if (synonymer.size() > 0) {
+//            for (int i = 0; i < synonymer.size(); i++) {
+//                sb.append("bf= ").append(synonymer.get(i)).append("\n");
+//            }
+//        }
+//        if (akronymer.size() > 0) {
+//            for (int i = 0; i < akronymer.size(); i++) {
+//                sb.append("ak= ").append(akronymer.get(i)).append("\n");
+//            }
+//        }
+//        if (seog.size() > 0) {
+//            for (int i = 0; i < seog.size(); i++) {
+//                sb.append("so= ").append(seog.get(i)).append("\n");
+//            }
+//        }
+//
+//        if (overordnet.size() > 0) {
+//            for (int i = 0; i < overordnet.size(); i++) {
+//                sb.append("ot= ").append(overordnet.get(i)).append("\n");
+//            }
+//        }
+//
+//        if (underordnet.size() > 0) {
+//            for (int i = 0; i < underordnet.size(); i++) {
+//                sb.append("ut= ").append(underordnet.get(i)).append("\n");
+//            }
+//        }
+//
+//        if (note != null && note.length() > 0) {
+//            sb.append("no= ").append(note).append("\n");
+//        }
+//        if (nynorsk.size() > 0) {
+//            for (int i = 0; i < nynorsk.size(); i++) {
+//                sb.append("nn= ").append(nynorsk.get(i)).append("\n");
+//            }
+//        }
+//        if (engelsk.size() > 0) {
+//            for (int i = 0; i < engelsk.size(); i++) {
+//                sb.append("en= ").append(engelsk.get(i)).append("\n");
+//            }
+//        }
+//        if (latin.size() > 0) {
+//            for (int i = 0; i < latin.size(); i++) {
+//                sb.append("la= ").append(latin.get(i)).append("\n");
+//            }
+//        }
+//        if (definisjon != null && definisjon.length() > 0) {
+//            sb.append("de= ").append(definisjon).append("\n");
+//        }
+//
+//        if (msc.size() > 0) {
+//            for (int i = 0; i < msc.size(); i++) {
+//                sb.append("ms= ").append(msc.get(i)).append("\n");
+//            }
+//        }
+//        if (dewey.size() > 0) {
+//            for (int i = 0; i < dewey.size(); i++) {
+//                sb.append("dw= ").append(dewey.get(i)).append("\n");
+//            }
+//        }
+//        if (introdato != null && introdato.length() > 0) {
+//            sb.append("tio= ").append(introdato).append("\n");
+//        }
+//        if (endredato != null && endredato.length() > 0) {
+//            sb.append("tie= ").append(endredato).append("\n");
+//        }
+//        if (slettdato != null && slettdato.length() > 0) {
+//            sb.append("tis= ").append(slettdato).append("\n");
+//            if (flyttettilID != null && flyttettilID.length() > 0) {
+//                sb.append("fly= ").append(flyttettilID).append("\n");
+//            }
+//        }
+//        if (strenger.size() > 0) {
+//            for (int i = 0; i < strenger.size(); i++) {
+//                sb.append("st= ").append(strenger.get(i).minID).append("\n");
+//            }
+//        }
+//
+//        return sb.toString() + "\n";
     }
 
     public String rdfxml() {

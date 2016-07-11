@@ -161,10 +161,16 @@ public class Sonja {
 //    static String FORSLAG = "/Users/knutsen/Prosjekter/Sonja/data/";
 //    static String WEBDATA = "/Users/knutsen/Prosjekter/Sonja/data/";
 
-    public static void main(String[] args) {
-
-        Vokabular vok = new Vokabular(null, true);
-        vok.setVisible(true);
+    public static void main(String... args) {
+	if (args.length > 0) {
+	    if (args[0] == "SMR" || args[0] == "REAL") {
+		currentuser = args[0];
+		vokabular = args[0];
+	    }
+	} else {
+	    Vokabular vok = new Vokabular(null, true);
+	    vok.setVisible(true);
+	}
         if (vokabular == null) {
             System.exit(0);
         }
@@ -1567,6 +1573,40 @@ public class Sonja {
             lagrelogg(mld);
         }
         return retval;
+    }
+    
+    static void save_sql() {        
+	try (PrintWriter conceptFile = new PrintWriter(new File(BASEFOLDER + "export_concepts.sql"), "UTF-8");
+		PrintWriter termFile = new PrintWriter(new File(BASEFOLDER + "export_terms.sql"), "UTF-8");
+		PrintWriter stringFile = new PrintWriter(new File(BASEFOLDER + "export_strings.sql"), "UTF-8")) {
+	    // termene
+
+	    for (Term t : termliste) {
+		t.toSQL(conceptFile, termFile);
+	    }
+
+	    for (Term t : formliste) {
+		t.toSQL(conceptFile, termFile);
+	    }
+
+	    for (Term t : tidsliste) {
+		t.toSQL(conceptFile, termFile);
+	    }
+
+	    for (Term t : stedsliste) {
+		t.toSQL(conceptFile, termFile);
+	    }
+
+	    for (Streng s : strengliste) {
+//		s.toSQL(stringFile);
+	    }
+	} catch (IOException ex) {
+	    vindu.melding("Sonja : export_sql",
+		    "Feil ved skriving av fil\n"
+			    + ex.toString());
+	    lagrelogg("mislykket lagring av SQL");
+	}
+	return;
     }
 
     static void lagrelogg(String melding) {
