@@ -27,7 +27,7 @@ create table concepts
 , created			timestamp(0)	not null	default CURRENT_TIMESTAMP
 , modified			timestamp(0)
 , deprecated		timestamp(0)
-, created_by		INT             NOT NULL    REFERENCES users(user_id)
+, created_by		INT                         REFERENCES users(user_id)
 , modified_by		INT                         REFERENCES users(user_id)
 , deprecated_by		INT                         REFERENCES users(user_id)
 , definition		text
@@ -44,7 +44,7 @@ create table relationships
 , rel_type			char(10)		not null	check(rel_type in ('related','broader','equivalent'))
 , created			timestamp(0)	not null	default CURRENT_TIMESTAMP
 , modified			timestamp(0)
-, created_by		INT             NOT NULL    REFERENCES users(user_id)
+, created_by		INT                         REFERENCES users(user_id)
 , modified_by		INT                         REFERENCES users(user_id)
 , unique			(concept1, concept2)
 );
@@ -54,7 +54,7 @@ create table strings
 , vocab_id		char(10)		not null	references vocabularies(vocab_id)
 , created		timestamp(0)	not null	default CURRENT_TIMESTAMP
 , modified		timestamp(0)
-, created_by	INT             NOT NULL    REFERENCES users(user_id)
+, created_by	INT                         REFERENCES users(user_id)
 , modified_by	INT                         REFERENCES users(user_id)
 , topic			int				not null	references concepts(concept_id)
 , subtopic		int							references concepts(concept_id)
