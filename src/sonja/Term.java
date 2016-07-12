@@ -1360,102 +1360,132 @@ public class Term implements Comparable {
         return sb.toString() + "\n";
     }
     
-    public void toSQL(PrintWriter concepts, PrintWriter termFile) {
-	//Dump sequel to file
-	
-        concepts.print("INSERT INTO concepts (external_id,vocabulary_id,concept_type,editorial_note, created, modified, deprecated, definition,replaced_by, used_by_libs) VALUES (");
+    /**
+     * Export SQL data to file
+     * @param concepts
+     * @param termFile
+     * @param conceptType
+     */
+    public void toSQL(PrintWriter concepts, PrintWriter termFile, String conceptType) {
+	concepts.print("INSERT INTO concepts (external_id,vocab_id,concept_type,editorial_note, created, modified, deprecated, definition,replaced_by, used_by_libs) \nVALUES (");
+//	concepts.print("INSERT INTO concepts (external_id,vocab_id,concept_type,editorial_note, created, modified, deprecated, definition,replaced_by, used_by_libs) \nSELECT ");
         
-        //end insert
-        concepts.println(");");
+        //Strip prefix
+        String conceptID = stripPrefix(minID);
+        	
+        concepts.print(conceptID+ ",");
+        concepts.print(makeSqlString(Sonja.vokabular));
+        concepts.print(makeSqlString(conceptType));
+        concepts.print(makeSqlString(note));
+	concepts.print(makeSqlString(introdato));
+	concepts.print(makeSqlString(endredato));
+	concepts.print(makeSqlString(slettdato));
+	concepts.print(makeSqlString(definisjon));
+	concepts.print((flyttettilID == null ? "NULL" : stripPrefix(flyttettilID)) + ",");
 
-//        sb.append("id= ").append(minID).append("\n");
-//        
-//        sb.append("te= ").append(term).append("\n");
-//
-//        if (bibkoder.size() > 0) {
-//            for (int i = 0; i < bibkoder.size(); i++) {
-//                sb.append("ba= ").append(bibkoder.get(i)).append("\n");
-//            }
-//        }
-//        if (synonymer.size() > 0) {
-//            for (int i = 0; i < synonymer.size(); i++) {
-//                sb.append("bf= ").append(synonymer.get(i)).append("\n");
-//            }
-//        }
-//        if (akronymer.size() > 0) {
-//            for (int i = 0; i < akronymer.size(); i++) {
-//                sb.append("ak= ").append(akronymer.get(i)).append("\n");
-//            }
-//        }
-//        if (seog.size() > 0) {
-//            for (int i = 0; i < seog.size(); i++) {
-//                sb.append("so= ").append(seog.get(i)).append("\n");
-//            }
-//        }
-//
-//        if (overordnet.size() > 0) {
-//            for (int i = 0; i < overordnet.size(); i++) {
-//                sb.append("ot= ").append(overordnet.get(i)).append("\n");
-//            }
-//        }
-//
-//        if (underordnet.size() > 0) {
-//            for (int i = 0; i < underordnet.size(); i++) {
-//                sb.append("ut= ").append(underordnet.get(i)).append("\n");
-//            }
-//        }
-//
-//        if (note != null && note.length() > 0) {
-//            sb.append("no= ").append(note).append("\n");
-//        }
-//        if (nynorsk.size() > 0) {
-//            for (int i = 0; i < nynorsk.size(); i++) {
-//                sb.append("nn= ").append(nynorsk.get(i)).append("\n");
-//            }
-//        }
-//        if (engelsk.size() > 0) {
-//            for (int i = 0; i < engelsk.size(); i++) {
-//                sb.append("en= ").append(engelsk.get(i)).append("\n");
-//            }
-//        }
-//        if (latin.size() > 0) {
-//            for (int i = 0; i < latin.size(); i++) {
-//                sb.append("la= ").append(latin.get(i)).append("\n");
-//            }
-//        }
-//        if (definisjon != null && definisjon.length() > 0) {
-//            sb.append("de= ").append(definisjon).append("\n");
-//        }
-//
-//        if (msc.size() > 0) {
-//            for (int i = 0; i < msc.size(); i++) {
-//                sb.append("ms= ").append(msc.get(i)).append("\n");
-//            }
-//        }
-//        if (dewey.size() > 0) {
-//            for (int i = 0; i < dewey.size(); i++) {
-//                sb.append("dw= ").append(dewey.get(i)).append("\n");
-//            }
-//        }
-//        if (introdato != null && introdato.length() > 0) {
-//            sb.append("tio= ").append(introdato).append("\n");
-//        }
-//        if (endredato != null && endredato.length() > 0) {
-//            sb.append("tie= ").append(endredato).append("\n");
-//        }
-//        if (slettdato != null && slettdato.length() > 0) {
-//            sb.append("tis= ").append(slettdato).append("\n");
-//            if (flyttettilID != null && flyttettilID.length() > 0) {
-//                sb.append("fly= ").append(flyttettilID).append("\n");
-//            }
-//        }
-//        if (strenger.size() > 0) {
-//            for (int i = 0; i < strenger.size(); i++) {
-//                sb.append("st= ").append(strenger.get(i).minID).append("\n");
-//            }
-//        }
-//
-//        return sb.toString() + "\n";
+	if (bibkoder.size() > 0) {
+	    concepts.print(escapeSQL(String.join(" ", bibkoder)));
+	}else {
+	    concepts.print("NULL");
+	}
+
+	// end insert
+	concepts.println(");");
+//	concepts.printf("\nFROM concepts WHERE NOT EXISTS (SELECT concept_id FROM concepts WHERE  external_id = %s AND vocab_id = %s);\n\n", conceptID, escapeSQL(Sonja.vokabular));
+
+	// sb.append("te= ").append(term).append("\n");
+	//
+	// if (synonymer.size() > 0) {
+	// for (int i = 0; i < synonymer.size(); i++) {
+	// sb.append("bf= ").append(synonymer.get(i)).append("\n");
+	// }
+	// }
+	// if (akronymer.size() > 0) {
+	// for (int i = 0; i < akronymer.size(); i++) {
+	// sb.append("ak= ").append(akronymer.get(i)).append("\n");
+	// }
+	// }
+	// if (seog.size() > 0) {
+	// for (int i = 0; i < seog.size(); i++) {
+	// sb.append("so= ").append(seog.get(i)).append("\n");
+	// }
+	// }
+	//
+	// if (overordnet.size() > 0) {
+	// for (int i = 0; i < overordnet.size(); i++) {
+	// sb.append("ot= ").append(overordnet.get(i)).append("\n");
+	// }
+	// }
+	//
+	// if (underordnet.size() > 0) {
+	// for (int i = 0; i < underordnet.size(); i++) {
+	// sb.append("ut= ").append(underordnet.get(i)).append("\n");
+	// }
+	// }
+	//
+	// if (note != null && note.length() > 0) {
+	// sb.append("no= ").append(note).append("\n");
+	// }
+	// if (nynorsk.size() > 0) {
+	// for (int i = 0; i < nynorsk.size(); i++) {
+	// sb.append("nn= ").append(nynorsk.get(i)).append("\n");
+	// }
+	// }
+	// if (engelsk.size() > 0) {
+	// for (int i = 0; i < engelsk.size(); i++) {
+	// sb.append("en= ").append(engelsk.get(i)).append("\n");
+	// }
+	// }
+	// if (latin.size() > 0) {
+	// for (int i = 0; i < latin.size(); i++) {
+	// sb.append("la= ").append(latin.get(i)).append("\n");
+	// }
+	// }
+	// if (definisjon != null && definisjon.length() > 0) {
+	// sb.append("de= ").append(definisjon).append("\n");
+	// }
+	//
+	// if (msc.size() > 0) {
+	// for (int i = 0; i < msc.size(); i++) {
+	// sb.append("ms= ").append(msc.get(i)).append("\n");
+	// }
+	// }
+	// if (dewey.size() > 0) {
+	// for (int i = 0; i < dewey.size(); i++) {
+	// sb.append("dw= ").append(dewey.get(i)).append("\n");
+	// }
+	// }
+	// if (introdato != null && introdato.length() > 0) {
+	// sb.append("tio= ").append(introdato).append("\n");
+	// }
+	// if (endredato != null && endredato.length() > 0) {
+	// sb.append("tie= ").append(endredato).append("\n");
+	// }
+	// if (slettdato != null && slettdato.length() > 0) {
+	// sb.append("tis= ").append(slettdato).append("\n");
+	// if (flyttettilID != null && flyttettilID.length() > 0) {
+	// sb.append("fly= ").append(flyttettilID).append("\n");
+	// }
+	// }
+	// if (strenger.size() > 0) {
+	// for (int i = 0; i < strenger.size(); i++) {
+	// sb.append("st= ").append(strenger.get(i).minID).append("\n");
+	// }
+	// }
+	//
+	// return sb.toString() + "\n";
+    }
+
+    private String stripPrefix(String ID) {
+	return ID.substring(Sonja.vokabular.length());
+    }
+
+    private String makeSqlString(String s) {
+	return (s == null ? "NULL" : escapeSQL(s)) + ",";
+    }
+
+    private String escapeSQL(String value) {
+	return "'" + value.replace("'", "''") + "'";
     }
 
     public String rdfxml() {

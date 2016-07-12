@@ -1575,26 +1575,28 @@ public class Sonja {
         return retval;
     }
     
-    static void save_sql() {        
-	try (PrintWriter conceptFile = new PrintWriter(new File(BASEFOLDER + "export_concepts.sql"), "UTF-8");
+    static void saveSQL() {        
+	try (
+		PrintWriter conceptFile = new PrintWriter(new File(BASEFOLDER + "export_concepts.sql"), "UTF-8");
+//		PrintWriter conceptFile = new PrintWriter(System.out);
 		PrintWriter termFile = new PrintWriter(new File(BASEFOLDER + "export_terms.sql"), "UTF-8");
 		PrintWriter stringFile = new PrintWriter(new File(BASEFOLDER + "export_strings.sql"), "UTF-8")) {
 	    // termene
 
 	    for (Term t : termliste) {
-		t.toSQL(conceptFile, termFile);
+		t.toSQL(conceptFile, termFile,  "general");
 	    }
 
 	    for (Term t : formliste) {
-		t.toSQL(conceptFile, termFile);
+		t.toSQL(conceptFile, termFile, "form");
 	    }
 
 	    for (Term t : tidsliste) {
-		t.toSQL(conceptFile, termFile);
+		t.toSQL(conceptFile, termFile, "time");
 	    }
 
 	    for (Term t : stedsliste) {
-		t.toSQL(conceptFile, termFile);
+		t.toSQL(conceptFile, termFile, "place");
 	    }
 
 	    for (Streng s : strengliste) {
