@@ -31,9 +31,10 @@ create table concepts
 , modified_by		INT                         REFERENCES users(user_id)
 , deprecated_by		INT                         REFERENCES users(user_id)
 , definition		text
-, replaced_by		int                         references concepts(concept_id) check(replaced_by != concept_id)
+, replaced_by		int                         references concepts(concept_id)
 , used_by_libs      varchar(200)
 , constraint  		valid_type check(concept_type in ('general','form','time','place'))
+, CONSTRAINT irreflexive_replaced_by check(replaced_by != concept_id)
 , unique			(vocab_id,external_id)
 );
 
@@ -46,6 +47,7 @@ create table relationships
 , modified			timestamp(0)
 , created_by		INT                         REFERENCES users(user_id)
 , modified_by		INT                         REFERENCES users(user_id)
+, CONSTRAINT irreflexivity CHECK(concept1 != concept2)
 , unique			(concept1, concept2)
 );
 
