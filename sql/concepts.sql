@@ -11,10 +11,11 @@ DROP TABLE IF EXISTS vocabularies;
 create table vocabularies
 ( vocab_id		char(10)		primary key
 , marc_value	char(10)		unique
+, padding       SMALLINT        NOT NULL
 );
 
-insert into vocabularies  values ('REAL', 'noubomn');
-insert into vocabularies  values ('UJUR', 'noubjur');
+insert into vocabularies  values ('REAL', 'noubomn', 6);
+insert into vocabularies  values ('UJUR', 'noubjur', 0);
 
 create table concepts 
 ( concept_id 		serial			primary key
