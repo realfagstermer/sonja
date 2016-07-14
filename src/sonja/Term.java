@@ -1362,49 +1362,54 @@ public class Term implements Comparable {
     
     /**
      * Export SQL data to file
+     * 
      * @param concepts
-     * @param termFile
+     * @param terms
      * @param conceptType
      */
-    public void toSQL(PrintWriter concepts, PrintWriter termFile, String conceptType) {
-	concepts.print("INSERT INTO concepts (external_id,vocab_id,concept_type,editorial_note, created, modified, deprecated, definition,replaced_by, used_by_libs) \nVALUES (");
-//	concepts.print("INSERT INTO concepts (external_id,vocab_id,concept_type,editorial_note, created, modified, deprecated, definition,replaced_by, used_by_libs) \nSELECT ");
-        
-        //Strip prefix
-        String conceptID = stripPrefix(minID);
-        	
-        concepts.print(conceptID+ ",");
-        concepts.print(makeSqlString(Sonja.vokabular));
-        concepts.print(makeSqlString(conceptType));
-        concepts.print(makeSqlString(note));
+    public void toSQL(PrintWriter concepts, PrintWriter terms, String conceptType) {
+	concepts.print("INSERT INTO concepts (external_id,vocab_id,concept_type,editorial_note, created, modified, deprecated, definition, used_by_libs) \nVALUES (");
+
+	// Strip prefix
+	String externalID = stripPrefix(minID);
+
+	concepts.print(externalID + ",");
+	concepts.print(makeSqlString(Sonja.vokabular));
+	concepts.print(makeSqlString(conceptType));
+	concepts.print(makeSqlString(note));
 	concepts.print(makeSqlString(introdato));
 	concepts.print(makeSqlString(endredato));
 	concepts.print(makeSqlString(slettdato));
 	concepts.print(makeSqlString(definisjon));
-	concepts.print((flyttettilID == null ? "NULL" : stripPrefix(flyttettilID)) + ",");
 
 	if (bibkoder.size() > 0) {
-	    concepts.print(escapeSQL(String.join(" ", bibkoder)));
-	}else {
+	    concepts.print(quoteSQL(String.join(" ", bibkoder)));
+	} else {
 	    concepts.print("NULL");
 	}
 
-	// end insert
+	// end insert concept
 	concepts.println(");");
-//	concepts.printf("\nFROM concepts WHERE NOT EXISTS (SELECT concept_id FROM concepts WHERE  external_id = %s AND vocab_id = %s);\n\n", conceptID, escapeSQL(Sonja.vokabular));
 
-	// sb.append("te= ").append(term).append("\n");
-	//
-	// if (synonymer.size() > 0) {
-	// for (int i = 0; i < synonymer.size(); i++) {
-	// sb.append("bf= ").append(synonymer.get(i)).append("\n");
-	// }
-	// }
-	// if (akronymer.size() > 0) {
-	// for (int i = 0; i < akronymer.size(); i++) {
-	// sb.append("ak= ").append(akronymer.get(i)).append("\n");
-	// }
-	// }
+	// Because of dependencies, replaced_by must be updated after all concepts are imported
+	if (flyttettilID != null) {
+	    terms.printf("UPDATE concepts \n" +
+		    "   SET replaced_by = replacement.concept_ID\n" +
+		    "  FROM (SELECT concept_ID FROM concepts WHERE external_id = %s AND vocab_id = '%s') AS replacement\n" +
+		    " WHERE external_id = %s AND vocab_id = '%s';\n", stripPrefix(flyttettilID), Sonja.vokabular, externalID, Sonja.vokabular);
+	}
+
+	// Preferred terms
+	saveSQLTerm(terms, externalID, "preferred", term, "nb");
+
+	for (String synonym : synonymer) {
+	    saveSQLTerm(terms, externalID, "non-pref", synonym, "nb");
+	}
+
+	for (String a : akronymer) {
+	    saveSQLTerm(terms, externalID, "non-pref", a, "nb");
+	}
+
 	// if (seog.size() > 0) {
 	// for (int i = 0; i < seog.size(); i++) {
 	// sb.append("so= ").append(seog.get(i)).append("\n");
@@ -1476,15 +1481,22 @@ public class Term implements Comparable {
 	// return sb.toString() + "\n";
     }
 
+    private void saveSQLTerm(PrintWriter out, String externalID, String status, String term, String lang) {
+	out.printf("INSERT INTO terms (concept_id,status,lexical_value,lang_id) \n" +
+		"SELECT concept_id, " + makeSqlString(status)  + makeSqlString(term) + quoteSQL(lang) + "\n" +
+		"  FROM concepts\n" +
+		" WHERE external_id = %s AND vocab_id = '%s';\n\n", externalID, Sonja.vokabular);
+    }
+
     private String stripPrefix(String ID) {
 	return ID.substring(Sonja.vokabular.length());
     }
 
     private String makeSqlString(String s) {
-	return (s == null ? "NULL" : escapeSQL(s)) + ",";
+	return (s == null ? "NULL" : quoteSQL(s)) + ",";
     }
 
-    private String escapeSQL(String value) {
+    private String quoteSQL(String value) {
 	return "'" + value.replace("'", "''") + "'";
     }
 
