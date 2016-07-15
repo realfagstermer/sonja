@@ -39,6 +39,14 @@ create table concepts
 , unique			(vocab_id,external_id)
 );
 
+CREATE OR REPLACE FUNCTION get_concept_id(vocab concepts.vocab_id%TYPE, external concepts.external_id%TYPE)
+RETURNS concepts.concept_id%TYPE AS $$
+BEGIN
+    RETURN concept_id FROM concepts
+    WHERE external_id = external AND vocab_id = vocab;
+END; $$ 
+LANGUAGE plpgsql;
+
 create table relationships
 ( relation_id		serial			primary key
 , concept1			int				not null	references concepts(concept_id)
