@@ -1436,36 +1436,24 @@ public class Term implements Comparable {
 	    saveSQLTerm(terms, externalID, (i == 0 ? "preferred" : "non-pref"), latin.get(i), "la");
 	}
 
-	//
-	// if (msc.size() > 0) {
-	// for (int i = 0; i < msc.size(); i++) {
-	// sb.append("ms= ").append(msc.get(i)).append("\n");
-	// }
-	// }
-	// if (dewey.size() > 0) {
-	// for (int i = 0; i < dewey.size(); i++) {
-	// sb.append("dw= ").append(dewey.get(i)).append("\n");
-	// }
-	// }
-	// if (introdato != null && introdato.length() > 0) {
-	// sb.append("tio= ").append(introdato).append("\n");
-	// }
-	// if (endredato != null && endredato.length() > 0) {
-	// sb.append("tie= ").append(endredato).append("\n");
-	// }
-	// if (slettdato != null && slettdato.length() > 0) {
-	// sb.append("tis= ").append(slettdato).append("\n");
-	// if (flyttettilID != null && flyttettilID.length() > 0) {
-	// sb.append("fly= ").append(flyttettilID).append("\n");
-	// }
-	// }
+	for (String ms : msc) {
+	    saveSQLMapping(terms, externalID, ms, "close");
+	}
+
+	for (String d : dewey) {
+	    saveSQLMapping(terms, externalID, d, "close");
+	}
+
 	// if (strenger.size() > 0) {
 	// for (int i = 0; i < strenger.size(); i++) {
 	// sb.append("st= ").append(strenger.get(i).minID).append("\n");
 	// }
 	// }
-	//
-	// return sb.toString() + "\n";
+    }
+
+    private void saveSQLMapping(PrintWriter out, int externalID, String targetConcept, String mappingRelation) {
+	out.printf("INSERT INTO mappings (source_concept_id, target_concept_id,mapping_relation) "
+		+ "VALUES (get_concept_id('%s',%d), %s,'%s');\n\n", Sonja.vokabular, externalID, quoteSQL(targetConcept), mappingRelation);
     }
 
     private void saveSQLRelation(PrintWriter out, int externalID, String external2, String type) {
