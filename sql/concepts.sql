@@ -40,11 +40,11 @@ create table concepts
 );
 
 CREATE OR REPLACE FUNCTION get_concept_id(vocab concepts.vocab_id%TYPE, external concepts.external_id%TYPE)
-RETURNS concepts.concept_id%TYPE AS $$
+RETURNS concepts.concept_id%TYPE AS $id$
 BEGIN
     RETURN concept_id FROM concepts
     WHERE external_id = external AND vocab_id = vocab;
-END; $$ 
+END; $id$
 LANGUAGE plpgsql;
 
 create table relationships

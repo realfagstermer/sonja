@@ -1371,7 +1371,7 @@ public class Term implements Comparable {
 	concepts.print("INSERT INTO concepts (external_id,vocab_id,concept_type,editorial_note, created, modified, deprecated, definition, used_by_libs) \nVALUES (");
 
 	// Strip prefix
-	String externalID = stripPrefix(minID);
+	int externalID = stripPrefix(minID);
 
 	concepts.print(externalID + ",");
 	concepts.print(makeSqlString(Sonja.vokabular));
@@ -1396,7 +1396,7 @@ public class Term implements Comparable {
 	    terms.printf("UPDATE concepts \n" +
 		    "   SET replaced_by = replacement.concept_ID\n" +
 		    "  FROM (SELECT concept_ID FROM concepts WHERE external_id = %s AND vocab_id = '%s') AS replacement\n" +
-		    " WHERE external_id = %s AND vocab_id = '%s';\n", stripPrefix(flyttettilID), Sonja.vokabular, externalID, Sonja.vokabular);
+		    " WHERE external_id = %s AND vocab_id = '%s';\n\n", stripPrefix(flyttettilID), Sonja.vokabular, externalID, Sonja.vokabular);
 	}
 
 	// Preferred terms
@@ -1410,45 +1410,32 @@ public class Term implements Comparable {
 	    saveSQLTerm(terms, externalID, "non-pref", a, "nb");
 	}
 
-	// if (seog.size() > 0) {
-	// for (int i = 0; i < seog.size(); i++) {
-	// sb.append("so= ").append(seog.get(i)).append("\n");
-	// }
-	// }
-	//
-	// if (overordnet.size() > 0) {
-	// for (int i = 0; i < overordnet.size(); i++) {
-	// sb.append("ot= ").append(overordnet.get(i)).append("\n");
-	// }
-	// }
-	//
+	for (String id : seog) {
+	    saveSQLRelation(terms, externalID, id, "related");
+	}
+
+	for (String id : overordnet) {
+	    saveSQLRelation(terms, externalID, id, "broader");
+	}
+
 	// if (underordnet.size() > 0) {
 	// for (int i = 0; i < underordnet.size(); i++) {
 	// sb.append("ut= ").append(underordnet.get(i)).append("\n");
 	// }
 	// }
-	//
-	// if (note != null && note.length() > 0) {
-	// sb.append("no= ").append(note).append("\n");
-	// }
-	// if (nynorsk.size() > 0) {
-	// for (int i = 0; i < nynorsk.size(); i++) {
-	// sb.append("nn= ").append(nynorsk.get(i)).append("\n");
-	// }
-	// }
-	// if (engelsk.size() > 0) {
-	// for (int i = 0; i < engelsk.size(); i++) {
-	// sb.append("en= ").append(engelsk.get(i)).append("\n");
-	// }
-	// }
-	// if (latin.size() > 0) {
-	// for (int i = 0; i < latin.size(); i++) {
-	// sb.append("la= ").append(latin.get(i)).append("\n");
-	// }
-	// }
-	// if (definisjon != null && definisjon.length() > 0) {
-	// sb.append("de= ").append(definisjon).append("\n");
-	// }
+
+	for (int i = 0; i < nynorsk.size(); i++) {
+	    saveSQLTerm(terms, externalID, (i == 0 ? "preferred" : "non-pref"), nynorsk.get(i), "nn");
+	}
+
+	for (int i = 0; i < engelsk.size(); i++) {
+	    saveSQLTerm(terms, externalID, (i == 0 ? "preferred" : "non-pref"), engelsk.get(i), "en");
+	}
+
+	for (int i = 0; i < latin.size(); i++) {
+	    saveSQLTerm(terms, externalID, (i == 0 ? "preferred" : "non-pref"), latin.get(i), "la");
+	}
+
 	//
 	// if (msc.size() > 0) {
 	// for (int i = 0; i < msc.size(); i++) {
@@ -1481,15 +1468,21 @@ public class Term implements Comparable {
 	// return sb.toString() + "\n";
     }
 
-    private void saveSQLTerm(PrintWriter out, String externalID, String status, String term, String lang) {
+    private void saveSQLRelation(PrintWriter out, int externalID, String external2, String type) {
+	out.printf("INSERT INTO relationships (concept1, concept2, rel_type) \nVALUES (get_concept_id('%s',%d), get_concept_id('%s',%d), '%s');\n\n",
+		Sonja.vokabular, externalID, Sonja.vokabular, stripPrefix(external2), type);
+	
+    }
+
+    private void saveSQLTerm(PrintWriter out, int externalID, String status, String term, String lang) {
 	out.printf("INSERT INTO terms (concept_id,status,lexical_value,lang_id) \n" +
 		"SELECT concept_id, " + makeSqlString(status)  + makeSqlString(term) + quoteSQL(lang) + "\n" +
 		"  FROM concepts\n" +
-		" WHERE external_id = %s AND vocab_id = '%s';\n\n", externalID, Sonja.vokabular);
+		" WHERE external_id = %d AND vocab_id = '%s';\n\n", externalID, Sonja.vokabular);
     }
 
-    private String stripPrefix(String ID) {
-	return ID.substring(Sonja.vokabular.length());
+    private int stripPrefix(String ID) {
+	return Integer.parseUnsignedInt(ID.substring(Sonja.vokabular.length()));
     }
 
     private String makeSqlString(String s) {
