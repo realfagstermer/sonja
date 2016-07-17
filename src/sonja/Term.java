@@ -7,6 +7,8 @@ package sonja;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  *
@@ -1368,6 +1370,9 @@ public class Term implements Comparable {
      * @param conceptType
      */
     public void toSQL(PrintWriter concepts, PrintWriter terms, String conceptType) {
+	// Some acronyms are also Norwegian terms. Keep track so we don't make duplicates
+	Set<String> termsSeen = new HashSet<>();
+
 	concepts.print("INSERT INTO concepts (external_id,vocab_id,concept_type,editorial_note, created, modified, deprecated, definition, used_by_libs) \nVALUES (");
 
 	// Strip prefix
@@ -1399,13 +1404,17 @@ public class Term implements Comparable {
 
 	// Preferred terms
 	saveSQLTerm(terms, externalID, "preferred", term, "nb");
+	termsSeen.add(term);
 
 	for (String synonym : synonymer) {
 	    saveSQLTerm(terms, externalID, "non-pref", synonym, "nb");
+	    termsSeen.add(synonym);
 	}
 
 	for (String a : akronymer) {
-	    saveSQLTerm(terms, externalID, "non-pref", a, "nb");
+	    if (!termsSeen.contains(a)) {
+		saveSQLTerm(terms, externalID, "non-pref", a, "nb");
+	    }
 	}
 
 	for (String id : seog) {
