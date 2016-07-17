@@ -1435,11 +1435,11 @@ public class Term implements Comparable {
 	}
 
 	for (String ms : msc) {
-	    saveSQLMapping(terms, externalID, ms, "close");
+	    saveSQLMapping(terms, externalID, ms, "msc1970", "close");
 	}
 
 	for (String d : dewey) {
-	    saveSQLMapping(terms, externalID, d, "close");
+	    saveSQLMapping(terms, externalID, d, "ddc23", "close");
 	}
 
 	// if (strenger.size() > 0) {
@@ -1453,9 +1453,9 @@ public class Term implements Comparable {
 	return ID == null ? "NULL" : String.format("get_concept_id('%s', %d)", Sonja.vokabular, stripPrefix(ID));
     }
 
-    private void saveSQLMapping(PrintWriter out, int externalID, String targetConcept, String mappingRelation) {
-	out.printf("INSERT INTO mappings (source_concept_id, target_concept_id,mapping_relation) "
-		+ "VALUES (get_concept_id('%s',%d), %s,'%s');\n\n", Sonja.vokabular, externalID, quoteSQL(targetConcept), mappingRelation);
+    private void saveSQLMapping(PrintWriter out, int externalID, String targetConcept, String targetVocabulary, String mappingRelation) {
+	out.printf("INSERT INTO mappings (source_concept_id, target_concept_id, target_vocabulary_id, mapping_relation) "
+		+ "VALUES (%s, %s, '%s', '%s');\n", getConceptIdSql(minID), quoteSQL(targetConcept), targetVocabulary, mappingRelation);
     }
 
     private void saveSQLRelation(PrintWriter out, int externalID, String external2, String type) {
