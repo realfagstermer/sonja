@@ -646,10 +646,6 @@ public class Streng extends Term {
 	strings.println(");");// end insert into strings
     }
 
-    private Object getConceptIdSql(String ID) {
-	return ID == null ? "NULL" : String.format("get_concept_id('%s', %d)", Sonja.vokabular, stripPrefix(ID));
-    }
-
     public String filutskrift3() {
         StringBuilder sb = new StringBuilder("");
         if (db != null) {

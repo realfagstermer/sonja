@@ -1393,10 +1393,8 @@ public class Term implements Comparable {
 
 	// Because of dependencies, replaced_by must be updated after all concepts are imported
 	if (flyttettilID != null) {
-	    terms.printf("UPDATE concepts \n" +
-		    "   SET replaced_by = replacement.concept_ID\n" +
-		    "  FROM (SELECT concept_ID FROM concepts WHERE external_id = %s AND vocab_id = '%s') AS replacement\n" +
-		    " WHERE external_id = %s AND vocab_id = '%s';\n\n", stripPrefix(flyttettilID), Sonja.vokabular, externalID, Sonja.vokabular);
+	    terms.printf("UPDATE concepts SET replaced_by = " + getConceptIdSql(flyttettilID) +
+		    " WHERE concept_id= %s;\n", getConceptIdSql(minID));
 	}
 
 	// Preferred terms
@@ -1449,6 +1447,10 @@ public class Term implements Comparable {
 	// sb.append("st= ").append(strenger.get(i).minID).append("\n");
 	// }
 	// }
+    }
+    
+    protected Object getConceptIdSql(String ID) {
+	return ID == null ? "NULL" : String.format("get_concept_id('%s', %d)", Sonja.vokabular, stripPrefix(ID));
     }
 
     private void saveSQLMapping(PrintWriter out, int externalID, String targetConcept, String mappingRelation) {
