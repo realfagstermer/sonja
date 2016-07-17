@@ -19,7 +19,7 @@ INSERT INTO external_vocabularies (external_vocabulary_id, name, note) VALUES ('
 CREATE TABLE mappings 
 ( mapping_id              SERIAL        PRIMARY KEY
 , created                 TIMESTAMP(0)  NOT NULL      DEFAULT CURRENT_TIMESTAMP
-, created_by              INT           NOT NULL      REFERENCES users(user_id)
+, created_by              INT                         REFERENCES users(user_id)
 , verified                TIMESTAMP(0)
 , verified_by             INT                         REFERENCES users(user_id)
 , source_concept_id       INT           NOT NULL      REFERENCES concepts(concept_id)
