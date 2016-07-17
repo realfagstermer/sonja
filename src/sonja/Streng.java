@@ -4,6 +4,7 @@
  */
 package sonja;
 
+import java.io.PrintWriter;
 import java.util.ArrayList;
 
 /**
@@ -628,6 +629,25 @@ public class Streng extends Term {
         }
 
         return sb.toString() + "\n";
+    }
+    
+    public void toSQL(PrintWriter strings) {
+	final int stringID = stripPrefix(minID);
+
+	strings.printf("INSERT INTO strings (string_id, vocab_id, created, topic, subtopic, form, temporal, geographic) VALUES (");
+	strings.print(stringID + ",");
+	strings.print(makeSqlString(Sonja.vokabular));
+	strings.print(makeSqlString(introdato));
+	strings.print(getConceptIdSql(da) + ", "); // topic
+	strings.print(getConceptIdSql(db) + ", "); // subtopic
+	strings.print(getConceptIdSql(form) + ", ");
+	strings.print(getConceptIdSql(tid) + ", ");
+	strings.print(getConceptIdSql(sted));
+	strings.println(");");// end insert into strings
+    }
+
+    private Object getConceptIdSql(String ID) {
+	return ID == null ? "NULL" : String.format("get_concept_id('%s', %d)", Sonja.vokabular, stripPrefix(ID));
     }
 
     public String filutskrift3() {

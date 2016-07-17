@@ -1600,7 +1600,7 @@ public class Sonja {
 	    }
 
 	    for (Streng s : strengliste) {
-//		s.toSQL(stringFile);
+		s.toSQL(stringFile);
 	    }
 	} catch (IOException ex) {
 	    vindu.melding("Sonja : export_sql",

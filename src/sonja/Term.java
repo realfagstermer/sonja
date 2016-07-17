@@ -1469,11 +1469,11 @@ public class Term implements Comparable {
 		" WHERE external_id = %d AND vocab_id = '%s';\n\n", externalID, Sonja.vokabular);
     }
 
-    private int stripPrefix(String ID) {
+    protected int stripPrefix(String ID) {
 	return Integer.parseUnsignedInt(ID.substring(Sonja.vokabular.length()));
     }
 
-    private String makeSqlString(String s) {
+    protected String makeSqlString(String s) {
 	return (s == null ? "NULL" : quoteSQL(s)) + ",";
     }
 
