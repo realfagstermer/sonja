@@ -1468,16 +1468,14 @@ public class Term implements Comparable {
     }
 
     private void saveSQLRelation(PrintWriter out, int externalID, String external2, String type) {
-	out.printf("INSERT INTO relationships (concept1, concept2, rel_type) \nVALUES (get_concept_id('%s',%d), get_concept_id('%s',%d), '%s');\n\n",
+	out.printf("INSERT INTO relationships (concept1, concept2, rel_type) VALUES (get_concept_id('%s',%d), get_concept_id('%s',%d), '%s');\n",
 		Sonja.vokabular, externalID, Sonja.vokabular, stripPrefix(external2), type);
 	
     }
 
     private void saveSQLTerm(PrintWriter out, int externalID, String status, String term, String lang) {
-	out.printf("INSERT INTO terms (concept_id,status,lexical_value,lang_id) \n" +
-		"SELECT concept_id, " + makeSqlString(status)  + makeSqlString(term) + quoteSQL(lang) + "\n" +
-		"  FROM concepts\n" +
-		" WHERE external_id = %d AND vocab_id = '%s';\n\n", externalID, Sonja.vokabular);
+	out.printf("INSERT INTO terms (concept_id,status,lexical_value,lang_id) VALUES (" +
+		getConceptIdSql(minID) + ", " + makeSqlString(status) + makeSqlString(term) + quoteSQL(lang) + ");\n");
     }
 
     protected int stripPrefix(String ID) {
