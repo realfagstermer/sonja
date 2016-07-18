@@ -1410,7 +1410,7 @@ public class Term implements Comparable {
 
 	for (String a : akronymer) {
 	    for (int i = 0; i < languages.length; i++) {
-		if (!termLists[i].contains(a)) { //avoid duplicates
+		if (!(termLists[i].contains(a) || term.equals(a))) { // avoid duplicates
 		    saveSQLTerm(terms, "non-pref", a, languages[i]);
 		}
 	    }
