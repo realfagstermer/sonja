@@ -1581,8 +1581,11 @@ public class Sonja {
 //		PrintWriter conceptFile = new PrintWriter(System.out);
 		PrintWriter termFile = new PrintWriter(new File(BASEFOLDER + "export_terms.sql"), "UTF-8");
 		PrintWriter stringFile = new PrintWriter(new File(BASEFOLDER + "export_strings.sql"), "UTF-8")) {
-	    // termene
 
+	    termFile.print("TRUNCATE TABLE terms;\n" + 
+	    	"TRUNCATE TABLE relationships;\n" + 
+	    	"TRUNCATE TABLE mappings;\n");
+	    
 	    for (Term t : termliste) {
 		t.toSQL(conceptFile, termFile,  "general");
 	    }

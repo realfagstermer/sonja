@@ -1398,10 +1398,10 @@ public class Term implements Comparable {
 	}
 
 	// Preferred terms
-	saveSQLTerm(terms, externalID, "preferred", term, "nb");
+	saveSQLTerm(terms, "preferred", term, "nb");
 
 	for (String synonym : synonymer) {
-	    saveSQLTerm(terms, externalID, "non-pref", synonym, "nb");
+	    saveSQLTerm(terms, "non-pref", synonym, "nb");
 	}
 
 	String[] languages = new String[] { "nb", "nn", "en" };
@@ -1411,17 +1411,17 @@ public class Term implements Comparable {
 	for (String a : akronymer) {
 	    for (int i = 0; i < languages.length; i++) {
 		if (!termLists[i].contains(a)) { //avoid duplicates
-		    saveSQLTerm(terms, externalID, "non-pref", a, languages[i]);
+		    saveSQLTerm(terms, "non-pref", a, languages[i]);
 		}
 	    }
 	}
 
 	for (String id : seog) {
-	    saveSQLRelation(terms, externalID, id, "related");
+	    saveSQLRelation(terms, id, "related");
 	}
 
 	for (String id : overordnet) {
-	    saveSQLRelation(terms, externalID, id, "broader");
+	    saveSQLRelation(terms, id, "broader");
 	}
 
 	// if (underordnet.size() > 0) {
@@ -1431,23 +1431,23 @@ public class Term implements Comparable {
 	// }
 
 	for (int i = 0; i < nynorsk.size(); i++) {
-	    saveSQLTerm(terms, externalID, (i == 0 ? "preferred" : "non-pref"), nynorsk.get(i), "nn");
+	    saveSQLTerm(terms, (i == 0 ? "preferred" : "non-pref"), nynorsk.get(i), "nn");
 	}
 
 	for (int i = 0; i < engelsk.size(); i++) {
-	    saveSQLTerm(terms, externalID, (i == 0 ? "preferred" : "non-pref"), engelsk.get(i), "en");
+	    saveSQLTerm(terms, (i == 0 ? "preferred" : "non-pref"), engelsk.get(i), "en");
 	}
 
 	for (int i = 0; i < latin.size(); i++) {
-	    saveSQLTerm(terms, externalID, (i == 0 ? "preferred" : "non-pref"), latin.get(i), "la");
+	    saveSQLTerm(terms, (i == 0 ? "preferred" : "non-pref"), latin.get(i), "la");
 	}
 
 	for (String ms : msc) {
-	    saveSQLMapping(terms, externalID, ms, "msc1970", "close");
+	    saveSQLMapping(terms, ms, "msc1970", "close");
 	}
 
 	for (String d : dewey) {
-	    saveSQLMapping(terms, externalID, d, "ddc23", "close");
+	    saveSQLMapping(terms, d, "ddc23", "close");
 	}
 
 	// if (strenger.size() > 0) {
@@ -1461,18 +1461,17 @@ public class Term implements Comparable {
 	return ID == null ? "NULL" : String.format("get_concept_id('%s', %d)", Sonja.vokabular, stripPrefix(ID));
     }
 
-    private void saveSQLMapping(PrintWriter out, int externalID, String targetConcept, String targetVocabulary, String mappingRelation) {
+    private void saveSQLMapping(PrintWriter out, String targetConcept, String targetVocabulary, String mappingRelation) {
 	out.printf("INSERT INTO mappings (source_concept_id, target_concept_id, target_vocabulary_id, mapping_relation) "
 		+ "VALUES (%s, %s, '%s', '%s');\n", getConceptIdSql(minID), quoteSQL(targetConcept), targetVocabulary, mappingRelation);
     }
 
-    private void saveSQLRelation(PrintWriter out, int externalID, String external2, String type) {
-	out.printf("INSERT INTO relationships (concept1, concept2, rel_type) VALUES (get_concept_id('%s',%d), get_concept_id('%s',%d), '%s');\n",
-		Sonja.vokabular, externalID, Sonja.vokabular, stripPrefix(external2), type);
-	
+    private void saveSQLRelation(PrintWriter out, String external2, String type) {
+	out.printf("INSERT INTO relationships (concept1, concept2, rel_type) VALUES (%s, %s, '%s');\n",
+		getConceptIdSql(minID), getConceptIdSql(external2), type);
     }
 
-    private void saveSQLTerm(PrintWriter out, int externalID, String status, String term, String lang) {
+    private void saveSQLTerm(PrintWriter out, String status, String term, String lang) {
 	out.printf("INSERT INTO terms (concept_id,status,lexical_value,lang_id) VALUES (" +
 		getConceptIdSql(minID) + ", " + makeSqlString(status) + makeSqlString(term) + quoteSQL(lang) + ");\n");
     }
