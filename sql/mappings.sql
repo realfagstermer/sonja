@@ -22,7 +22,7 @@ CREATE TABLE mappings
 , created_by              INT                         REFERENCES users(user_id)
 , verified                TIMESTAMP(0)
 , verified_by             INT                         REFERENCES users(user_id)
-, source_concept_id       INT           NOT NULL      REFERENCES concepts(concept_id)
+, source_concept_id       INT           NOT NULL      REFERENCES concepts(concept_id) ON DELETE CASCADE
 , target_concept_id       VARCHAR(50)   NOT NULL
 , target_vocabulary_id    CHAR(10)      NOT NULL      REFERENCES external_vocabularies(external_vocabulary_id)
 , mapping_relation        CHAR(10)      NOT NULL

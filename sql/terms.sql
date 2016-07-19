@@ -7,7 +7,7 @@ create table terms
 , term_created_by		INT                         REFERENCES users(user_id)
 , term_modified_by		INT                         REFERENCES users(user_id)
 , status				char(10)		not null
-, concept_id			int				not null	references concepts(concept_id)
+, concept_id			int				not null	references concepts(concept_id) ON DELETE CASCADE
 , lexical_value			varchar(500)    NOT NULL
 , lang_id				char(3)			not null	references languages(lang_id)
 , constraint  			valid_status	check(status in ('preferred', 'non-pref', 'hidden'))
