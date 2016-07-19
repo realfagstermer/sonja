@@ -12,6 +12,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
@@ -1028,16 +1029,15 @@ public class Sonja {
 	    Sonjavindu.melding("Mangel", "Finner ikke PostgreSQL-driver");
 	    System.exit(0);
 	}
-	
+
 	final String url = "jdbc:postgresql://dbpg-hotel-prod.uio.no:5432/ub_thesaurus_prod";
 	Properties props = new Properties();
-	try (FileInputStream in = new FileInputStream("config.properties")) {
+	try (InputStream in = Sonja.class.getResourceAsStream("/resources/config.properties")) {
 	    props.load(in);
 	} catch (IOException e) {
 	    e.printStackTrace();
 	    Sonjavindu.melding("Exception", e.getMessage());
 	}
-
 
 	try (Connection con = DriverManager.getConnection(url, props);
 		Statement stmt = con.createStatement();) {
@@ -1050,18 +1050,17 @@ public class Sonja {
 		System.out.printf("count: %d", rs.getInt("items"));
 	    }
 
-
-//	    while (rs.next()) {
-//		Term t = new Term();
-//		t.minID = String.format("%s%6d",Sonja.vokabular, rs.getInt("external_id"));
-//		t.term = storforbokstav(rs.getString("EMNE"));
-//		t.msc = "L " + rs.getString("NR");
-//		t.note = rs.getString("NOTE");
-//
-//		t.type = "term";
-//		// System.out.println(rs.getInt("emneID") + "  " + rs.getString("emne") + "  " + rs.getString("nr"));
-//		termliste.add(t);
-//	    }
+	    // while (rs.next()) {
+	    // Term t = new Term();
+	    // t.minID = String.format("%s%6d",Sonja.vokabular, rs.getInt("external_id"));
+	    // t.term = storforbokstav(rs.getString("EMNE"));
+	    // t.msc = "L " + rs.getString("NR");
+	    // t.note = rs.getString("NOTE");
+	    //
+	    // t.type = "term";
+	    // // System.out.println(rs.getInt("emneID") + "  " + rs.getString("emne") + "  " + rs.getString("nr"));
+	    // termliste.add(t);
+	    // }
 	} catch (SQLException e) {
 	    // e.printStackTrace();
 	    vindu.melding("Ikke akkreditert!", "Fikk ikke logget inn i databasen.");
