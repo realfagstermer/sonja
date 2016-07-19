@@ -15,20 +15,29 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Properties;
+
 import javax.imageio.ImageIO;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+
 import java.awt.Toolkit;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.StringSelection;
 import java.net.URL;
 import java.net.URLConnection;
 import java.nio.charset.StandardCharsets;
+
 import javax.net.ssl.HttpsURLConnection;
 
 /**
@@ -224,7 +233,8 @@ public class Sonja {
         vindu = new Sonjavindu();
         vindu.setVisible(true);
         startup = true;
-        initierdatamedID();
+        initFromPostgreSQL();
+        //initierdatamedID();
         startup = false;
         lagrelogg("---------------------- " + currentuser);
 
@@ -1009,6 +1019,55 @@ public class Sonja {
                     + exp.toString());
             int termantall = termliste.size() - strengliste.size();
         }
+    }
+    
+    public static void initFromPostgreSQL() {
+	try {
+	    Class.forName("org.postgresql.Driver");
+	} catch (ClassNotFoundException e) {
+	    Sonjavindu.melding("Mangel", "Finner ikke PostgreSQL-driver");
+	    System.exit(0);
+	}
+	
+	final String url = "jdbc:postgresql://dbpg-hotel-prod.uio.no:5432/ub_thesaurus_prod";
+	Properties props = new Properties();
+	try (FileInputStream in = new FileInputStream("config.properties")) {
+	    props.load(in);
+	} catch (IOException e) {
+	    e.printStackTrace();
+	    Sonjavindu.melding("Exception", e.getMessage());
+	}
+
+
+	try (Connection con = DriverManager.getConnection(url, props);
+		Statement stmt = con.createStatement();) {
+
+	    String query = "select count(*) as items from concepts";
+	    ResultSet rs = stmt.executeQuery(query);
+
+	    while (rs.next()) {
+		// System.out.println("  " + rs.getString("emne") + "  " + rs.getString("nr") + " Note: " + rs.getString("note"));
+		System.out.printf("count: %d", rs.getInt("items"));
+	    }
+
+
+//	    while (rs.next()) {
+//		Term t = new Term();
+//		t.minID = String.format("%s%6d",Sonja.vokabular, rs.getInt("external_id"));
+//		t.term = storforbokstav(rs.getString("EMNE"));
+//		t.msc = "L " + rs.getString("NR");
+//		t.note = rs.getString("NOTE");
+//
+//		t.type = "term";
+//		// System.out.println(rs.getInt("emneID") + "  " + rs.getString("emne") + "  " + rs.getString("nr"));
+//		termliste.add(t);
+//	    }
+	} catch (SQLException e) {
+	    // e.printStackTrace();
+	    vindu.melding("Ikke akkreditert!", "Fikk ikke logget inn i databasen.");
+	    System.exit(0);
+	}
+
     }
 
     public static void lagIDliste() {
