@@ -170,6 +170,15 @@ public class Sonja {
 //    static String BASEFOLDER = "/Users/knutsen/Prosjekter/Sonja/data/";
 //    static String FORSLAG = "/Users/knutsen/Prosjekter/Sonja/data/";
 //    static String WEBDATA = "/Users/knutsen/Prosjekter/Sonja/data/";
+    final static Properties config = new Properties();
+    
+    static {// initialize config
+	try (InputStream in = Sonja.class.getResourceAsStream("/resources/config.properties")) {
+	    config.load(in);
+	} catch (IOException e) {
+	    e.printStackTrace();
+	}
+    }
 
     public static void main(String... args) {
 	if (args.length > 0) {
@@ -1024,49 +1033,64 @@ public class Sonja {
     
     public static void initFromPostgreSQL() {
 	try {
-	    Class.forName("org.postgresql.Driver");
+	    Class.forName(config.getProperty("jdbc.driver"));
 	} catch (ClassNotFoundException e) {
-	    Sonjavindu.melding("Mangel", "Finner ikke PostgreSQL-driver");
+	    Sonjavindu.melding("Mangel", "Finner ikke driver: " + config.getProperty("jdbc.driver"));
 	    System.exit(0);
 	}
 
-	final String url = "jdbc:postgresql://dbpg-hotel-prod.uio.no:5432/ub_thesaurus_prod";
-	Properties props = new Properties();
-	try (InputStream in = Sonja.class.getResourceAsStream("/resources/config.properties")) {
-	    props.load(in);
-	} catch (IOException e) {
-	    e.printStackTrace();
-	    Sonjavindu.melding("Exception", e.getMessage());
-	}
-
-	try (Connection con = DriverManager.getConnection(url, props);
+	try (Connection con = DriverManager.getConnection(config.getProperty("jdbc.url"), config);
 		Statement stmt = con.createStatement();) {
 
-	    String query = "select count(*) as items from concepts";
+	    String query = "SELECT * FROM concepts WHERE vocab_id = '" + Sonja.vokabular + "';";
 	    ResultSet rs = stmt.executeQuery(query);
 
 	    while (rs.next()) {
-		// System.out.println("  " + rs.getString("emne") + "  " + rs.getString("nr") + " Note: " + rs.getString("note"));
-		System.out.printf("count: %d", rs.getInt("items"));
+		final int id = rs.getInt("external_id");
+		final String type = rs.getString("concept_type");
+		Term t = new Term(makeId(id),
+			rs.getString("note"),
+			rs.getTimestamp("created"),
+			rs.getTimestamp("modified"),
+			rs.getTimestamp("deprecated"),
+			rs.getString("definition"),
+			makeId(rs.getInt("replaced_by"))
+			);
+
+		switch (type) {
+		case "general":
+		    termliste.add(t);
+		    t.nytype("term");
+		    break;
+		case "form":
+		    formliste.add(t);
+		    t.nytype("form");
+		    break;
+		case "time":
+		    tidsliste.add(t);
+		    t.nytype("tid");
+		    break;
+		case "place":
+		    stedsliste.add(t);
+		    t.nytype("sted");
+		    break;
+		}
 	    }
 
-	    // while (rs.next()) {
-	    // Term t = new Term();
-	    // t.minID = String.format("%s%6d",Sonja.vokabular, rs.getInt("external_id"));
-	    // t.term = storforbokstav(rs.getString("EMNE"));
-	    // t.msc = "L " + rs.getString("NR");
-	    // t.note = rs.getString("NOTE");
-	    //
-	    // t.type = "term";
-	    // // System.out.println(rs.getInt("emneID") + "  " + rs.getString("emne") + "  " + rs.getString("nr"));
-	    // termliste.add(t);
-	    // }
-	} catch (SQLException e) {
-	    // e.printStackTrace();
-	    vindu.melding("Ikke akkreditert!", "Fikk ikke logget inn i databasen.");
+	    // System.out.println(query);
+	    // System.out.printf("size: %d", termliste.size());
+	    lagIDliste();
+	    vindu.klar();
+	} catch (Exception e) {
+	    e.printStackTrace();
+//	    Sonjavindu.melding("Ikke akkreditert!", "Fikk ikke logget inn i databasen.");
 	    System.exit(0);
 	}
+    }
 
+    private static String makeId(final int id) {
+	int padding = (Sonja.vokabular.equals("REAL") ? 6 : 5);// todo: fetch from database, support ujur
+	return String.format("%s%" + padding + "d", Sonja.vokabular, id);
     }
 
     public static void lagIDliste() {

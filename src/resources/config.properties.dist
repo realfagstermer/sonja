@@ -1,3 +1,5 @@
+jdbc.url=jdbc:postgresql://dbpg-hotel-prod.uio.no:5432/ub_thesaurus_prod
+jdbc.driver=org.postgresql.Driver
 user=
 password=
 ssl=true

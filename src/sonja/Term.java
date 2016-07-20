@@ -5,6 +5,7 @@
 package sonja;
 
 import java.io.PrintWriter;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -73,6 +74,17 @@ public class Term implements Comparable {
     Term(String t, String bibkode) {
         term = Sonja.storforbokstav(t);
         bibkoder.add(bibkode);
+    }
+
+    public Term(String id, String note, Timestamp created, Timestamp modified, Timestamp deprecated, String definition, String replaced_by) {
+	minID= id;
+	lokalid = Sonja.fjernidprefiks(minID);
+	nynote(note);
+	introdato= created.toString();
+	endredato = modified.toString();
+	slettdato= deprecated.toString();
+	definisjon= definition;
+	flyttettilID = replaced_by;
     }
 
     public int compareTo(Object t) {
