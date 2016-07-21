@@ -5,6 +5,11 @@
 package sonja;
 
 import java.io.PrintWriter;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
@@ -47,6 +52,7 @@ public class Term implements Comparable {
     //String[] akroIDer;
     boolean somemne = false;
     int akrolinjer = 0;
+    private int conceptId; //SQL primary key
 
     Term() {
     }
@@ -76,14 +82,21 @@ public class Term implements Comparable {
         bibkoder.add(bibkode);
     }
 
-    public Term(String id, String note, Timestamp created, Timestamp modified, Timestamp deprecated, String definition, String replaced_by) {
-	minID= id;
+    public Term(int conceptId, String externalId, String note, Timestamp created, Timestamp modified, Timestamp deprecated, String definition, String replaced_by) {
+	this.conceptId = conceptId;
+	minID = externalId;
 	lokalid = Sonja.fjernidprefiks(minID);
 	nynote(note);
-	introdato= created.toString();
-	endredato = modified.toString();
-	slettdato= deprecated.toString();
-	definisjon= definition;
+	introdato = created.toString();
+	
+	if (modified != null) {
+	    endredato = modified.toString();
+	}
+
+	if (deprecated != null) {
+	    slettdato = deprecated.toString();
+	}
+	definisjon = definition;
 	flyttettilID = replaced_by;
     }
 
@@ -2018,5 +2031,40 @@ public class Term implements Comparable {
             }
         }
         return retval;
+    }
+
+    void initTermsSql(Connection con) {
+	String query = "SELECT * FROM terms WHERE concept_id= " + conceptId + " ORDER BY status DESC"; // preferred before non-pref
+	try (Statement stmt = con.createStatement();
+		ResultSet results = stmt.executeQuery(query);) {
+	    while (results.next()) {
+		String label = results.getString("lexical_value");
+		String status = results.getString("status").trim();
+
+		switch (results.getString("lang_id").trim()) {
+		case "nb":
+		    if ("preferred".equals(status)) {
+			term = label;
+		    } else {
+			// nyttsynonym(label);
+			synonymer.add(label);
+		    }
+		    break;
+		case "nn":
+		    nynorsk.add(label);
+		    break;
+		case "en":
+		    engelsk.add(label);
+		    break;
+		case "la":
+		    latin.add(label);
+		    break;
+		default:
+		    System.out.printf("Error: unknown language: '%s'\n", type);
+		}
+	    }
+	} catch (SQLException e) {
+	    e.printStackTrace();
+	}
     }
 }

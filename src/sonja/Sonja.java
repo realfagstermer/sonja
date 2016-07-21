@@ -1039,16 +1039,19 @@ public class Sonja {
 	    System.exit(0);
 	}
 
+	String query = "SELECT * FROM concepts WHERE vocab_id = '" + Sonja.vokabular + "';";
+	
 	try (Connection con = DriverManager.getConnection(config.getProperty("jdbc.url"), config);
-		Statement stmt = con.createStatement();) {
-
-	    String query = "SELECT * FROM concepts WHERE vocab_id = '" + Sonja.vokabular + "';";
-	    ResultSet rs = stmt.executeQuery(query);
+		Statement stmt = con.createStatement();
+		ResultSet rs = stmt.executeQuery(query);) {
 
 	    while (rs.next()) {
+		final int conceptId = rs.getInt("concept_id");
 		final int id = rs.getInt("external_id");
-		final String type = rs.getString("concept_type");
-		Term t = new Term(makeId(id),
+		final String type = rs.getString("concept_type").trim();
+		Term t = new Term(
+			conceptId,
+			makeId(id),
 			rs.getString("note"),
 			rs.getTimestamp("created"),
 			rs.getTimestamp("modified"),
@@ -1056,6 +1059,8 @@ public class Sonja {
 			rs.getString("definition"),
 			makeId(rs.getInt("replaced_by"))
 			);
+
+		t.initTermsSql(con);
 
 		switch (type) {
 		case "general":
@@ -1074,16 +1079,33 @@ public class Sonja {
 		    stedsliste.add(t);
 		    t.nytype("sted");
 		    break;
+		default:
+		    System.out.printf("Error: unknown concept type: '%s'\n", type);
 		}
 	    }
 
 	    // System.out.println(query);
-	    // System.out.printf("size: %d", termliste.size());
-	    lagIDliste();
-	    vindu.klar();
+	     System.out.printf("size: %d", termliste.size());
+//	    lagIDliste();
+
+            StringBuilder sb = new StringBuilder("Oppstart:\n");
+            sb.append("Antall termer:\t").append(termliste.size()).append("\n");
+            sb.append("Antall strenger:\t").append(strengliste.size()).append("\n");
+            sb.append("Antall former:\t").append(formliste.size()).append("\n");
+            sb.append("Antall tider:\t").append(tidsliste.size()).append("\n");
+            sb.append("Antall steder:\t").append(stedsliste.size()).append("\n");
+//            sb.append("Antall bf:\t").append(antallbf).append("\n");
+//            sb.append("Antall so:\t").append(antallso).append("\n");
+//            sb.append("Antall ny:\t").append(antallny).append("\n");
+//            sb.append("Antall en:\t").append(antallen).append("\n");
+//            sb.append("Antall la:\t").append(antallla).append("\n");
+            sb.append("Maks id:\t").append(termid).append("\n");
+            oppstartsstatus = sb.toString();
+            vindu.addtologg(sb.toString(), false);
+            vindu.klar();
 	} catch (Exception e) {
 	    e.printStackTrace();
-//	    Sonjavindu.melding("Ikke akkreditert!", "Fikk ikke logget inn i databasen.");
+	    // Sonjavindu.melding("Ikke akkreditert!", "Fikk ikke logget inn i databasen.");
 	    System.exit(0);
 	}
     }
