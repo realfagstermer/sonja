@@ -9,8 +9,8 @@ DROP TABLE IF EXISTS concepts;
 DROP TABLE IF EXISTS vocabularies;
 
 create table vocabularies
-( vocab_id		char(10)		primary key
-, marc_value	char(10)		unique
+( vocab_id		VARCHAR(10)		primary key
+, marc_value	VARCHAR(10)		unique
 , padding       SMALLINT        NOT NULL
 );
 
@@ -19,9 +19,9 @@ insert into vocabularies  values ('UJUR', 'noubjur', 0);
 
 create table concepts 
 ( concept_id 		serial			primary key
-, vocab_id			char(10)		not null	references vocabularies(vocab_id)
+, vocab_id			VARCHAR(10)		not null	references vocabularies(vocab_id)
 , external_id		serial			not null
-, concept_type 		char(10)		not null
+, concept_type 		VARCHAR(10)		not null
 , note				text
 , editorial_note	text
 , scope_note		text
@@ -51,7 +51,7 @@ create table relationships
 ( relation_id		serial			primary key
 , concept1			int				not null	references concepts(concept_id)
 , concept2			int				not null	references concepts(concept_id)
-, rel_type			char(10)		not null	check(rel_type in ('related','broader','equivalent'))
+, rel_type			VARCHAR(10)		not null	check(rel_type in ('related','broader','equivalent'))
 , created			timestamp(0)	not null	default CURRENT_TIMESTAMP
 , modified			timestamp(0)
 , created_by		INT                         REFERENCES users(user_id)
@@ -62,7 +62,7 @@ create table relationships
 
 create table strings
 ( string_id		serial			primary key
-, vocab_id		char(10)		not null	references vocabularies(vocab_id)
+, vocab_id		VARCHAR(10)		not null	references vocabularies(vocab_id)
 , created		timestamp(0)	not null	default CURRENT_TIMESTAMP
 , modified		timestamp(0)
 , created_by	INT                         REFERENCES users(user_id)

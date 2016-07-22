@@ -3,7 +3,7 @@ DROP TABLE IF EXISTS groups ;
 
 CREATE TABLE groups
 ( group_id             SERIAL          PRIMARY KEY
-, vocab_id             CHAR(10)        NOT NULL      REFERENCES vocabularies(vocab_id)
+, vocab_id             VARCHAR(10)     NOT NULL      REFERENCES vocabularies(vocab_id)
 , created              TIMESTAMP(0)    NOT NULL      DEFAULT CURRENT_TIMESTAMP
 );
 

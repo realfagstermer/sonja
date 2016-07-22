@@ -10,7 +10,7 @@
 --DROP TABLE IF EXISTS languages;
 
 create table languages
-( lang_id 		char(3)			primary key
+( lang_id 		VARCHAR(3)	    primary key
 , label_nb		varchar(100)	not null
 , label_nn		varchar(100)	not null
 , label_en		varchar(100)	not null

@@ -3,7 +3,7 @@ DROP TABLE IF EXISTS external_vocabularies ;
 
 
 CREATE TABLE external_vocabularies
-( external_vocabulary_id  CHAR(10)      PRIMARY KEY
+( external_vocabulary_id  VARCHAR(10)   PRIMARY KEY
 , created                 TIMESTAMP(0)  NOT NULL      DEFAULT CURRENT_TIMESTAMP
 , name                    VARCHAR(100)  NOT NULL      UNIQUE
 , note                    TEXT
@@ -24,8 +24,8 @@ CREATE TABLE mappings
 , verified_by             INT                         REFERENCES users(user_id)
 , source_concept_id       INT           NOT NULL      REFERENCES concepts(concept_id) ON DELETE CASCADE
 , target_concept_id       VARCHAR(50)   NOT NULL
-, target_vocabulary_id    CHAR(10)      NOT NULL      REFERENCES external_vocabularies(external_vocabulary_id)
-, mapping_relation        CHAR(10)      NOT NULL
+, target_vocabulary_id    VARCHAR(10)   NOT NULL      REFERENCES external_vocabularies(external_vocabulary_id)
+, mapping_relation        VARCHAR(10)   NOT NULL
 , CONSTRAINT VALID_TYPE CHECK(mapping_relation in ('exact','close','broader','narrower','related'))
 , UNIQUE (source_concept_id, target_concept_id, target_vocabulary_id)
 );
