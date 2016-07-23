@@ -7,6 +7,7 @@ package sonja;
 import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -82,9 +83,9 @@ public class Term implements Comparable {
         bibkoder.add(bibkode);
     }
 
-    public Term(int conceptId, String externalId, String note, Timestamp created, Timestamp modified, Timestamp deprecated, String definition, String replaced_by) {
+    public Term(int conceptId, int id, String note, Timestamp created, Timestamp modified, Timestamp deprecated, String definition, int replaced_by) {
 	this.conceptId = conceptId;
-	minID = externalId;
+	minID = makeId(id);
 	lokalid = Sonja.fjernidprefiks(minID);
 	nynote(note);
 	introdato = created.toString();
@@ -97,7 +98,7 @@ public class Term implements Comparable {
 	    slettdato = deprecated.toString();
 	}
 	definisjon = definition;
-	flyttettilID = replaced_by;
+	flyttettilID = makeId(replaced_by);
     }
 
     public int compareTo(Object t) {
@@ -2033,38 +2034,65 @@ public class Term implements Comparable {
         return retval;
     }
 
-    void initTermsSql(Connection con) {
-	String query = "SELECT * FROM terms WHERE concept_id= " + conceptId + " ORDER BY status DESC"; // preferred before non-pref
-	try (Statement stmt = con.createStatement();
-		ResultSet results = stmt.executeQuery(query);) {
-	    while (results.next()) {
-		String label = results.getString("lexical_value");
-		String status = results.getString("status").trim();
+    void initTermsSql(PreparedStatement terms, PreparedStatement relationships) {
+	try {
+	    terms.setInt(1, conceptId);
+	    relationships.setInt(1, conceptId);
+	    try (ResultSet results = terms.executeQuery();
+		    ResultSet relations = relationships.executeQuery()) {
+		while (results.next()) {
+		    String label = results.getString("lexical_value");
+		    String status = results.getString("status").trim();
 
-		switch (results.getString("lang_id").trim()) {
-		case "nb":
-		    if ("preferred".equals(status)) {
-			term = label;
-		    } else {
-			// nyttsynonym(label);
-			synonymer.add(label);
+		    switch (results.getString("lang_id").trim()) {
+		    case "nb":
+			if ("preferred".equals(status)) {
+			    term = label;
+			} else {
+			    // nyttsynonym(label);
+			    synonymer.add(label);
+			}
+			break;
+		    case "nn":
+			nynorsk.add(label);
+			break;
+		    case "en":
+			engelsk.add(label);
+			break;
+		    case "la":
+			latin.add(label);
+			break;
+		    default:
+			System.out.printf("Error: unknown language: '%s'\n", type);
 		    }
-		    break;
-		case "nn":
-		    nynorsk.add(label);
-		    break;
-		case "en":
-		    engelsk.add(label);
-		    break;
-		case "la":
-		    latin.add(label);
-		    break;
-		default:
-		    System.out.printf("Error: unknown language: '%s'\n", type);
+		}
+
+		while (relations.next()) { // add relationships
+		    final String rel_type = relations.getString("rel_type");
+		    final String related = makeId(relations.getInt("external_id"));
+
+		    switch (rel_type) {
+		    case "related":
+			nyseog(related);
+			break;
+		    case "broader":
+			nyoverordnet(related);
+			break;
+		    case "equivalent":
+			// todo
+			break;
+		    default:
+			System.out.printf("error: unknown relationship: %s\n", rel_type);
+		    }
 		}
 	    }
 	} catch (SQLException e) {
 	    e.printStackTrace();
 	}
+    }
+
+    private static String makeId(final int id) {
+	int padding = (Sonja.vokabular.equals("REAL") ? 6 : 5);// todo: fetch from database, support ujur
+	return String.format("%s%" + padding + "d", Sonja.vokabular, id);
     }
 }

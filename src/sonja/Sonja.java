@@ -18,6 +18,7 @@ import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -1039,11 +1040,15 @@ public class Sonja {
 	    System.exit(0);
 	}
 
-	String query = "SELECT * FROM concepts WHERE vocab_id = '" + Sonja.vokabular + "';";
+	final String query = "SELECT * FROM concepts WHERE vocab_id = '" + Sonja.vokabular + "';";
+	final String queryTerms = "SELECT * FROM terms WHERE concept_id= ? ORDER BY status DESC"; // preferred before non-pref
+	final String queryRel = "SELECT external_id, rel_type FROM relationships JOIN concepts ON concept2 = concept_id WHERE concept1 = ?";
 	
 	try (Connection con = DriverManager.getConnection(config.getProperty("jdbc.url"), config);
 		Statement stmt = con.createStatement();
-		ResultSet rs = stmt.executeQuery(query);) {
+		ResultSet rs = stmt.executeQuery(query);
+		PreparedStatement relationships = con.prepareStatement(queryRel);
+		PreparedStatement termsStmt= con.prepareStatement(queryTerms)) {
 
 	    while (rs.next()) {
 		final int conceptId = rs.getInt("concept_id");
@@ -1051,16 +1056,16 @@ public class Sonja {
 		final String type = rs.getString("concept_type").trim();
 		Term t = new Term(
 			conceptId,
-			makeId(id),
+			id,
 			rs.getString("note"),
 			rs.getTimestamp("created"),
 			rs.getTimestamp("modified"),
 			rs.getTimestamp("deprecated"),
 			rs.getString("definition"),
-			makeId(rs.getInt("replaced_by"))
+			rs.getInt("replaced_by")
 			);
 
-		t.initTermsSql(con);
+		t.initTermsSql(termsStmt, relationships);
 
 		switch (type) {
 		case "general":
@@ -1085,34 +1090,29 @@ public class Sonja {
 	    }
 
 	    // System.out.println(query);
-	     System.out.printf("size: %d", termliste.size());
-//	    lagIDliste();
+	    System.out.printf("size: %d", termliste.size());
+	    lagIDliste();
 
-            StringBuilder sb = new StringBuilder("Oppstart:\n");
-            sb.append("Antall termer:\t").append(termliste.size()).append("\n");
-            sb.append("Antall strenger:\t").append(strengliste.size()).append("\n");
-            sb.append("Antall former:\t").append(formliste.size()).append("\n");
-            sb.append("Antall tider:\t").append(tidsliste.size()).append("\n");
-            sb.append("Antall steder:\t").append(stedsliste.size()).append("\n");
-//            sb.append("Antall bf:\t").append(antallbf).append("\n");
-//            sb.append("Antall so:\t").append(antallso).append("\n");
-//            sb.append("Antall ny:\t").append(antallny).append("\n");
-//            sb.append("Antall en:\t").append(antallen).append("\n");
-//            sb.append("Antall la:\t").append(antallla).append("\n");
-            sb.append("Maks id:\t").append(termid).append("\n");
-            oppstartsstatus = sb.toString();
-            vindu.addtologg(sb.toString(), false);
-            vindu.klar();
+	    StringBuilder sb = new StringBuilder("Oppstart:\n");
+	    sb.append("Antall termer:\t").append(termliste.size()).append("\n");
+	    sb.append("Antall strenger:\t").append(strengliste.size()).append("\n");
+	    sb.append("Antall former:\t").append(formliste.size()).append("\n");
+	    sb.append("Antall tider:\t").append(tidsliste.size()).append("\n");
+	    sb.append("Antall steder:\t").append(stedsliste.size()).append("\n");
+	    // sb.append("Antall bf:\t").append(antallbf).append("\n");
+	    // sb.append("Antall so:\t").append(antallso).append("\n");
+	    // sb.append("Antall ny:\t").append(antallny).append("\n");
+	    // sb.append("Antall en:\t").append(antallen).append("\n");
+	    // sb.append("Antall la:\t").append(antallla).append("\n");
+	    sb.append("Maks id:\t").append(termid).append("\n");
+	    oppstartsstatus = sb.toString();
+	    vindu.addtologg(sb.toString(), false);
+	    vindu.klar();
 	} catch (Exception e) {
 	    e.printStackTrace();
 	    // Sonjavindu.melding("Ikke akkreditert!", "Fikk ikke logget inn i databasen.");
 	    System.exit(0);
 	}
-    }
-
-    private static String makeId(final int id) {
-	int padding = (Sonja.vokabular.equals("REAL") ? 6 : 5);// todo: fetch from database, support ujur
-	return String.format("%s%" + padding + "d", Sonja.vokabular, id);
     }
 
     public static void lagIDliste() {
