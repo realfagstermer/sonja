@@ -15,3 +15,4 @@ create table terms
 );
 
 create index lexical_index on terms (lexical_value);
+CREATE INDEX concept_index ON terms (concept_id);
