@@ -1,5 +1,5 @@
-DROP TABLE IF EXISTS group_memberships ;
-DROP TABLE IF EXISTS groups ;
+--DROP TABLE IF EXISTS group_memberships ;
+--DROP TABLE IF EXISTS groups ;
 
 CREATE TABLE groups
 ( group_id             SERIAL          PRIMARY KEY

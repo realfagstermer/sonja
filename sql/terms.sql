@@ -1,4 +1,4 @@
-DROP TABLE IF EXISTS terms;
+--DROP TABLE IF EXISTS terms;
 
 create table terms 
 ( term_id 				serial 			primary key

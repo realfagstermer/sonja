@@ -1,5 +1,5 @@
-DROP TABLE IF EXISTS mappings ;
-DROP TABLE IF EXISTS external_vocabularies ;
+--DROP TABLE IF EXISTS mappings ;
+--DROP TABLE IF EXISTS external_vocabularies ;
 
 
 CREATE TABLE external_vocabularies

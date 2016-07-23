@@ -1,12 +1,13 @@
-DROP TABLE IF EXISTS group_memberships ;
-DROP TABLE IF EXISTS groups ;
-DROP TABLE IF EXISTS mappings ;
-DROP TABLE IF EXISTS external_vocabularies ;
-DROP TABLE IF EXISTS terms;
-DROP TABLE IF EXISTS strings;
-DROP TABLE IF EXISTS relationships;
-DROP TABLE IF EXISTS concepts;
-DROP TABLE IF EXISTS vocabularies;
+--DROP FUNCTION IF EXISTS get_concept_id(vocab concepts.vocab_id%TYPE, external concepts.external_id%TYPE);
+--DROP TABLE IF EXISTS group_memberships ;
+--DROP TABLE IF EXISTS groups ;
+--DROP TABLE IF EXISTS mappings ;
+--DROP TABLE IF EXISTS external_vocabularies ;
+--DROP TABLE IF EXISTS terms;
+--DROP TABLE IF EXISTS strings;
+--DROP TABLE IF EXISTS relationships;
+--DROP TABLE IF EXISTS concepts;
+--DROP TABLE IF EXISTS vocabularies;
 
 create table vocabularies
 ( vocab_id		VARCHAR(10)		primary key
