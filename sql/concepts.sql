@@ -72,4 +72,5 @@ create table strings
 , form			int							references concepts(concept_id)
 , temporal		int							references concepts(concept_id)
 , geographic	int							references concepts(concept_id)
+, UNIQUE (topic, subtopic, form, temporal, geographic)
 );
