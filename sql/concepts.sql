@@ -66,8 +66,10 @@ create table strings
 , vocab_id		VARCHAR(10)		not null	references vocabularies(vocab_id)
 , created		timestamp(0)	not null	default CURRENT_TIMESTAMP
 , modified		timestamp(0)
+, deprecated    timestamp(0)
 , created_by	INT                         REFERENCES users(user_id)
 , modified_by	INT                         REFERENCES users(user_id)
+, deprecated_by INT                         REFERENCES users(user_id)
 , topic			int				not null	references concepts(concept_id)
 , subtopic		int							references concepts(concept_id)
 , form			int							references concepts(concept_id)
