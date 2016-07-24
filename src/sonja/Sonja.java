@@ -172,6 +172,7 @@ public class Sonja {
 //    static String FORSLAG = "/Users/knutsen/Prosjekter/Sonja/data/";
 //    static String WEBDATA = "/Users/knutsen/Prosjekter/Sonja/data/";
     final static Properties config = new Properties();
+    private final static HashMap<Integer, Term> conceptsById = new HashMap<>();
     
     static {// initialize config
 	try (InputStream in = Sonja.class.getResourceAsStream("/resources/config.properties")) {
@@ -1066,6 +1067,7 @@ public class Sonja {
 			);
 
 		t.initTermsSql(termsStmt, relationships);
+		conceptsById.put(conceptId, t);
 
 		switch (type) {
 		case "general":
@@ -1089,7 +1091,8 @@ public class Sonja {
 		}
 	    }
 
-	    // System.out.println(query);
+	    initStringsFromSql(con);
+	    
 	    System.out.printf("size: %d", termliste.size());
 	    lagIDliste();
 
@@ -1113,6 +1116,28 @@ public class Sonja {
 	    // Sonjavindu.melding("Ikke akkreditert!", "Fikk ikke logget inn i databasen.");
 	    System.exit(0);
 	}
+    }
+
+    private static void initStringsFromSql(Connection con) {
+	String query = "SELECT * FROM strings WHERE vocab_id = '" + Sonja.vokabular + "'";
+	try (Statement stmt = con.createStatement();
+		ResultSet results = stmt.executeQuery(query)) {
+	    while (results.next()) {
+		Streng s = new Streng();
+		s.addID(Term.makeId(results.getInt("string_id")));
+		s.addterm(getExternalId(results.getInt("topic")));
+		s.addunderterm(getExternalId(results.getInt("subtopic")));
+		s.addform(getExternalId(results.getInt("form")));
+		s.addtid(getExternalId(results.getInt("temporal")));
+		s.addsted(getExternalId(results.getInt("geographic")));
+	    }
+	} catch (SQLException e) {
+	    e.printStackTrace();
+	}
+    }
+
+    private static String getExternalId(int conceptId) {
+	return conceptId == 0 ? null : conceptsById.get(conceptId).minID;
     }
 
     public static void lagIDliste() {

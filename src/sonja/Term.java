@@ -2091,8 +2091,8 @@ public class Term implements Comparable {
 	}
     }
 
-    private static String makeId(final int id) {
+    static String makeId(final int id) {
 	int padding = (Sonja.vokabular.equals("REAL") ? 6 : 5);// todo: fetch from database, support ujur
-	return String.format("%s%" + padding + "d", Sonja.vokabular, id);
+	return String.format("%s%0" + padding + "d", Sonja.vokabular, id);
     }
 }
