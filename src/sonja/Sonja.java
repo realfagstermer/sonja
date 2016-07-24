@@ -22,6 +22,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Timestamp;
 import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -1091,11 +1092,9 @@ public class Sonja {
 		}
 	    }
 
+	    lagIDliste();
 	    initStringsFromSql(con);
 	    
-	    System.out.printf("size: %d", termliste.size());
-	    lagIDliste();
-
 	    StringBuilder sb = new StringBuilder("Oppstart:\n");
 	    sb.append("Antall termer:\t").append(termliste.size()).append("\n");
 	    sb.append("Antall strenger:\t").append(strengliste.size()).append("\n");
@@ -1130,6 +1129,19 @@ public class Sonja {
 		s.addform(getExternalId(results.getInt("form")));
 		s.addtid(getExternalId(results.getInt("temporal")));
 		s.addsted(getExternalId(results.getInt("geographic")));
+		s.introdato = results.getTimestamp("created").toString();
+		Timestamp modified = results.getTimestamp("modified");
+		Timestamp deprecated = results.getTimestamp("deprecated");
+
+		if (modified != null) {
+		    s.endredato = modified.toString();
+		}
+
+		if (deprecated != null) {
+		    s.slettdato = deprecated.toString();
+		}
+
+		nystreng(s);
 	    }
 	} catch (SQLException e) {
 	    e.printStackTrace();
