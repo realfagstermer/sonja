@@ -1123,7 +1123,7 @@ public class Sonja {
 		ResultSet results = stmt.executeQuery(query)) {
 	    while (results.next()) {
 		Streng s = new Streng();
-		s.addID(Term.makeId(results.getInt("string_id")));
+		s.addID(Streng.makeId(results.getInt("string_id")));
 		s.addterm(getExternalId(results.getInt("topic")));
 		s.addunderterm(getExternalId(results.getInt("subtopic")));
 		s.addform(getExternalId(results.getInt("form")));

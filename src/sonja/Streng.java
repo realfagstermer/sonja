@@ -1213,4 +1213,8 @@ public class Streng extends Term {
 
         return retval;
     }
+
+    static String makeId(final int id) {
+	return String.format("%s%06d", "REALS", id); // separate string prefix
+    }
 }
