@@ -1046,11 +1046,11 @@ public class Sonja {
 	final String queryTerms = "SELECT * FROM terms WHERE concept_id= ? ORDER BY status DESC"; // preferred before non-pref
 	final String queryRel = "SELECT external_id, rel_type FROM relationships JOIN concepts ON concept2 = concept_id WHERE concept1 = ?";
 	
-	try (Connection con = DriverManager.getConnection(config.getProperty("jdbc.url"), config);
-		Statement stmt = con.createStatement();
+	try (Database  db = new Database();
+		Statement stmt = db.createStatement();
 		ResultSet rs = stmt.executeQuery(query);
-		PreparedStatement relationships = con.prepareStatement(queryRel);
-		PreparedStatement termsStmt= con.prepareStatement(queryTerms)) {
+		PreparedStatement relationships = db.prepareStatement(queryRel);
+		PreparedStatement termsStmt= db.prepareStatement(queryTerms)) {
 
 	    while (rs.next()) {
 		final int conceptId = rs.getInt("concept_id");
@@ -1093,7 +1093,7 @@ public class Sonja {
 	    }
 
 	    lagIDliste();
-	    initStringsFromSql(con);
+	    initStringsFromSql(db);
 	    
 	    StringBuilder sb = new StringBuilder("Oppstart:\n");
 	    sb.append("Antall termer:\t").append(termliste.size()).append("\n");
@@ -1117,9 +1117,9 @@ public class Sonja {
 	}
     }
 
-    private static void initStringsFromSql(Connection con) {
+    private static void initStringsFromSql(Database db) {
 	String query = "SELECT * FROM strings WHERE vocab_id = '" + Sonja.vokabular + "'";
-	try (Statement stmt = con.createStatement();
+	try (Statement stmt = db.createStatement();
 		ResultSet results = stmt.executeQuery(query)) {
 	    while (results.next()) {
 		Streng s = new Streng();
