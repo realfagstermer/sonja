@@ -1427,7 +1427,7 @@ public class Term implements Comparable {
 	saveSQLTerm(terms, "preferred", term, "nb");
 
 	for (String synonym : synonymer) {
-	    saveSQLTerm(terms, "non-pref", synonym, "nb");
+	    saveSQLTerm(terms, "non_pref", synonym, "nb");
 	}
 
 	String[] languages = new String[] { "nb", "nn", "en" };
@@ -1437,7 +1437,7 @@ public class Term implements Comparable {
 	for (String a : akronymer) {
 	    for (int i = 0; i < languages.length; i++) {
 		if (!(termLists[i].contains(a) || term.equals(a))) { // avoid duplicates
-		    saveSQLTerm(terms, "non-pref", a, languages[i]);
+		    saveSQLTerm(terms, "non_pref", a, languages[i]);
 		}
 	    }
 	}
@@ -1457,15 +1457,15 @@ public class Term implements Comparable {
 	// }
 
 	for (int i = 0; i < nynorsk.size(); i++) {
-	    saveSQLTerm(terms, (i == 0 ? "preferred" : "non-pref"), nynorsk.get(i), "nn");
+	    saveSQLTerm(terms, (i == 0 ? "preferred" : "non_pref"), nynorsk.get(i), "nn");
 	}
 
 	for (int i = 0; i < engelsk.size(); i++) {
-	    saveSQLTerm(terms, (i == 0 ? "preferred" : "non-pref"), engelsk.get(i), "en");
+	    saveSQLTerm(terms, (i == 0 ? "preferred" : "non_pref"), engelsk.get(i), "en");
 	}
 
 	for (int i = 0; i < latin.size(); i++) {
-	    saveSQLTerm(terms, (i == 0 ? "preferred" : "non-pref"), latin.get(i), "la");
+	    saveSQLTerm(terms, (i == 0 ? "preferred" : "non_pref"), latin.get(i), "la");
 	}
 
 	for (String ms : msc) {

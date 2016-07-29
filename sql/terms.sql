@@ -10,7 +10,7 @@ create table terms
 , concept_id			int				not null	references concepts(concept_id) ON DELETE CASCADE
 , lexical_value			varchar(500)    NOT NULL    check(lexical_value != '')
 , lang_id				VARCHAR(3)		not null	references languages(lang_id)
-, constraint  			valid_status	check(status in ('preferred', 'non-pref', 'hidden'))
+, constraint  			valid_status	check(status in ('preferred', 'non_pref', 'hidden'))
 , unique (concept_id, lang_id, lexical_value)
 );
 

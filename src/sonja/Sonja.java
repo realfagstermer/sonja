@@ -1043,7 +1043,7 @@ public class Sonja {
 	}
 
 	final String query = "SELECT * FROM concepts WHERE vocab_id = '" + Sonja.vokabular + "';";
-	final String queryTerms = "SELECT * FROM terms WHERE concept_id= ? ORDER BY status DESC"; // preferred before non-pref
+	final String queryTerms = "SELECT * FROM terms WHERE concept_id= ? ORDER BY status DESC"; // preferred before non_pref
 	final String queryRel = "SELECT external_id, rel_type FROM relationships JOIN concepts ON concept2 = concept_id WHERE concept1 = ?";
 	
 	try (Database  db = new Database();
