@@ -83,9 +83,10 @@ public class Term implements Comparable {
         bibkoder.add(bibkode);
     }
 
-    public Term(int conceptId, int id, String note, Timestamp created, Timestamp modified, Timestamp deprecated, String definition, int replaced_by) {
+    public Term(int conceptId, int id, ConceptType type, String note, Timestamp created, Timestamp modified, Timestamp deprecated, String definition, int replaced_by) {
 	this.conceptId = conceptId;
 	minID = makeId(id);
+	this.type = type.toString();
 	lokalid = Sonja.fjernidprefiks(minID);
 	nynote(note);
 	introdato = created.toString();
@@ -2094,5 +2095,9 @@ public class Term implements Comparable {
     static String makeId(final int id) {
 	int padding = (Sonja.vokabular.equals("REAL") ? 6 : 5);// todo: fetch from database, support ujur
 	return String.format("%s%0" + padding + "d", Sonja.vokabular, id);
+    }
+
+    public int getConceptId() {
+        return conceptId;
     }
 }

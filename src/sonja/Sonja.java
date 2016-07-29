@@ -173,7 +173,8 @@ public class Sonja {
 //    static String FORSLAG = "/Users/knutsen/Prosjekter/Sonja/data/";
 //    static String WEBDATA = "/Users/knutsen/Prosjekter/Sonja/data/";
     final static Properties config = new Properties();
-    private final static HashMap<Integer, Term> conceptsById = new HashMap<>();
+    final static HashMap<Integer, Term> conceptsById = new HashMap<>();
+    private static String defaultLanguage = "nb";
     
     static {// initialize config
 	try (InputStream in = Sonja.class.getResourceAsStream("/resources/config.properties")) {
@@ -197,6 +198,7 @@ public class Sonja {
             System.exit(0);
         }
         if (vokabular.equals("SMR")) {
+	    defaultLanguage = "en";
             BASEFOLDER = "Z:/mr/";
             FORSLAG = "Z:/mr/";
             WEBDATA = "Z:/mr/";
@@ -1053,43 +1055,7 @@ public class Sonja {
 		PreparedStatement termsStmt= db.prepareStatement(queryTerms)) {
 
 	    while (rs.next()) {
-		final int conceptId = rs.getInt("concept_id");
-		final int id = rs.getInt("external_id");
-		final String type = rs.getString("concept_type").trim();
-		Term t = new Term(
-			conceptId,
-			id,
-			rs.getString("note"),
-			rs.getTimestamp("created"),
-			rs.getTimestamp("modified"),
-			rs.getTimestamp("deprecated"),
-			rs.getString("definition"),
-			rs.getInt("replaced_by")
-			);
-
-		t.initTermsSql(termsStmt, relationships);
-		conceptsById.put(conceptId, t);
-
-		switch (type) {
-		case "general":
-		    termliste.add(t);
-		    t.nytype("term");
-		    break;
-		case "form":
-		    formliste.add(t);
-		    t.nytype("form");
-		    break;
-		case "time":
-		    tidsliste.add(t);
-		    t.nytype("tid");
-		    break;
-		case "place":
-		    stedsliste.add(t);
-		    t.nytype("sted");
-		    break;
-		default:
-		    System.out.printf("Error: unknown concept type: '%s'\n", type);
-		}
+		db.getConcept(rs, relationships, termsStmt);
 	    }
 
 	    lagIDliste();
@@ -1116,6 +1082,7 @@ public class Sonja {
 	    System.exit(0);
 	}
     }
+
 
     private static void initStringsFromSql(Database db) {
 	String query = "SELECT * FROM strings WHERE vocab_id = '" + Sonja.vokabular + "'";
@@ -3450,5 +3417,9 @@ public class Sonja {
             }
         }
         return retval;
+    }
+
+    static String getDefaultLanguage() {
+	return defaultLanguage;
     }
 }

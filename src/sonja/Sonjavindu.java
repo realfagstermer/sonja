@@ -8,6 +8,12 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Toolkit;
 import java.awt.event.InputEvent;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -3340,16 +3346,20 @@ public class Sonjavindu extends javax.swing.JFrame {
                         "Oppgi termtype", "Valg", JOptionPane.INFORMATION_MESSAGE, null,
                         termtyper, termtyper[def]);
                 if (selectedValue != null) {
-                    jTextField3.setText(Sonja.storforbokstav(nyterm));
-                    nyterm = jTextField3.getText();
-                    Term newterm = new Term(nyterm);
-                    newterm.nytype(selectedValue.toLowerCase());
-                    jTextField2.setText(selectedValue.toLowerCase());
-                    newterm.settID();
-                    newterm.nydato(Sonja.fiksdato(new Date()));
-                    jLabel2.setText(newterm.minID);
-                    Sonja.leggnytermiliste(newterm);
-                    currentTerm = newterm;
+		    nyterm = Sonja.storforbokstav(nyterm);
+		    final String type = selectedValue.toLowerCase();
+		    
+		    try (Database db = new Database();) {
+			Term term = db.insertConcept(Sonja.vokabular, ConceptType.toEnglish(type), nyterm);
+			jTextField3.setText(term.term);
+			jTextField2.setText(term.type);
+			jLabel2.setText(term.minID);
+			Sonja.leggnytermiliste(term);
+			currentTerm = term;
+		    } catch (SQLException e) {
+			e.printStackTrace();
+			Sonjavindu.melding("Feil:", e.getMessage());
+		    }
                 }
             } else {
                 kollisjon(nyterm);
