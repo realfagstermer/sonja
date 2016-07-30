@@ -97,6 +97,14 @@ public class Database implements AutoCloseable {
 	statement.executeUpdate();
     }
 
+    public void removeTerm(Term concept, String lexicalValue, String language) throws SQLException {
+	PreparedStatement statement = connection.prepareStatement("DELETE FROM terms WHERE concept_id=? AND lexical_value=? AND lang_id=?;");
+	statement.setInt(1, concept.getConceptId());
+	statement.setString(2, lexicalValue);
+	statement.setString(3, language);
+	statement.executeUpdate();
+    }
+
     public PreparedStatement prepareStatement(String query) throws SQLException {
 	return connection.prepareStatement(query);
     }

@@ -4264,6 +4264,12 @@ public class Sonjavindu extends javax.swing.JFrame {
                     if (selectedValue != null) {
                         currentTerm.fjernsehenvisning(selectedValue);
                         currentTerm.endret();
+                        
+			try (Database db = new Database()) {
+			    db.removeTerm(currentTerm, selectedValue, Sonja.getDefaultLanguage());
+			} catch (SQLException e) {
+			    melding("Feil ved lagring:", e.getMessage());
+			}
                         mld = selectedValue
                                 + " fjernet som synonym fra " + currentTerm.term;
                     }
