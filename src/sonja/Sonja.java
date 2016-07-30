@@ -210,11 +210,13 @@ public class Sonja {
             idprefiks = "REAL";
         }
 
+        /*
         if (!sjekkopptattfil()) {
             Sonjavindu.melding("Filen er opptatt av "
                     + Sonjavindu.bruker, "Prøv igjen seinere!");
             System.exit(0);
         }
+        */
 
         /*
         Passord pa = new Passord();
