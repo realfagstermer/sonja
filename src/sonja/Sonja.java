@@ -2454,6 +2454,7 @@ public class Sonja {
     }
 
     static void avslutt() {
+	System.exit(0); //todo: fix exit checks
         boolean dataok = false;
         boolean bibsysok = false;
         boolean kopierhuskeliste = false;
