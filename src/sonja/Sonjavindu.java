@@ -22,6 +22,7 @@ import javax.swing.JOptionPane;
 import javax.swing.ListModel;
 import static sonja.Sonja.fiksdato;
 import static sonja.Sonja.vindu;
+import static sonja.TermStatus.*;
 
 /**
  *
@@ -3358,7 +3359,7 @@ public class Sonjavindu extends javax.swing.JFrame {
 			currentTerm = term;
 		    } catch (SQLException e) {
 			e.printStackTrace();
-			Sonjavindu.melding("Feil:", e.getMessage());
+			melding("Feil:", "Feil ved lagring:\n" + e.getMessage());
 		    }
                 }
             } else {
@@ -4200,13 +4201,20 @@ public class Sonjavindu extends javax.swing.JFrame {
 
                 // sjekker om se-henvisning fins fra før på noen måte
                 if (!nyttsynonym.equalsIgnoreCase(currentTerm.term)) {
-                    if (Sonja.sjekkterm(nyttsynonym)) {
-                        currentTerm.nyttsynonym(Sonja.storforbokstav(nyttsynonym));
-                        endringsrutiner(currentTerm.term
-                                + " har fått ny sehenvisning " + Sonja.storforbokstav(nyttsynonym), currentTerm);
-                        fylltermskjema(currentTerm);
+		    if (Sonja.sjekkterm(nyttsynonym)) {
+			final String lexicalValue = Sonja.storforbokstav(nyttsynonym);
+			currentTerm.nyttsynonym(lexicalValue);
+			endringsrutiner(currentTerm.term + " har fått ny sehenvisning " + lexicalValue, currentTerm);
 
-                    } else {
+			try (Database db = new Database()) {
+			    db.addTerm(currentTerm, lexicalValue, non_pref, Sonja.getDefaultLanguage());
+			} catch (SQLException e) {
+			    melding("Feil:", "Feil ved lagring:\n" + e.getMessage());
+			    // e.printStackTrace();
+			}
+
+			fylltermskjema(currentTerm);
+		    } else {
                         kollisjon(nyttsynonym);
                     }
                 } else {
