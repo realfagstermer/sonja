@@ -3094,8 +3094,7 @@ public class Sonjavindu extends javax.swing.JFrame {
                 //System.out.println("iv= " + iv + " Point= " + evt.getPoint().toString());
                 Term valg = (Term) lm.getElementAt(iv);
                 if (seogfraliste) {
-                    tmp.nyseog(valg.minID);
-                    Sonja.sjekkinversseog(tmp.minID, valg.minID);
+		    createRelated(tmp, valg);
                 } else if (overordnetfraliste) {
                     tmp.nyoverordnet(valg.minID);
                     Sonja.getTerm(valg.minID).nyunderordnet(tmp.minID);
@@ -3117,8 +3116,7 @@ public class Sonjavindu extends javax.swing.JFrame {
             //System.out.println("iv= " + iv + " Point= " + evt.getPoint().toString());
             Term valg = (Term) lm.getElementAt(iv);
             if (seogfraliste) {
-                tmp.nyseog(valg.minID);
-                Sonja.sjekkinversseog(tmp.minID, valg.minID);
+		createRelated(tmp, valg);
             } else if (overordnetfraliste) {
                 tmp.nyoverordnet(valg.minID);
             } else if (underordnetfraliste) {
@@ -4297,17 +4295,10 @@ public class Sonjavindu extends javax.swing.JFrame {
                                 "Skal programmet legge inn termen som ny term?",
                                 "Ukjent term", JOptionPane.YES_NO_OPTION);
                         if (svar == JOptionPane.YES_OPTION) {
-			    Term newterm = null;
-
 			    try (Database db = new Database()) {
-				newterm = db.insertConcept(Sonja.vokabular, currentTerm.type, saterm);
+				Term newterm = db.insertConcept(Sonja.vokabular, currentTerm.type, saterm);
 				Sonja.leggnytermiliste(newterm);
-				
-				db.addRelation(currentTerm, newterm, related);
-				currentTerm.nyseog(newterm.minID);
-				endringsrutiner(currentTerm.term + " har fått ny se også term " + saterm, currentTerm);
-				Sonja.sjekkinversseog(currentTerm.minID, newterm.minID);
-				fylltermskjema(currentTerm);
+				createRelated(currentTerm, newterm);
 			    } catch (SQLException e) {
 				melding("Feil ved lagring:", e.getMessage());
 			    }
@@ -4317,15 +4308,7 @@ public class Sonjavindu extends javax.swing.JFrame {
                         ListModel lm = jList1.getModel();
                         Term valg = (Term) lm.getElementAt(0);
                         
-			try (Database db = new Database()) {
-			    db.addRelation(currentTerm, valg, related);
-			    currentTerm.nyseog(valg.minID);
-			    currentTerm.endret();
-			    Sonja.sjekkinversseog(currentTerm.minID, valg.minID);
-			    fylltermskjema(currentTerm);
-			} catch (SQLException e) {
-			    melding("Feil ved lagring:", e.getMessage());
-			}
+			createRelated(currentTerm, valg);
                     } else {
                         melding("Flere treff", "Velg med Ctrl-klikk ");
                         seogfraliste = true;
@@ -4335,6 +4318,18 @@ public class Sonjavindu extends javax.swing.JFrame {
                 }
             }
         }
+    }
+
+    private void createRelated(Term concept1, Term concept2) {
+	try (Database db = new Database()) {
+	    db.addRelation(concept1, concept2, related);
+	    concept1.nyseog(concept2.minID);
+	    endringsrutiner(concept1.term + " har fått ny se også term " + concept2.term, concept1);
+	    Sonja.sjekkinversseog(concept1.minID, concept2.minID);
+	    fylltermskjema(currentTerm);
+	} catch (SQLException e) {
+	    melding("Feil ved lagring:", e.getMessage());
+	}
     }
 
     public void leggetiloverordnet() {
