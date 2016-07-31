@@ -3351,15 +3351,12 @@ public class Sonjavindu extends javax.swing.JFrame {
 		    final String type = selectedValue.toLowerCase();
 		    
 		    try (Database db = new Database();) {
-			Term term = db.insertConcept(Sonja.vokabular, ConceptType.toEnglish(type), nyterm);
-			jTextField3.setText(term.term);
-			jTextField2.setText(term.type);
-			jLabel2.setText(term.minID);
-			Sonja.leggnytermiliste(term);
-			currentTerm = term;
+			currentTerm = db.insertConcept(Sonja.vokabular, ConceptType.toEnglish(type), nyterm);
+			fylltermskjema(currentTerm);
+			Sonja.leggnytermiliste(currentTerm);
 		    } catch (SQLException e) {
-			e.printStackTrace();
-			melding("Feil:", "Feil ved lagring:\n" + e.getMessage());
+			// e.printStackTrace();
+			melding("Feil ved lagring:", e.getMessage());
 		    }
                 }
             } else {
@@ -4203,13 +4200,13 @@ public class Sonjavindu extends javax.swing.JFrame {
                 if (!nyttsynonym.equalsIgnoreCase(currentTerm.term)) {
 		    if (Sonja.sjekkterm(nyttsynonym)) {
 			final String lexicalValue = Sonja.storforbokstav(nyttsynonym);
-			currentTerm.nyttsynonym(lexicalValue);
-			endringsrutiner(currentTerm.term + " har fått ny sehenvisning " + lexicalValue, currentTerm);
 
 			try (Database db = new Database()) {
 			    db.addTerm(currentTerm, lexicalValue, non_pref, Sonja.getDefaultLanguage());
+			    currentTerm.nyttsynonym(lexicalValue);
+			    endringsrutiner(currentTerm.term + " har fått ny sehenvisning " + lexicalValue, currentTerm);
 			} catch (SQLException e) {
-			    melding("Feil:", "Feil ved lagring:\n" + e.getMessage());
+			    melding("Feil ved lagring:", e.getMessage());
 			    // e.printStackTrace();
 			}
 
@@ -4262,16 +4259,14 @@ public class Sonjavindu extends javax.swing.JFrame {
                             JOptionPane.INFORMATION_MESSAGE, null,
                             seliste, seliste[0]);
                     if (selectedValue != null) {
-                        currentTerm.fjernsehenvisning(selectedValue);
-                        currentTerm.endret();
-                        
 			try (Database db = new Database()) {
 			    db.removeTerm(currentTerm, selectedValue, Sonja.getDefaultLanguage());
+			    currentTerm.fjernsehenvisning(selectedValue);
+			    currentTerm.endret();
+			    mld = selectedValue + " fjernet som synonym fra " + currentTerm.term;
 			} catch (SQLException e) {
 			    melding("Feil ved lagring:", e.getMessage());
 			}
-                        mld = selectedValue
-                                + " fjernet som synonym fra " + currentTerm.term;
                     }
                 }
                 if (mld != null) {
