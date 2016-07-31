@@ -4244,10 +4244,7 @@ public class Sonjavindu extends javax.swing.JFrame {
                 String mld = null;
                 if (seantall == 1) {
                     // fins det bare en
-                    mld = currentTerm.synonymer.get(0)
-                            + " fjernet som synonym fra " + currentTerm.term;
-                    currentTerm.synonymer = new ArrayList<String>();
-                    currentTerm.endret();
+                    mld = removeSynonym(currentTerm.synonymer.get(0));
                 } else {
                     // fins det flere
                     String[] seliste = new String[seantall];
@@ -4259,14 +4256,7 @@ public class Sonjavindu extends javax.swing.JFrame {
                             JOptionPane.INFORMATION_MESSAGE, null,
                             seliste, seliste[0]);
                     if (selectedValue != null) {
-			try (Database db = new Database()) {
-			    db.removeTerm(currentTerm, selectedValue, Sonja.getDefaultLanguage());
-			    currentTerm.fjernsehenvisning(selectedValue);
-			    currentTerm.endret();
-			    mld = selectedValue + " fjernet som synonym fra " + currentTerm.term;
-			} catch (SQLException e) {
-			    melding("Feil ved lagring:", e.getMessage());
-			}
+			mld = removeSynonym(selectedValue);
                     }
                 }
                 if (mld != null) {
@@ -4275,6 +4265,20 @@ public class Sonjavindu extends javax.swing.JFrame {
 
             }
         }
+    }
+
+    private String removeSynonym(String lexicalValue) {
+	String mld = null;
+
+	try (Database db = new Database()) {
+	    db.removeTerm(currentTerm, lexicalValue, Sonja.getDefaultLanguage());
+	    currentTerm.fjernsehenvisning(lexicalValue);
+	    currentTerm.endret();
+	    mld = lexicalValue + " fjernet som synonym fra " + currentTerm.term;
+	} catch (SQLException e) {
+	    melding("Feil ved lagring:", e.getMessage());
+	}
+	return mld;
     }
 
     public void leggetilseog() {
