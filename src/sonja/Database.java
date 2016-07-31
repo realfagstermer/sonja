@@ -105,6 +105,14 @@ public class Database implements AutoCloseable {
 	statement.executeUpdate();
     }
 
+    public void addRelation(Term concept1, Term concept2, RelationType type) throws SQLException {
+	PreparedStatement statement = connection.prepareStatement("INSERT INTO relationships (concept1, concept2, rel_type) VALUES (?,?,?);");
+	statement.setInt(1, concept1.getConceptId());
+	statement.setInt(2, concept2.getConceptId());
+	statement.setString(3, type.toString());
+	statement.executeUpdate();
+    }
+
     public PreparedStatement prepareStatement(String query) throws SQLException {
 	return connection.prepareStatement(query);
     }

@@ -23,7 +23,7 @@ import javax.swing.ListModel;
 import static sonja.Sonja.fiksdato;
 import static sonja.Sonja.vindu;
 import static sonja.TermStatus.*;
-
+import static sonja.RelationType.*;
 /**
  *
  * @author knuthe
@@ -4288,7 +4288,7 @@ public class Sonjavindu extends javax.swing.JFrame {
                 saterm = Sonja.fjernmultipleblanke(saterm);
             }
             if (saterm != null) {
-                saterm = saterm.trim();
+                saterm = Sonja.storforbokstav(saterm.trim());
                 if (!saterm.equalsIgnoreCase(currentTerm.term)) {
                     jTextField1.setText(saterm);
                     sok(jTextField1.getText());
@@ -4297,30 +4297,35 @@ public class Sonjavindu extends javax.swing.JFrame {
                                 "Skal programmet legge inn termen som ny term?",
                                 "Ukjent term", JOptionPane.YES_NO_OPTION);
                         if (svar == JOptionPane.YES_OPTION) {
-                            Term newterm = new Term(Sonja.storforbokstav(saterm));
-                            newterm.nytype(currentTerm.type);
-                            newterm.settID();
-                            newterm.nydato(Sonja.fiksdato(new Date()));
-                            Term tmp = currentTerm;
-                            Sonja.leggnytermiliste(newterm);
-                            currentTerm = tmp;
-                            currentTerm.nyseog(newterm.minID);
-                            endringsrutiner(currentTerm.term
-                                    + " har fått ny se også term "
-                                    + Sonja.storforbokstav(saterm), currentTerm);
-                            Sonja.sjekkinversseog(currentTerm.minID, newterm.minID);
-                            fylltermskjema(currentTerm);
-                        }
+			    Term newterm = null;
 
+			    try (Database db = new Database()) {
+				newterm = db.insertConcept(Sonja.vokabular, currentTerm.type, saterm);
+				Sonja.leggnytermiliste(newterm);
+				
+				db.addRelation(currentTerm, newterm, related);
+				currentTerm.nyseog(newterm.minID);
+				endringsrutiner(currentTerm.term + " har fått ny se også term " + saterm, currentTerm);
+				Sonja.sjekkinversseog(currentTerm.minID, newterm.minID);
+				fylltermskjema(currentTerm);
+			    } catch (SQLException e) {
+				melding("Feil ved lagring:", e.getMessage());
+			    }
+                        }
                     } else if (jList1.getModel().getSize() == 1) {
                         melding("Ett treff", "Legges til se-også-lista");
                         ListModel lm = jList1.getModel();
                         Term valg = (Term) lm.getElementAt(0);
-
-                        currentTerm.nyseog(valg.minID);
-                        currentTerm.endret();
-                        Sonja.sjekkinversseog(currentTerm.minID, valg.minID);
-                        fylltermskjema(currentTerm);
+                        
+			try (Database db = new Database()) {
+			    db.addRelation(currentTerm, valg, related);
+			    currentTerm.nyseog(valg.minID);
+			    currentTerm.endret();
+			    Sonja.sjekkinversseog(currentTerm.minID, valg.minID);
+			    fylltermskjema(currentTerm);
+			} catch (SQLException e) {
+			    melding("Feil ved lagring:", e.getMessage());
+			}
                     } else {
                         melding("Flere treff", "Velg med Ctrl-klikk ");
                         seogfraliste = true;

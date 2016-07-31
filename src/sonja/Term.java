@@ -2074,7 +2074,7 @@ public class Term implements Comparable {
 
 		    switch (rel_type) {
 		    case "related":
-			nyseog(related);
+			seog.add(related);
 			break;
 		    case "broader":
 			nyoverordnet(related);

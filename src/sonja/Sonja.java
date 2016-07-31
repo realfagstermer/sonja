@@ -2429,8 +2429,13 @@ public class Sonja {
                     "Skal programmet legge inn invers se også-relasjon?",
                     "Invers relasjon", JOptionPane.YES_NO_OPTION);
             if (svar == JOptionPane.YES_OPTION) {
-                til.nyseog(minIDfra);
-                til.endret();
+		try (Database db = new Database()) {
+		    db.addRelation(til, fra, RelationType.related);
+		    til.nyseog(minIDfra);
+		    til.endret();
+		} catch (SQLException e) {
+		    Sonjavindu.melding("Feil ved lagring:", e.getMessage());
+		}
             }
         }
     }
