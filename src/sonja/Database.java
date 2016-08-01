@@ -53,24 +53,8 @@ public class Database implements AutoCloseable {
 	Term t = getTerm(rs);
 
 	t.initTermsSql(termsStmt, relationships);
+	Sonja.leggnytermiliste(t);
 	Sonja.conceptsById.put(t.getConceptId(), t);
-
-	switch (ConceptType.valueOf(t.type)) {
-	case term:
-	    Sonja.termliste.add(t);
-	    break;
-	case form:
-	    Sonja.formliste.add(t);
-	    break;
-	case tid:
-	    Sonja.tidsliste.add(t);
-	    break;
-	case sted:
-	    Sonja.stedsliste.add(t);
-	    break;
-	default:
-	    System.out.printf("Error: unknown concept type: '%s'\n", t.type);
-	}
     }
 
     private Term getTerm(ResultSet rs) throws SQLException {

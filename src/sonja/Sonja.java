@@ -58,8 +58,8 @@ public class Sonja {
             = "https://bibsys-primo.hosted.exlibrisgroup.com/primo_library/libweb/action/dlSearch.do?vid=UBB&institution=UBB";
 
     public static Sonjavindu vindu = null;
-    static HashMap<String, Term> id2term;
-    static HashMap<String, Term> term2id;
+    static HashMap<String, Term> id2term = new HashMap<>();
+    static HashMap<String, Term> term2id = new HashMap<>();
     static int termid = 0;
     static int forsok = 0;
     static String idprefiks = null;
@@ -590,7 +590,10 @@ public class Sonja {
         ArrayList<Term> liste = velgliste(t.type);
         liste.add(t);
         id2term.put(t.minID, t);
-        vindu.endringsrutiner("Lagt inn ny " + t.type + "-term " + t.term, t);
+        
+	if (!startup) {
+	    vindu.endringsrutiner("Lagt inn ny " + t.type + "-term " + t.term, t);
+	}
     }
 
     public static void oppdatertermilister(Term t) {
@@ -1060,7 +1063,6 @@ public class Sonja {
 		db.getConcept(rs, relationships, termsStmt);
 	    }
 
-	    lagIDliste();
 	    initStringsFromSql(db);
 	    
 	    StringBuilder sb = new StringBuilder("Oppstart:\n");

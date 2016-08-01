@@ -2078,6 +2078,7 @@ public class Term implements Comparable {
 			break;
 		    case "broader":
 			nyoverordnet(related);
+			Sonja.getTerm(related).nyoverordnet(this.minID);
 			break;
 		    case "equivalent":
 			// todo
