@@ -49,10 +49,10 @@ public class Database implements AutoCloseable {
 	}
     }
 
-    void getConcept(ResultSet rs, PreparedStatement relationships, PreparedStatement termsStmt) throws SQLException {
+    void getConcept(ResultSet rs, PreparedStatement termsStmt) throws SQLException {
 	Term t = getTerm(rs);
 
-	t.initTermsSql(termsStmt, relationships);
+	t.initTermsSql(termsStmt);
 	Sonja.leggnytermiliste(t);
 	Sonja.conceptsById.put(t.getConceptId(), t);
     }

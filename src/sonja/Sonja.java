@@ -1051,18 +1051,17 @@ public class Sonja {
 
 	final String query = "SELECT * FROM concepts WHERE vocab_id = '" + Sonja.vokabular + "';";
 	final String queryTerms = "SELECT * FROM terms WHERE concept_id= ? ORDER BY status DESC"; // preferred before non_pref
-	final String queryRel = "SELECT external_id, rel_type FROM relationships JOIN concepts ON concept2 = concept_id WHERE concept1 = ?";
 	
 	try (Database  db = new Database();
 		Statement stmt = db.createStatement();
 		ResultSet rs = stmt.executeQuery(query);
-		PreparedStatement relationships = db.prepareStatement(queryRel);
 		PreparedStatement termsStmt= db.prepareStatement(queryTerms)) {
 
 	    while (rs.next()) {
-		db.getConcept(rs, relationships, termsStmt);
+		db.getConcept(rs, termsStmt);
 	    }
 
+	    initRelationships(db);
 	    initStringsFromSql(db);
 	    
 	    StringBuilder sb = new StringBuilder("Oppstart:\n");
@@ -1081,14 +1080,45 @@ public class Sonja {
 	    vindu.addtologg(sb.toString(), false);
 	    vindu.klar();
 	} catch (Exception e) {
-	    e.printStackTrace();
-	    // Sonjavindu.melding("Ikke akkreditert!", "Fikk ikke logget inn i databasen.");
+//	    e.printStackTrace();
+	    Sonjavindu.melding("Feil ved start:", e.getMessage());
 	    System.exit(0);
 	}
     }
 
 
-    private static void initStringsFromSql(Database db) {
+    private static void initRelationships(Database db) throws SQLException {
+	final String queryRel = "SELECT c1.external_id AS id1, c2.external_id AS id2, rel_type\n" +
+		"  FROM relationships\n" +
+		"  JOIN concepts AS c1 ON concept1 = c1.concept_id\n" +
+		"  JOIN concepts AS c2 ON concept2 = c2.concept_id";
+
+	try (Statement stmt = db.createStatement();
+		ResultSet results = stmt.executeQuery(queryRel)) {
+	    while (results.next()) {
+		final String rel_type = results.getString("rel_type");
+		final String concept1 = Term.makeId(results.getInt("id1"));
+		final String concept2 = Term.makeId(results.getInt("id2"));
+
+		switch (rel_type) {
+		case "related":
+		    getTerm(concept1).seog.add(concept2);
+		    break;
+		case "broader":
+		    getTerm(concept1).nyoverordnet(concept2);
+		    getTerm(concept2).nyunderordnet(concept1);
+		    break;
+		case "equivalent":
+		    // todo
+		    break;
+		default:
+		    System.out.printf("error: unknown relationship: %s\n", rel_type);
+		}
+	    }
+	}
+    }
+
+    private static void initStringsFromSql(Database db) throws SQLException {
 	String query = "SELECT * FROM strings WHERE vocab_id = '" + Sonja.vokabular + "'";
 	try (Statement stmt = db.createStatement();
 		ResultSet results = stmt.executeQuery(query)) {
@@ -1114,8 +1144,6 @@ public class Sonja {
 
 		nystreng(s);
 	    }
-	} catch (SQLException e) {
-	    e.printStackTrace();
 	}
     }
 

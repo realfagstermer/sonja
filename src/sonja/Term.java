@@ -2035,12 +2035,11 @@ public class Term implements Comparable {
         return retval;
     }
 
-    void initTermsSql(PreparedStatement terms, PreparedStatement relationships) {
+    void initTermsSql(PreparedStatement terms) {
 	try {
 	    terms.setInt(1, conceptId);
-	    relationships.setInt(1, conceptId);
-	    try (ResultSet results = terms.executeQuery();
-		    ResultSet relations = relationships.executeQuery()) {
+	    
+	    try (ResultSet results = terms.executeQuery()) {
 		while (results.next()) {
 		    String label = results.getString("lexical_value");
 		    String status = results.getString("status").trim();
@@ -2065,26 +2064,6 @@ public class Term implements Comparable {
 			break;
 		    default:
 			System.out.printf("Error: unknown language: '%s'\n", type);
-		    }
-		}
-
-		while (relations.next()) { // add relationships
-		    final String rel_type = relations.getString("rel_type");
-		    final String related = makeId(relations.getInt("external_id"));
-
-		    switch (rel_type) {
-		    case "related":
-			seog.add(related);
-			break;
-		    case "broader":
-			nyoverordnet(related);
-			Sonja.getTerm(related).nyoverordnet(this.minID);
-			break;
-		    case "equivalent":
-			// todo
-			break;
-		    default:
-			System.out.printf("error: unknown relationship: %s\n", rel_type);
 		    }
 		}
 	    }
