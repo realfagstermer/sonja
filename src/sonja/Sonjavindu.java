@@ -3097,9 +3097,8 @@ public class Sonjavindu extends javax.swing.JFrame {
 		    createRelated(tmp, valg);
                 } else if (overordnetfraliste) {
 		    createBroader(tmp, valg);
-//                } else if (underordnetfraliste) {
-//                    tmp.nyunderordnet(valg.minID);
-//                    Sonja.getTerm(valg.minID).nyoverordnet(tmp.minID);
+                } else if (underordnetfraliste) {
+                    createBroader(valg, tmp); // broader also creates inverse
                 }
                 currentTerm = tmp;
                 fyllnytttermskjema(currentTerm);
@@ -3118,8 +3117,8 @@ public class Sonjavindu extends javax.swing.JFrame {
 		createRelated(tmp, valg);
             } else if (overordnetfraliste) {
 		createBroader(tmp, valg);
-//            } else if (underordnetfraliste) {
-//                tmp.nyunderordnet(valg.minID);
+            } else if (underordnetfraliste) {
+        	createBroader(valg, tmp); // broader also creates inverse
             }
 
             currentTerm = tmp;
@@ -4399,7 +4398,7 @@ public class Sonjavindu extends javax.swing.JFrame {
                 utterm = Sonja.fjernmultipleblanke(utterm);
             }
             if (utterm != null) {
-                utterm = utterm.trim();
+                utterm = Sonja.storforbokstav(utterm.trim());
                 if (!utterm.equalsIgnoreCase(currentTerm.term)) {
                     jTextField1.setText(utterm);
                     sok(jTextField1.getText());
@@ -4408,19 +4407,16 @@ public class Sonjavindu extends javax.swing.JFrame {
                                 "Skal programmet legge inn termen som ny term?",
                                 "Ukjent underordnet term", JOptionPane.YES_NO_OPTION);
                         if (svar == JOptionPane.YES_OPTION) {
-                            Term newterm = new Term(Sonja.storforbokstav(utterm));
-                            newterm.nytype(currentTerm.type);
-                            newterm.settID();
-                            newterm.nydato(Sonja.fiksdato(new Date()));
-                            Term tmp = currentTerm;
-                            Sonja.leggnytermiliste(newterm);
-                            currentTerm = tmp;
-                            currentTerm.nyunderordnet(newterm.minID);
-                            endringsrutiner(currentTerm.term
-                                    + " har fått ny underordnet term "
-                                    + Sonja.storforbokstav(utterm), currentTerm);
-                            Sonja.sjekkinversut(currentTerm.minID, newterm.minID);
-                            fylltermskjema(currentTerm);
+                            try (Database db = new Database()) {
+				Term newterm = db.insertConcept(Sonja.vokabular, ConceptType.toEnglish(currentTerm.type), utterm);
+				Term tmp = currentTerm;
+				Sonja.leggnytermiliste(newterm);
+				currentTerm = tmp;
+
+				createBroader(newterm, currentTerm); // broader also creates inverse
+			    } catch (SQLException e) {
+				melding("Feil ved lagring:", e.getMessage());
+			    }
                         }
                     } else if (jList1.getModel().getSize() == 1) {
                         // må i det minste sjekke om den allerede fins som overordnet
@@ -4428,10 +4424,7 @@ public class Sonjavindu extends javax.swing.JFrame {
                         ListModel lm = jList1.getModel();
                         Term valg = (Term) lm.getElementAt(0);
                         if (!currentTerm.harot(valg.minID)) {
-                            currentTerm.nyunderordnet(valg.minID);
-                            currentTerm.endret();
-                            Sonja.sjekkinversut(currentTerm.minID, valg.minID);
-                            fylltermskjema(currentTerm);
+			    createBroader(valg, currentTerm); // broader also creates inverse
                         } else {
                             melding("Inkonsistens", "Termen fins som overordnet\nog kan ikke legges inn som underordnet");
                         }
