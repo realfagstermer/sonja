@@ -8,7 +8,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 /**
- * Wrapper class for handling database connections
+ * class for handling database connections
  * 
  * @author ewinge
  */
@@ -49,7 +49,7 @@ public class Database implements AutoCloseable {
 	}
     }
 
-    void getConcept(ResultSet rs, PreparedStatement termsStmt) throws SQLException {
+    public void getConcept(ResultSet rs, PreparedStatement termsStmt) throws SQLException {
 	Term t = getTerm(rs);
 
 	t.initTermsSql(termsStmt);
@@ -77,8 +77,8 @@ public class Database implements AutoCloseable {
 	statement.setString(2, status.toString());
 	statement.setString(3, lexicalValue);
 	statement.setString(4, lang);
-
 	statement.executeUpdate();
+	updateModified(concept);
     }
 
     public void removeTerm(Term concept, String lexicalValue, String language) throws SQLException {
@@ -87,6 +87,7 @@ public class Database implements AutoCloseable {
 	statement.setString(2, lexicalValue);
 	statement.setString(3, language);
 	statement.executeUpdate();
+	updateModified(concept);
     }
 
     public void addRelation(Term concept1, Term concept2, RelationType type) throws SQLException {
@@ -94,6 +95,14 @@ public class Database implements AutoCloseable {
 	statement.setInt(1, concept1.getConceptId());
 	statement.setInt(2, concept2.getConceptId());
 	statement.setString(3, type.toString());
+	statement.executeUpdate();
+	updateModified(concept1);
+	updateModified(concept2);
+    }
+
+    private void updateModified(Term concept) throws SQLException {
+	PreparedStatement statement = connection.prepareStatement("UPDATE concepts SET modified = CURRENT_TIMESTAMP WHERE concept_id = ?;");
+	statement.setInt(1, concept.getConceptId());
 	statement.executeUpdate();
     }
 
