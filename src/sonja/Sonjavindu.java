@@ -4295,7 +4295,7 @@ public class Sonjavindu extends javax.swing.JFrame {
                                 "Ukjent term", JOptionPane.YES_NO_OPTION);
                         if (svar == JOptionPane.YES_OPTION) {
 			    try (Database db = new Database()) {
-				Term newterm = db.insertConcept(Sonja.vokabular, currentTerm.type, saterm);
+				Term newterm = db.insertConcept(Sonja.vokabular, ConceptType.toEnglish(currentTerm.type), saterm);
 				Sonja.leggnytermiliste(newterm);
 				createRelated(currentTerm, newterm);
 			    } catch (SQLException e) {
@@ -4348,7 +4348,7 @@ public class Sonjavindu extends javax.swing.JFrame {
                                 "Ukjent overordnet term", JOptionPane.YES_NO_OPTION);
                         if (svar == JOptionPane.YES_OPTION) {
 			    try (Database db = new Database()) {
-				Term newterm = db.insertConcept(Sonja.vokabular, currentTerm.type, otterm);
+				Term newterm = db.insertConcept(Sonja.vokabular, ConceptType.toEnglish(currentTerm.type), otterm);
 				Term tmp = currentTerm;
 				Sonja.leggnytermiliste(newterm);
 				currentTerm = tmp;
