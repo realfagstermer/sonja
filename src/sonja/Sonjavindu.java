@@ -4457,6 +4457,12 @@ public class Sonjavindu extends javax.swing.JFrame {
                     String tmpid = Sonja.getID(tmp);
                     if (tmpid == null) {
                         til = tmp;
+			try (Database db = new Database()) {
+			    db.setPreferred(currentTerm, fra, til, Sonja.getDefaultLanguage());
+			    fylltermskjema(currentTerm);
+			} catch (SQLException e) {
+			    melding("Feil ved lagring:", e.getMessage());
+			}
                         currentTerm.synonymer = new ArrayList<String>();
                         currentTerm.synonymer.add(currentTerm.term);
                         currentTerm.term = tmp;
