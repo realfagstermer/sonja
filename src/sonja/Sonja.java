@@ -250,8 +250,8 @@ public class Sonja {
         vindu = new Sonjavindu();
         vindu.setVisible(true);
         startup = true;
-        initFromPostgreSQL();
-        //initierdatamedID();
+	// initFromPostgreSQL();
+        initierdatamedID();
         startup = false;
         lagrelogg("---------------------- " + currentuser);
 
