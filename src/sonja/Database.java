@@ -122,6 +122,16 @@ public class Database implements AutoCloseable {
 	updateModified(concept2);
     }
 
+    public void removeRelation(Term concept1, Term concept2, RelationType type) throws SQLException {
+	PreparedStatement statement = connection.prepareStatement("DELETE FROM relationships WHERE concept1 = ? AND concept2 = ? AND rel_type = ?;");
+	statement.setInt(1, concept1.getConceptId());
+	statement.setInt(2, concept2.getConceptId());
+	statement.setString(3, type.toString());
+	statement.executeUpdate();
+	updateModified(concept1);
+	updateModified(concept2);
+    }
+
     private void updateModified(Term concept) throws SQLException {
 	PreparedStatement statement = connection.prepareStatement("UPDATE concepts SET modified = CURRENT_TIMESTAMP WHERE concept_id = ?;");
 	statement.setInt(1, concept.getConceptId());

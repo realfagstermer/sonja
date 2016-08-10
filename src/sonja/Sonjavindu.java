@@ -4521,22 +4521,11 @@ public class Sonjavindu extends javax.swing.JFrame {
         if (currentTerm != null) {
             int otantall = currentTerm.overordnet.size();
             if (otantall > 0) {
-                ArrayList<String> mld = new ArrayList<String>();
                 if (otantall == 1) {
                     String idbort = currentTerm.overordnet.get(0);
                     Term tmp = Sonja.getTerm(idbort);
                     if (tmp != null) {
-                        mld.add(tmp.term + " fjernet som overordnet fra " + currentTerm.term);
-                    }
-                    currentTerm.overordnet = new ArrayList<String>();
-                    currentTerm.endret();
-
-                    if (tmp != null && tmp.harut(currentTerm.minID)) {
-
-                        tmp.fjernut(currentTerm.minID);
-                        mld.add(currentTerm.term + " fjernet som underordnet fra " + tmp.term);
-                        tmp.endret();
-
+                        removeBroader(currentTerm, tmp);
                     }
                 } else {
                     // fins det flere
@@ -4552,50 +4541,35 @@ public class Sonjavindu extends javax.swing.JFrame {
                         String idbort = Sonja.getID(selectedValue);
                         Term tmp = Sonja.getTerm(idbort);
                         if (tmp != null) {
-                            mld.add(tmp.term + " fjernet som overordnet fra " + currentTerm.term);
-                        }
-                        currentTerm.fjernot(idbort);
-                        currentTerm.endret();
-                        if (tmp != null && tmp.harut(currentTerm.minID)) {
-
-                            tmp.fjernut(currentTerm.minID);
-                            mld.add(currentTerm.term + " fjernet som underordnet fra " + tmp.term);
-                            tmp.endret();
-
+                            removeBroader(currentTerm, tmp);
                         }
                     }
                 }
-                if (mld.size() > 0) {
-                    for (int i = 0; i < mld.size() - 1; i++) {
-                        endringsrutiner(mld.get(i), currentTerm);
-                    }
-                    endringsrutiner(mld.get(mld.size() - 1), currentTerm);
-                }
-
             }
         }
+    }
+    
+    private void removeBroader(Term concept1, Term concept2) {
+	try (Database db = new Database()) {
+	    db.removeRelation(concept1, concept2, broader);
+	    concept1.fjernot(concept2.minID);
+	    concept2.fjernut(concept1.minID); // inverse
+	    endringsrutiner(concept1.term + " fjernet som overordnet fra " + concept2.term, concept1);
+	    fylltermskjema(currentTerm);
+	} catch (SQLException e) {
+	    melding("Feil ved lagring:", e.getMessage());
+	}
     }
 
     public void fjerneunderordnet() {
         if (currentTerm != null) {
             int utantall = currentTerm.underordnet.size();
             if (utantall > 0) {
-                ArrayList<String> mld = new ArrayList<String>();
                 if (utantall == 1) {
                     String idbort = currentTerm.underordnet.get(0);
                     Term tmp = Sonja.getTerm(idbort);
                     if (tmp != null) {
-                        mld.add(tmp.term + " fjernet som underordnet fra " + currentTerm.term);
-                    }
-                    currentTerm.underordnet = new ArrayList<String>();
-                    currentTerm.endret();
-
-                    if (tmp != null && tmp.harot(currentTerm.minID)) {
-
-                        tmp.fjernot(currentTerm.minID);
-                        mld.add(currentTerm.term + " fjernet som overordnet fra " + tmp.term);
-                        tmp.endret();
-
+                        removeBroader(tmp, currentTerm);
                     }
                 } else {
                     // fins det flere
@@ -4611,26 +4585,10 @@ public class Sonjavindu extends javax.swing.JFrame {
                         String idbort = Sonja.getID(selectedValue);
                         Term tmp = Sonja.getTerm(idbort);
                         if (tmp != null) {
-                            mld.add(tmp.term + " fjernet som underordnet fra " + currentTerm.term);
-                        }
-                        currentTerm.fjernut(idbort);
-                        currentTerm.endret();
-                        if (tmp != null && tmp.harot(currentTerm.minID)) {
-
-                            tmp.fjernot(currentTerm.minID);
-                            mld.add(currentTerm.term + " fjernet som overordnet fra " + tmp.term);
-                            tmp.endret();
-
+                            removeBroader(tmp, currentTerm);
                         }
                     }
                 }
-                if (mld.size() > 0) {
-                    for (int i = 0; i < mld.size() - 1; i++) {
-                        endringsrutiner(mld.get(i), currentTerm);
-                    }
-                    endringsrutiner(mld.get(mld.size() - 1), currentTerm);
-                }
-
             }
         }
     }
