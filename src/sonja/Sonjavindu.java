@@ -4443,7 +4443,6 @@ public class Sonjavindu extends javax.swing.JFrame {
         String fra = null;
         String til = null;
         String type = null;
-        String mld = null;
         String id = null;
         if (currentTerm != null) {
             fra = currentTerm.term;
@@ -4457,18 +4456,7 @@ public class Sonjavindu extends javax.swing.JFrame {
                     String tmpid = Sonja.getID(tmp);
                     if (tmpid == null) {
                         til = tmp;
-			try (Database db = new Database()) {
-			    db.setPreferred(currentTerm, fra, til, Sonja.getDefaultLanguage());
-			    fylltermskjema(currentTerm);
-			} catch (SQLException e) {
-			    melding("Feil ved lagring:", e.getMessage());
-			}
-                        currentTerm.synonymer = new ArrayList<String>();
-                        currentTerm.synonymer.add(currentTerm.term);
-                        currentTerm.term = tmp;
-                        mld = type + ": " + fra
-                                + " må endres til " + til;
-                        //Sonja.lokarbytt(type, fra, til, currentTerm.minID);
+			setPreferred(currentTerm, fra, til);
                     } else {
                         Term t = Sonja.getTerm(tmpid);
                         if (t.slettdato == null) {
@@ -4477,13 +4465,7 @@ public class Sonjavindu extends javax.swing.JFrame {
                         } else {
                             t.slettdato = null;
                             til = tmp;
-                            currentTerm.synonymer = new ArrayList<String>();
-                            currentTerm.synonymer.add(currentTerm.term);
-                            currentTerm.term = tmp;
-                            mld = type + ": " + fra
-                                    + " må endres til " + til;
-                            //Sonja.lokarbytt(type, fra, til, tmpid);
-
+                            setPreferred(currentTerm, fra, til);
                         }
                     }
                 } else {
@@ -4501,13 +4483,7 @@ public class Sonjavindu extends javax.swing.JFrame {
                         String tmpid = Sonja.getID(selectedValue);
 
                         if (tmpid == null) {
-                            currentTerm.fjernsehenvisning(selectedValue);
-                            currentTerm.synonymer.add(currentTerm.term);
-                            currentTerm.term = selectedValue;
-                            til = selectedValue;
-                            mld = type + ": " + fra
-                                    + " må endres til " + til;
-                            //Sonja.lokarbytt(type, fra, til, currentTerm.minID);
+                            setPreferred(currentTerm, fra, selectedValue);
                         } else {
                             Term t = Sonja.getTerm(tmpid);
                             if (t.slettdato == null) {
@@ -4515,27 +4491,33 @@ public class Sonjavindu extends javax.swing.JFrame {
                                         "Den valgte BF-termen fins som indeksterm fra før!!!");
                             } else {
                                 t.slettdato = null;
-                                currentTerm.fjernsehenvisning(selectedValue);
-                                currentTerm.synonymer.add(currentTerm.term);
-                                currentTerm.term = selectedValue;
-                                til = selectedValue;
-                                mld = type + ": " + fra
-                                        + " må endres til " + til;
-                                //Sonja.lokarbytt(type, fra, til, tmpid);
+                                setPreferred(currentTerm, fra, selectedValue);
                             }
                         }
                     }
                 }
-                if (mld != null) {
-                    //Sonja.lokar(fra, til);
-                    Sonja.lokarbytt(type, fra, til, id);
-                    //Sonja.bibsyshuskeliste.add(mld);
-                    vindu.addtologg(mld, false);
-                    endringsrutiner(type + ": " + fra + " er endret til " + til, currentTerm);
-                }
             }
         }
 
+    }
+
+    private void setPreferred(Term concept, String fra, String til) {
+	try (Database db = new Database()) {
+	    db.setPreferred(concept, fra, til, Sonja.getDefaultLanguage());
+	    concept.fjernsehenvisning(til);
+	    concept.synonymer.add(concept.term);
+	    concept.term = til;
+
+	    // Sonja.lokar(fra, til);
+	    Sonja.lokarbytt(concept.type, fra, til, concept.minID);
+	    // Sonja.bibsyshuskeliste.add(mld);
+	    vindu.addtologg(concept.type + ": " + fra + " må endres til " + til, false);
+	    endringsrutiner(concept.type + ": " + fra + " er endret til " + til, concept);
+
+	    fylltermskjema(currentTerm);
+	} catch (SQLException e) {
+	    melding("Feil ved lagring:", e.getMessage());
+	}
     }
 
     public void fjerneoverordnet() {
