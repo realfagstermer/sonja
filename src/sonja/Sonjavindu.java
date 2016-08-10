@@ -4442,12 +4442,9 @@ public class Sonjavindu extends javax.swing.JFrame {
     private void bytttermogbf() {
         String fra = null;
         String til = null;
-        String type = null;
-        String id = null;
+
         if (currentTerm != null) {
             fra = currentTerm.term;
-            type = currentTerm.type;
-            id = currentTerm.minID;
             int seantall = currentTerm.synonymer.size();
             if (seantall > 0) {
                 if (seantall == 1) {
