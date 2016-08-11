@@ -4654,16 +4654,34 @@ public class Sonjavindu extends javax.swing.JFrame {
                     "Oppgi ny engelsk term",
                     "Legge til engelsk",
                     JOptionPane.QUESTION_MESSAGE);
-            nyengelsk = Sonja.fjernmultipleblanke(nyengelsk);
-            if (nyengelsk != null) {
-
-                currentTerm.nyengelsk(Sonja.storforbokstav(nyengelsk));
-                endringsrutiner(currentTerm.term + " har fått engelsktermen " + nyengelsk, currentTerm);
-                visvalgtinfo("engelsk", currentTerm);
-                jRadioButton7.setEnabled(true);
-
-            }
+            nyengelsk = Sonja.storforbokstav(Sonja.fjernmultipleblanke(nyengelsk));
+	    if (nyengelsk != null) {
+		boolean success = false;
+		
+		if (currentTerm.harengelsk()) {
+		    success = addTerm(currentTerm, nyengelsk, non_pref, "en");
+		} else {
+		    success = addTerm(currentTerm, nyengelsk, preferred, "en");
+		}
+		
+		if (success) {
+		    currentTerm.nyengelsk(nyengelsk);
+		    endringsrutiner(currentTerm.term + " har fått engelsktermen " + nyengelsk, currentTerm);
+		    visvalgtinfo("engelsk", currentTerm);
+		    jRadioButton7.setEnabled(true);
+		}
+	    }
         }
+    }
+
+    private boolean addTerm(Term concept, String term, TermStatus status, String lang) {
+	try (Database db = new Database()) {
+	    db.addTerm(concept, term, status, lang);
+	    return true;
+	} catch (SQLException e) {
+	    melding("Feil ved lagring:", e.getMessage());
+	    return false;
+	}
     }
 
     public void fjerneengelsk() {
