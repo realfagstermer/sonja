@@ -4329,6 +4329,29 @@ public class Sonjavindu extends javax.swing.JFrame {
 	    melding("Feil ved lagring:", e.getMessage());
 	}
     }
+    
+    private void removeRelated(Term concept1, Term concept2) {
+	try (Database db = new Database()) {
+	    db.removeRelation(concept1, concept2, related);
+	    concept1.fjernso(concept2.minID);
+	    endringsrutiner(concept2.term + " fjernet som se-også fra " + concept1.term, concept1);
+
+	    if (concept2.harseog(concept1.minID)) {
+		int svar = JOptionPane.showConfirmDialog(null,
+			"Skal programmet fjerne invers se også-relasjon?",
+			"Invers relasjon", JOptionPane.YES_NO_OPTION);
+		if (svar == JOptionPane.YES_OPTION) {
+		    db.removeRelation(concept2, concept1, related);
+		    concept2.fjernso(concept1.minID);
+		    endringsrutiner(concept1.term + " fjernet som se-også fra " + concept2.term, concept2);
+		}
+	    }
+
+	    fylltermskjema(concept1);
+	} catch (SQLException e) {
+	    melding("Feil ved lagring:", e.getMessage());
+	}
+    }
 
     public void leggetiloverordnet() {
         if (currentTerm != null) {
@@ -4597,25 +4620,11 @@ public class Sonjavindu extends javax.swing.JFrame {
         if (currentTerm != null) {
             int seogantall = currentTerm.seog.size();
             if (seogantall > 0) {
-                ArrayList<String> mld = new ArrayList<String>();
                 if (seogantall == 1) {
                     String idbort = currentTerm.seog.get(0);
                     Term tmp = Sonja.getTerm(idbort);
                     if (tmp != null) {
-                        mld.add(tmp.term + " fjernet som se-også fra " + currentTerm.term);
-                    }
-                    currentTerm.seog = new ArrayList<String>();
-                    currentTerm.endret();
-
-                    if (tmp != null && tmp.harseog(currentTerm.minID)) {
-                        int svar = JOptionPane.showConfirmDialog(null,
-                                "Skal programmet fjerne invers se også-relasjon?",
-                                "Invers relasjon", JOptionPane.YES_NO_OPTION);
-                        if (svar == JOptionPane.YES_OPTION) {
-                            tmp.fjernso(currentTerm.minID);
-                            mld.add(currentTerm.term + " fjernet som se-også fra " + tmp.term);
-                            tmp.endret();
-                        }
+                        removeRelated(currentTerm, tmp);
                     }
                 } else {
                     // fins det flere
@@ -4631,30 +4640,10 @@ public class Sonjavindu extends javax.swing.JFrame {
                         String idbort = Sonja.getID(selectedValue);
                         Term tmp = Sonja.getTerm(idbort);
                         if (tmp != null) {
-                            mld.add(tmp.term + " fjernet som se-også fra " + currentTerm.term);
-                        }
-                        currentTerm.fjernso(idbort);
-                        currentTerm.endret();
-                        if (tmp != null && tmp.harseog(currentTerm.minID)) {
-                            int svar = JOptionPane.showConfirmDialog(null,
-                                    "Skal programmet fjerne invers se også-relasjon?",
-                                    "Invers relasjon", JOptionPane.YES_NO_OPTION);
-                            if (svar == JOptionPane.YES_OPTION) {
-                                tmp.fjernso(currentTerm.minID);
-                                mld.add(currentTerm.term + " fjernet som se-også fra " + tmp.term);
-                                tmp.endret();
-
-                            }
+                            removeRelated(currentTerm, tmp);
                         }
                     }
                 }
-                if (mld.size() > 0) {
-                    for (int i = 0; i < mld.size() - 1; i++) {
-                        endringsrutiner(mld.get(i), currentTerm);
-                    }
-                    endringsrutiner(mld.get(mld.size() - 1), currentTerm);
-                }
-
             }
         }
     }
