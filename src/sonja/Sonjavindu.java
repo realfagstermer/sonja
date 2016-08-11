@@ -4322,9 +4322,9 @@ public class Sonjavindu extends javax.swing.JFrame {
 	try (Database db = new Database()) {
 	    db.addRelation(concept1, concept2, related);
 	    concept1.nyseog(concept2.minID);
-	    endringsrutiner(concept1.term + " har fått ny se også term " + concept2.term, concept1);
+	    endringsrutiner(concept1.term + " har fått ny se også term " + concept2.term, currentTerm);
 	    Sonja.sjekkinversseog(concept1.minID, concept2.minID);
-	    fylltermskjema(currentTerm);
+	    fylltermskjema(concept1);
 	} catch (SQLException e) {
 	    melding("Feil ved lagring:", e.getMessage());
 	}
@@ -4334,7 +4334,7 @@ public class Sonjavindu extends javax.swing.JFrame {
 	try (Database db = new Database()) {
 	    db.removeRelation(concept1, concept2, related);
 	    concept1.fjernso(concept2.minID);
-	    endringsrutiner(concept2.term + " fjernet som se-også fra " + concept1.term, concept1);
+	    endringsrutiner(concept2.term + " fjernet som se-også fra " + concept1.term, currentTerm);
 
 	    if (concept2.harseog(concept1.minID)) {
 		int svar = JOptionPane.showConfirmDialog(null,
@@ -4343,7 +4343,7 @@ public class Sonjavindu extends javax.swing.JFrame {
 		if (svar == JOptionPane.YES_OPTION) {
 		    db.removeRelation(concept2, concept1, related);
 		    concept2.fjernso(concept1.minID);
-		    endringsrutiner(concept1.term + " fjernet som se-også fra " + concept2.term, concept2);
+		    endringsrutiner(concept1.term + " fjernet som se-også fra " + concept2.term, currentTerm);
 		}
 	    }
 
@@ -4406,9 +4406,9 @@ public class Sonjavindu extends javax.swing.JFrame {
 	    db.addRelation(concept1, concept2, broader);
 	    concept1.nyoverordnet(concept2.minID);
 	    concept2.nyunderordnet(concept1.minID); // inverse
-	    endringsrutiner(concept1.term + " har fått ny overordnet term " + concept2.term, concept1);
+	    endringsrutiner(concept1.term + " har fått ny overordnet term " + concept2.term, currentTerm);
 	    // Sonja.sjekkinversot(currentTerm.minID, newterm.minID);
-	    fylltermskjema(currentTerm);
+	    // fylltermskjema(currentTerm);
 	} catch (SQLException e) {
 	    melding("Feil ved lagring:", e.getMessage());
 	}
@@ -4532,9 +4532,9 @@ public class Sonjavindu extends javax.swing.JFrame {
 	    Sonja.lokarbytt(concept.type, fra, til, concept.minID);
 	    // Sonja.bibsyshuskeliste.add(mld);
 	    vindu.addtologg(concept.type + ": " + fra + " må endres til " + til, false);
-	    endringsrutiner(concept.type + ": " + fra + " er endret til " + til, concept);
+	    endringsrutiner(concept.type + ": " + fra + " er endret til " + til, currentTerm);
 
-	    fylltermskjema(currentTerm);
+	    // fylltermskjema(currentTerm);
 	} catch (SQLException e) {
 	    melding("Feil ved lagring:", e.getMessage());
 	}
@@ -4577,8 +4577,7 @@ public class Sonjavindu extends javax.swing.JFrame {
 	    db.removeRelation(concept1, concept2, broader);
 	    concept1.fjernot(concept2.minID);
 	    concept2.fjernut(concept1.minID); // inverse
-	    endringsrutiner(concept1.term + " fjernet som overordnet fra " + concept2.term, concept1);
-	    fylltermskjema(currentTerm);
+	    endringsrutiner(concept1.term + " fjernet som overordnet fra " + concept2.term, currentTerm);
 	} catch (SQLException e) {
 	    melding("Feil ved lagring:", e.getMessage());
 	}
