@@ -54,23 +54,25 @@ public class Database implements AutoCloseable {
 
     public void setPreferred(Term concept, String from, String to, Locale locale) throws SQLException {
 	connection.setAutoCommit(false);
-	PreparedStatement statement = connection
-		.prepareStatement("UPDATE terms SET status = ? WHERE concept_id = ? AND lang_id = ? AND lexical_value = ?;");
 
-	// Set new preferred
-	statement.setString(1, preferred.toString());
-	statement.setInt(2, concept.getConceptId());
-	statement.setString(3, locale.getLanguage());
-	statement.setString(4, to);
-	statement.executeUpdate();
+	try (PreparedStatement statement = connection
+		.prepareStatement("UPDATE terms SET status = ? WHERE concept_id = ? AND lang_id = ? AND lexical_value = ?;")) {
+	    // Set new preferred
+	    statement.setString(1, preferred.toString());
+	    statement.setInt(2, concept.getConceptId());
+	    statement.setString(3, locale.getLanguage());
+	    statement.setString(4, to);
+	    statement.executeUpdate();
 
-	// Set the non_pref
-	statement.setString(1, non_pref.toString());
-	statement.setString(4, from);
-	statement.executeUpdate();
-	connection.commit();
-	connection.setAutoCommit(true);
-	updateModified(concept);
+	    // Set the non_pref
+	    statement.setString(1, non_pref.toString());
+	    statement.setString(4, from);
+	    statement.executeUpdate();
+	    updateModified(concept);
+	    connection.commit();
+	} finally {
+	    connection.setAutoCommit(true);
+	}
     }
 
     public void getConcept(ResultSet rs, PreparedStatement termsStmt) throws SQLException {
