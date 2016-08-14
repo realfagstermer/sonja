@@ -17,6 +17,9 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
+import java.util.Locale;
+
 import javax.swing.JColorChooser;
 import javax.swing.JOptionPane;
 import javax.swing.ListModel;
@@ -30,6 +33,10 @@ import static sonja.RelationType.*;
  */
 public class Sonjavindu extends javax.swing.JFrame {
 
+    static final Locale en = new Locale("en");
+    static final Locale nb = new Locale("nb");
+    static final Locale nn = new Locale("nn");
+    static final Locale la = new Locale("la");
     public static String listefokus = "term";
     public static boolean strengesok = false;
     private String[] tomliste = new String[0];
@@ -4659,9 +4666,9 @@ public class Sonjavindu extends javax.swing.JFrame {
 		boolean success = false;
 		
 		if (currentTerm.harengelsk()) {
-		    success = addTerm(currentTerm, nyengelsk, non_pref, "en");
+		    success = addTerm(currentTerm, nyengelsk, non_pref, en);
 		} else {
-		    success = addTerm(currentTerm, nyengelsk, preferred, "en");
+		    success = addTerm(currentTerm, nyengelsk, preferred, en);
 		}
 		
 		if (success) {
@@ -4674,13 +4681,29 @@ public class Sonjavindu extends javax.swing.JFrame {
         }
     }
 
-    private boolean addTerm(Term concept, String term, TermStatus status, String lang) {
+    private boolean addTerm(Term concept, String term, TermStatus status, Locale locale) {
 	try (Database db = new Database()) {
-	    db.addTerm(concept, term, status, lang);
+	    db.addTerm(concept, term, status, locale);
 	    return true;
 	} catch (SQLException e) {
 	    melding("Feil ved lagring:", e.getMessage());
 	    return false;
+	}
+    }
+    
+    private void removeTerm(Term concept, String lexicalValue, Locale locale) {
+	try (Database db = new Database()) {
+	    List<String> terms = concept.getTerms(locale);
+
+	    if (concept.isPreferred(lexicalValue, locale) && terms.size() > 1) {// must promote a non_pref term
+		db.setPreferred(concept, lexicalValue, terms.get(1), locale);
+	    }
+
+	    db.removeTerm(concept, lexicalValue, locale);
+	    terms.remove(lexicalValue);
+	    endringsrutiner("fjernet " + locale + " " + lexicalValue + " i " + currentTerm.term, currentTerm);
+	} catch (SQLException e) {
+	    melding("Feil ved lagring:", e.getMessage());
 	}
     }
 
@@ -4689,13 +4712,9 @@ public class Sonjavindu extends javax.swing.JFrame {
             int antall = currentTerm.engelsk.size();
             // fins det noen i det hele tatt
             if (antall > 0) {
-                String mld = null;
                 if (antall == 1) {
                     // fins det bare en
-                    mld = "fjernet engelsk "
-                            + currentTerm.engelsk.get(0)
-                            + " i " + currentTerm.term;
-                    currentTerm.engelsk = new ArrayList<String>();
+		    removeTerm(currentTerm, currentTerm.getTerms(en).get(0), en);
                 } else {
                     // fins det flere
                     String[] liste = new String[antall];
@@ -4707,18 +4726,13 @@ public class Sonjavindu extends javax.swing.JFrame {
                             JOptionPane.INFORMATION_MESSAGE, null,
                             liste, liste[0]);
                     if (selectedValue != null) {
-                        mld = "fjernet engelsk "
-                                + selectedValue + " i " + currentTerm.term;
-                        currentTerm.fjernengelsk(selectedValue);
-                    }
-                }
-                if (mld != null) {
-                    endringsrutiner(mld, currentTerm);
-                    if (currentTerm.engelsk.size() > 0) {
-                        visvalgtinfo("engelsk", currentTerm);
+                	removeTerm(currentTerm, selectedValue, en);
                     }
                 }
 
+		if (currentTerm.engelsk.size() > 0) {
+		    visvalgtinfo("engelsk", currentTerm);
+		}
             }
         }
     }

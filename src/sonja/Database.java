@@ -6,6 +6,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Locale;
+
 import static sonja.TermStatus.*;
 
 /**
@@ -50,7 +52,7 @@ public class Database implements AutoCloseable {
 	}
     }
 
-    public void setPreferred(Term concept, String from, String to, String lang) throws SQLException {
+    public void setPreferred(Term concept, String from, String to, Locale locale) throws SQLException {
 	connection.setAutoCommit(false);
 	PreparedStatement statement = connection
 		.prepareStatement("UPDATE terms SET status = ? WHERE concept_id = ? AND lang_id = ? AND lexical_value = ?;");
@@ -58,7 +60,7 @@ public class Database implements AutoCloseable {
 	// Set new preferred
 	statement.setString(1, preferred.toString());
 	statement.setInt(2, concept.getConceptId());
-	statement.setString(3, lang);
+	statement.setString(3, locale.getLanguage());
 	statement.setString(4, to);
 	statement.executeUpdate();
 
@@ -93,21 +95,21 @@ public class Database implements AutoCloseable {
 	return t;
     }
 
-    public void addTerm(Term concept, String lexicalValue, TermStatus status, String lang) throws SQLException {
+    public void addTerm(Term concept, String lexicalValue, TermStatus status, Locale locale) throws SQLException {
 	PreparedStatement statement = connection.prepareStatement("INSERT INTO terms (concept_id,status,lexical_value,lang_id) VALUES (?,?,?,?);");
 	statement.setInt(1, concept.getConceptId());
 	statement.setString(2, status.toString());
 	statement.setString(3, lexicalValue);
-	statement.setString(4, lang);
+	statement.setString(4, locale.getLanguage());
 	statement.executeUpdate();
 	updateModified(concept);
     }
 
-    public void removeTerm(Term concept, String lexicalValue, String language) throws SQLException {
+    public void removeTerm(Term concept, String lexicalValue, Locale locale) throws SQLException {
 	PreparedStatement statement = connection.prepareStatement("DELETE FROM terms WHERE concept_id=? AND lexical_value=? AND lang_id=?;");
 	statement.setInt(1, concept.getConceptId());
 	statement.setString(2, lexicalValue);
-	statement.setString(3, language);
+	statement.setString(3, locale.getLanguage());
 	statement.executeUpdate();
 	updateModified(concept);
     }

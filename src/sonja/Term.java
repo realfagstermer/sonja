@@ -14,6 +14,8 @@ import java.sql.Statement;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+import java.util.Locale;
 
 /**
  *
@@ -2043,8 +2045,9 @@ public class Term implements Comparable {
 		while (results.next()) {
 		    String label = results.getString("lexical_value");
 		    String status = results.getString("status").trim();
-
-		    switch (results.getString("lang_id").trim()) {
+		    final String lang = results.getString("lang_id").trim();
+		    
+		    switch (lang) {
 		    case "nb":
 			if ("preferred".equals(status)) {
 			    term = label;
@@ -2063,7 +2066,7 @@ public class Term implements Comparable {
 			latin.add(label);
 			break;
 		    default:
-			System.out.printf("Error: unknown language: '%s'\n", type);
+			System.out.printf("Error: unknown language: '%s'\n", lang);
 		    }
 		}
 	    }
@@ -2072,6 +2075,22 @@ public class Term implements Comparable {
 	}
     }
 
+    public List<String> getTerms(Locale lang) {
+	switch (lang.getLanguage()) {
+	case "nb":
+	    return synonymer;
+	case "nn":
+	    return nynorsk;
+	case "en":
+	    return engelsk;
+	case "la":
+	    return latin;
+	default:
+	    System.out.printf("Error: unknown language: '%s'\n", lang.getLanguage());
+	    return new ArrayList<>();
+	}
+    }
+    
     static String makeId(final int id) {
 	int padding = (Sonja.vokabular.equals("REAL") ? 6 : 5);// todo: fetch from database, support ujur
 	return String.format("%s%0" + padding + "d", Sonja.vokabular, id);
@@ -2080,4 +2099,9 @@ public class Term implements Comparable {
     public int getConceptId() {
         return conceptId;
     }
+
+    public boolean isPreferred(String lexicalValue, Locale lang) {
+	return getTerms(lang).indexOf(lexicalValue) == 0;
+    }
+
 }

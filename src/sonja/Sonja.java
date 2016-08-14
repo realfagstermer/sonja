@@ -28,6 +28,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Properties;
 
 import javax.imageio.ImageIO;
@@ -3457,7 +3458,7 @@ public class Sonja {
         return retval;
     }
 
-    static String getDefaultLanguage() {
-	return defaultLanguage;
+    static Locale getDefaultLanguage() {
+	return new Locale(defaultLanguage);
     }
 }
