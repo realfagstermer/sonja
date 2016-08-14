@@ -3222,19 +3222,19 @@ public class Sonja {
             if (valg.equals("Legge til nynorsk")) {
                 vindu.leggetilnynorsk();
             } else if (valg.equals("Fjerne nynorsk")) {
-                vindu.fjernenynorsk();
+                vindu.removeTerm(Sonjavindu.nn);
             } else if (valg.equals("Endre nynorsk")) {
                 vindu.bestempreflabel("nynorsk");
             } else if (valg.equals("Legge til engelsk")) {
                 vindu.leggetilengelsk();
             } else if (valg.equals("Fjerne engelsk")) {
-                vindu.fjerneengelsk();
+                vindu.removeTerm(Sonjavindu.en);
             } else if (valg.equals("Endre engelsk")) {
                 vindu.bestempreflabel("engelsk");
             } else if (valg.equals("Legge til latin")) {
                 vindu.leggetillatin();
             } else if (valg.equals("Fjerne latin")) {
-                vindu.fjernelatin();
+        	vindu.removeTerm(Sonjavindu.la);
             } else if (valg.equals("Endre latin")) {
                 vindu.bestempreflabel("latin");
             } else if (valg.equals("Legge til forkortelse")) {

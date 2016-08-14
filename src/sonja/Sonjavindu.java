@@ -2581,7 +2581,7 @@ public class Sonjavindu extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton15ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton15ActionPerformed
-        fjerneengelsk();
+	removeTerm(en);
     }//GEN-LAST:event_jButton15ActionPerformed
 
     private void jButton16ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton16ActionPerformed
@@ -2589,7 +2589,7 @@ public class Sonjavindu extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton16ActionPerformed
 
     private void jButton17ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton17ActionPerformed
-        fjernelatin();
+	removeTerm(la);
     }//GEN-LAST:event_jButton17ActionPerformed
 
     private void jButton18ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton18ActionPerformed
@@ -2597,7 +2597,7 @@ public class Sonjavindu extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton18ActionPerformed
 
     private void jButton19ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton19ActionPerformed
-        fjernenynorsk();
+	removeTerm(nn);
     }//GEN-LAST:event_jButton19ActionPerformed
 
     private void jMenuItem10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem10ActionPerformed
@@ -4707,32 +4707,30 @@ public class Sonjavindu extends javax.swing.JFrame {
 	}
     }
 
-    public void fjerneengelsk() {
+    public void removeTerm(Locale locale) {
         if (currentTerm != null) {
-            int antall = currentTerm.engelsk.size();
+            List<String> terms = currentTerm.getTerms(locale);
+            int antall = terms.size();
             // fins det noen i det hele tatt
             if (antall > 0) {
                 if (antall == 1) {
                     // fins det bare en
-		    removeTerm(currentTerm, currentTerm.getTerms(en).get(0), en);
+		    removeTerm(currentTerm, currentTerm.getTerms(locale).get(0), locale);
                 } else {
                     // fins det flere
-                    String[] liste = new String[antall];
-                    for (int i = 0; i < antall; i++) {
-                        liste[i] = currentTerm.engelsk.get(i);
-                    }
+		    String[] liste = terms.toArray(new String[antall]);
                     String selectedValue = (String) JOptionPane.showInputDialog(null,
                             "Velg term som skal fjernes", "Fjerne term",
                             JOptionPane.INFORMATION_MESSAGE, null,
                             liste, liste[0]);
                     if (selectedValue != null) {
-                	removeTerm(currentTerm, selectedValue, en);
+                	removeTerm(currentTerm, selectedValue, locale);
                     }
                 }
-
-		if (currentTerm.engelsk.size() > 0) {
-		    visvalgtinfo("engelsk", currentTerm);
-		}
+//
+//		if (currentTerm.engelsk.size() > 0) {
+//		    visvalgtinfo("engelsk", currentTerm);
+//		}
             }
         }
     }
@@ -4757,44 +4755,6 @@ public class Sonjavindu extends javax.swing.JFrame {
         }
     }
 
-    public void fjernenynorsk() {
-        if (currentTerm != null) {
-            int antall = currentTerm.nynorsk.size();
-            // fins det noen i det hele tatt
-            if (antall > 0) {
-                String mld = null;
-                if (antall == 1) {
-                    // fins det bare en
-                    mld = "fjernet nynorsk "
-                            + currentTerm.nynorsk.get(0) + " i " + currentTerm.term;
-                    currentTerm.nynorsk = new ArrayList<String>();
-                } else {
-                    // fins det flere
-                    String[] liste = new String[antall];
-                    for (int i = 0; i < antall; i++) {
-                        liste[i] = currentTerm.nynorsk.get(i);
-                    }
-                    String selectedValue = (String) JOptionPane.showInputDialog(null,
-                            "Velg term som skal fjernes", "Fjerne term",
-                            JOptionPane.INFORMATION_MESSAGE, null,
-                            liste, liste[0]);
-                    if (selectedValue != null) {
-                        currentTerm.fjernnynorsk(selectedValue);
-                        mld = "fjernet nynorsk "
-                                + selectedValue + " i " + currentTerm.term;
-                    }
-                }
-                if (mld != null) {
-                    endringsrutiner(mld, currentTerm);
-                    if (currentTerm.nynorsk.size() > 0) {
-                        visvalgtinfo("nynorsk", currentTerm);
-                    }
-                }
-
-            }
-        }
-    }
-
     public void leggetillatin() {
         if (currentTerm != null) {
             // henter ny term fra bruker
@@ -4812,46 +4772,6 @@ public class Sonjavindu extends javax.swing.JFrame {
                 endringsrutiner(currentTerm.term + " har fått latintermen " + nyterm, currentTerm);
                 visvalgtinfo("latin", currentTerm);
                 jRadioButton8.setEnabled(true);
-            }
-        }
-    }
-
-    public void fjernelatin() {
-        if (currentTerm != null) {
-            int antall = currentTerm.latin.size();
-            // fins det noen i det hele tatt
-            if (antall > 0) {
-                String mld = null;
-                if (antall == 1) {
-                    // fins det bare en
-                    mld = "fjernet latin "
-                            + currentTerm.latin.get(0) + " i " + currentTerm.term;
-                    currentTerm.latin = new ArrayList<String>();
-                } else {
-                    // fins det flere
-                    String[] liste = new String[antall];
-                    for (int i = 0; i < antall; i++) {
-                        liste[i] = currentTerm.latin.get(i);
-                    }
-                    String selectedValue = (String) JOptionPane.showInputDialog(null,
-                            "Velg term som skal fjernes", "Fjerne latin",
-                            JOptionPane.INFORMATION_MESSAGE, null,
-                            liste, liste[0]);
-                    if (selectedValue != null) {
-                        currentTerm.fjernlatin(selectedValue);
-                        mld = "fjernet latin "
-                                + selectedValue + " i " + currentTerm.term;
-                        currentTerm.endret();
-
-                    }
-                }
-                if (mld != null) {
-                    endringsrutiner(mld, currentTerm);
-                    if (currentTerm.latin.size() > 0) {
-                        visvalgtinfo("latin", currentTerm);
-                    }
-                }
-
             }
         }
     }
