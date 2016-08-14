@@ -4743,15 +4743,25 @@ public class Sonjavindu extends javax.swing.JFrame {
                     "Legge til nynorsk",
                     JOptionPane.QUESTION_MESSAGE);
 
-            nyterm = Sonja.fjernmultipleblanke(nyterm);
+            nyterm = Sonja.storforbokstav(Sonja.fjernmultipleblanke(nyterm));
 
             // sjekker om strengen fins fra før på noen måte
-            if (nyterm != null) {
-                currentTerm.nynynorsk(Sonja.storforbokstav(nyterm));
-                endringsrutiner(currentTerm.term + " har fått nynorsktermen " + nyterm, currentTerm);
-                visvalgtinfo("nynorsk", currentTerm);
-                jRadioButton6.setEnabled(true);
-            }
+	    if (nyterm != null) {
+		boolean success = false;
+
+		if (currentTerm.harNynorsk()) {
+		    success = addTerm(currentTerm, nyterm, non_pref, nn);
+		} else {
+		    success = addTerm(currentTerm, nyterm, preferred, nn);
+		}
+
+		if (success) {
+		    currentTerm.nynynorsk(nyterm);
+		    endringsrutiner(currentTerm.term + " har fått nynorsktermen " + nyterm, currentTerm);
+		    visvalgtinfo("nynorsk", currentTerm);
+		    jRadioButton6.setEnabled(true);
+		}
+	    }
         }
     }
 
