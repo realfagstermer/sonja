@@ -3220,19 +3220,19 @@ public class Sonja {
         }
         if (kilde.equals("multi")) {
             if (valg.equals("Legge til nynorsk")) {
-                vindu.leggetilnynorsk();
+        	vindu.addTerm(Sonjavindu.nn);
             } else if (valg.equals("Fjerne nynorsk")) {
                 vindu.removeTerm(Sonjavindu.nn);
             } else if (valg.equals("Endre nynorsk")) {
                 vindu.bestempreflabel("nynorsk");
             } else if (valg.equals("Legge til engelsk")) {
-                vindu.leggetilengelsk();
+                vindu.addTerm(Sonjavindu.en);
             } else if (valg.equals("Fjerne engelsk")) {
                 vindu.removeTerm(Sonjavindu.en);
             } else if (valg.equals("Endre engelsk")) {
                 vindu.bestempreflabel("engelsk");
             } else if (valg.equals("Legge til latin")) {
-                vindu.leggetillatin();
+                vindu.addTerm(Sonjavindu.la);
             } else if (valg.equals("Fjerne latin")) {
         	vindu.removeTerm(Sonjavindu.la);
             } else if (valg.equals("Endre latin")) {
@@ -3458,7 +3458,24 @@ public class Sonja {
         return retval;
     }
 
+    public static String getLanguage(Locale locale) {
+	switch (locale.getLanguage()) {
+	case "nb":
+	    return "bokmål";
+	case "nn":
+	    return "nynorsk";
+	case "en":
+	    return "engelsk";
+	case "la":
+	    return "latin";
+	default:
+	    System.out.printf("Error: unknown language: '%s'\n", locale.getLanguage());
+	    return "";
+	}
+    }
+    
     static Locale getDefaultLanguage() {
 	return new Locale(defaultLanguage);
     }
+
 }

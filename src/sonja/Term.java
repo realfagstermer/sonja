@@ -728,8 +728,8 @@ public class Term implements Comparable {
         return engelsk.size() > 0;
     }
     
-    public boolean harNynorsk() {
-        return nynorsk.size() > 0;
+    public boolean hasTerm(Locale locale) {
+        return getTerms(locale).size() > 0;
     }
 
     public boolean harseog(String seogid) {

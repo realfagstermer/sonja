@@ -2569,7 +2569,7 @@ public class Sonjavindu extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton12ActionPerformed
 
     private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
-        leggetilengelsk();
+	addTerm(en);
     }//GEN-LAST:event_jButton10ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -2585,7 +2585,7 @@ public class Sonjavindu extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton15ActionPerformed
 
     private void jButton16ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton16ActionPerformed
-        leggetillatin();
+	addTerm(la);
     }//GEN-LAST:event_jButton16ActionPerformed
 
     private void jButton17ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton17ActionPerformed
@@ -2593,7 +2593,7 @@ public class Sonjavindu extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton17ActionPerformed
 
     private void jButton18ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton18ActionPerformed
-        leggetilnynorsk();
+	addTerm(nn);
     }//GEN-LAST:event_jButton18ActionPerformed
 
     private void jButton19ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton19ActionPerformed
@@ -2625,15 +2625,15 @@ public class Sonjavindu extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItem14ActionPerformed
 
     private void jTextArea5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTextArea5MouseClicked
-        leggetilengelsk();
+        addTerm(en);
     }//GEN-LAST:event_jTextArea5MouseClicked
 
     private void jTextArea6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTextArea6MouseClicked
-        leggetillatin();
+	addTerm(la);
     }//GEN-LAST:event_jTextArea6MouseClicked
 
     private void jTextArea7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTextArea7MouseClicked
-        leggetilnynorsk();
+	addTerm(nn);
     }//GEN-LAST:event_jTextArea7MouseClicked
 
     private void jTextArea9MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTextArea9MouseClicked
@@ -2959,11 +2959,11 @@ public class Sonjavindu extends javax.swing.JFrame {
             Feltvalgmeny fvm = new Feltvalgmeny(multifeltvalg, new PopoppAksjon("multi"));
             fvm.show(evt.getComponent(), evt.getX(), evt.getY());
         } else if (jRadioButton6.isSelected()) {
-            leggetilnynorsk();
+            addTerm(nn);
         } else if (jRadioButton7.isSelected()) {
-            leggetilengelsk();
+            addTerm(en);
         } else if (jRadioButton8.isSelected()) {
-            leggetillatin();
+            addTerm(la);
         } else if (jRadioButton9.isSelected()) {
             leggetilakronym();
         } else if (jRadioButton10.isSelected()) {
@@ -4654,31 +4654,33 @@ public class Sonjavindu extends javax.swing.JFrame {
         }
     }
 
-    public void leggetilengelsk() {
-        if (currentTerm != null) {
-            // henter ny term fra bruker
-            String nyengelsk = (String) JOptionPane.showInputDialog(null,
-                    "Oppgi ny engelsk term",
-                    "Legge til engelsk",
-                    JOptionPane.QUESTION_MESSAGE);
-            nyengelsk = Sonja.storforbokstav(Sonja.fjernmultipleblanke(nyengelsk));
-	    if (nyengelsk != null) {
+    public void addTerm(Locale locale) {
+	if (currentTerm != null) {
+	    // String language = locale.getDisplayLanguage(nb);//Norwegian names not supported?
+	    String language = Sonja.getLanguage(locale);
+	    // henter ny term fra bruker
+	    String nyterm = (String) JOptionPane.showInputDialog(null,
+		    "Oppgi ny " + language + " term",
+		    "Legge til " + language,
+		    JOptionPane.QUESTION_MESSAGE);
+	    nyterm = Sonja.storforbokstav(Sonja.fjernmultipleblanke(nyterm));
+
+	    if (nyterm != null) {
 		boolean success = false;
-		
-		if (currentTerm.harengelsk()) {
-		    success = addTerm(currentTerm, nyengelsk, non_pref, en);
+
+		if (currentTerm.hasTerm(locale)) {
+		    success = addTerm(currentTerm, nyterm, non_pref, locale);
 		} else {
-		    success = addTerm(currentTerm, nyengelsk, preferred, en);
+		    success = addTerm(currentTerm, nyterm, preferred, locale);
 		}
-		
+
 		if (success) {
-		    currentTerm.nyengelsk(nyengelsk);
-		    endringsrutiner(currentTerm.term + " har fått engelsktermen " + nyengelsk, currentTerm);
-		    visvalgtinfo("engelsk", currentTerm);
-		    jRadioButton7.setEnabled(true);
+		    currentTerm.getTerms(locale).add(nyterm);
+		    endringsrutiner(currentTerm.term + " har fått " + language + "-termen " + nyterm, currentTerm);
+		    visvalgtinfo(language, currentTerm);
 		}
 	    }
-        }
+	}
     }
 
     private boolean addTerm(Term concept, String term, TermStatus status, Locale locale) {
@@ -4727,61 +4729,10 @@ public class Sonjavindu extends javax.swing.JFrame {
                 	removeTerm(currentTerm, selectedValue, locale);
                     }
                 }
-//
-//		if (currentTerm.engelsk.size() > 0) {
-//		    visvalgtinfo("engelsk", currentTerm);
-//		}
-            }
-        }
-    }
 
-    public void leggetilnynorsk() {
-        if (currentTerm != null) {
-            // henter ny term fra bruker
-            String nyterm = (String) JOptionPane.showInputDialog(null,
-                    "Oppgi ny nynorsk term",
-                    "Legge til nynorsk",
-                    JOptionPane.QUESTION_MESSAGE);
-
-            nyterm = Sonja.storforbokstav(Sonja.fjernmultipleblanke(nyterm));
-
-            // sjekker om strengen fins fra før på noen måte
-	    if (nyterm != null) {
-		boolean success = false;
-
-		if (currentTerm.harNynorsk()) {
-		    success = addTerm(currentTerm, nyterm, non_pref, nn);
-		} else {
-		    success = addTerm(currentTerm, nyterm, preferred, nn);
+		if (terms.size() > 0) {
+		    visvalgtinfo(Sonja.getLanguage(locale), currentTerm);
 		}
-
-		if (success) {
-		    currentTerm.nynynorsk(nyterm);
-		    endringsrutiner(currentTerm.term + " har fått nynorsktermen " + nyterm, currentTerm);
-		    visvalgtinfo("nynorsk", currentTerm);
-		    jRadioButton6.setEnabled(true);
-		}
-	    }
-        }
-    }
-
-    public void leggetillatin() {
-        if (currentTerm != null) {
-            // henter ny term fra bruker
-            String nyterm = (String) JOptionPane.showInputDialog(null,
-                    "Oppgi ny latinsk term",
-                    "Legge til latin",
-                    JOptionPane.QUESTION_MESSAGE);
-
-            nyterm = Sonja.fjernmultipleblanke(nyterm);
-
-            // sjekker om strengen fins fra før på noen måte
-            if (nyterm != null) {
-                Sonja.gjortendringer = true;
-                currentTerm.nylatin(Sonja.storforbokstav(nyterm));
-                endringsrutiner(currentTerm.term + " har fått latintermen " + nyterm, currentTerm);
-                visvalgtinfo("latin", currentTerm);
-                jRadioButton8.setEnabled(true);
             }
         }
     }
