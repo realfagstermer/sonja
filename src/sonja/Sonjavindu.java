@@ -4738,6 +4738,7 @@ public class Sonjavindu extends javax.swing.JFrame {
     }
 
     public void leggetilakronym() {
+	/*
         if (currentTerm != null) {
             // henter ny term fra bruker
             String nyterm = (String) JOptionPane.showInputDialog(null,
@@ -4757,9 +4758,11 @@ public class Sonjavindu extends javax.swing.JFrame {
 //            }
             }
         }
+*/
     }
 
     public void fjerneakronym() {
+	/*
         String mld = null;
         if (currentTerm != null) {
             int antall = currentTerm.akronymer.size();
@@ -4795,6 +4798,7 @@ public class Sonjavindu extends javax.swing.JFrame {
             }
 
         }
+        */
     }
 
     private String slaasammentobegreper() {
