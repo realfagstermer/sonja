@@ -175,7 +175,7 @@ public class Sonja {
 //    static String WEBDATA = "/Users/knutsen/Prosjekter/Sonja/data/";
     final static Properties config = new Properties();
     final static HashMap<Integer, Term> conceptsById = new HashMap<>();
-    private static String defaultLanguage = "nb";
+    private static Locale defaultLanguage = Sonjavindu.nb;
     
     static {// initialize config
 	try (InputStream in = Sonja.class.getResourceAsStream("/resources/config.properties")) {
@@ -199,7 +199,7 @@ public class Sonja {
             System.exit(0);
         }
         if (vokabular.equals("SMR")) {
-	    defaultLanguage = "en";
+	    defaultLanguage = Sonjavindu.en;
             BASEFOLDER = "Z:/mr/";
             FORSLAG = "Z:/mr/";
             WEBDATA = "Z:/mr/";
@@ -3475,7 +3475,7 @@ public class Sonja {
     }
     
     static Locale getDefaultLanguage() {
-	return new Locale(defaultLanguage);
+	return defaultLanguage;
     }
 
 }
