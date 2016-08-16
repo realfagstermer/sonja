@@ -4165,30 +4165,6 @@ public class Sonjavindu extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField9;
     // End of variables declaration//GEN-END:variables
 
-    public void lagreterm() {
-        Term t = new Term();
-        boolean ernyterm = false;
-        // samle opp og sjekke hvert enkelt felt
-        String id = jLabel2.getText();
-        if (id == null || id.equals("")) {
-            ernyterm = true;
-        }
-        // sjekke termtype
-        if (!Sonja.korrekttermtype(jTextField2.getText())) {
-            melding("Feil termtype",
-                    "Termtypen må være en av disse:\n"
-                    + "term, form, tid, sted\n"
-                    + "store/små bokstaver likegyldig.");
-        }
-        // Sjekke om termen fins som term/form/tid/sted/synonym fra før
-        Term[] liste = Sonja.finsfratidligere(jTextField3.getText());
-        if (liste != null) {
-            Term t1 = liste[0];
-            melding("Fins fra før", "\"" + t1.term + "\"" + " er " + t1.type);
-        }
-
-    }
-
     public void leggetilsehenvisning() {
         if (currentTerm != null) {
             // henter se-henvisning fra bruker
