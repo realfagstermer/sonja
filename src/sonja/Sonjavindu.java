@@ -4847,22 +4847,22 @@ public class Sonjavindu extends javax.swing.JFrame {
 
     public void leggetilmsc() {
         if (currentTerm != null) {
-            String mld = null;
             //String note = currentTerm.msc;
             String selectedValue = (String) JOptionPane.showInputDialog(null,
                     "Skriv inn ny MSC", null);
             //note);
             selectedValue = Sonja.fjernmultipleblanke(selectedValue);
             if (selectedValue != null) {
+		try (Database db = new Database()) {
+		    db.addMapping(currentTerm, selectedValue, ExternalVocabulary.msc1970);
+		    currentTerm.msc.add(selectedValue);
 
-                currentTerm.msc.add(selectedValue);
-                mld = currentTerm.term + " har fått MSC " + selectedValue;
-                jRadioButton10.setEnabled(true);
+		    endringsrutiner(currentTerm.term + " har fått MSC " + selectedValue, currentTerm);
+		    visvalgtinfo("msc", currentTerm);
+		} catch (SQLException e) {
+		    melding("Feil ved lagring:", e.getMessage());
+		}
 
-            }
-            if (mld != null) {
-                endringsrutiner(mld, currentTerm);
-                visvalgtinfo("msc", currentTerm);
             }
 
         }

@@ -1063,6 +1063,7 @@ public class Sonja {
 	    }
 
 	    initRelationships(db);
+	    initMappings(db);
 	    initStringsFromSql(db);
 	    
 	    StringBuilder sb = new StringBuilder("Oppstart:\n");
@@ -1087,6 +1088,28 @@ public class Sonja {
 	}
     }
 
+    private static void initMappings(Database db) throws SQLException {
+	try (PreparedStatement statement = db.prepareStatement("SELECT * FROM mappings;");
+		ResultSet results = statement.executeQuery()) {
+	    while (results.next()) {
+		final ExternalVocabulary vocab = ExternalVocabulary.valueOf(results.getString("target_vocabulary_id"));
+		final Term source = conceptsById.get(results.getInt("source_concept_id"));
+		final String target = results.getString("target_concept_id");
+
+		switch (vocab) {
+		case ddc23:
+		    source.dewey.add(target);
+		    break;
+		case msc1970:
+		    source.msc.add(target);
+		    break;
+		default:
+		    System.out.printf("Unknown vocabulary: %s\n", vocab);
+		    break;
+		}
+	    }
+	}
+    }
 
     private static void initRelationships(Database db) throws SQLException {
 	final String queryRel = "SELECT c1.external_id AS id1, c2.external_id AS id2, rel_type\n" +

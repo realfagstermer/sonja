@@ -136,6 +136,17 @@ public class Database implements AutoCloseable {
 	updateModified(concept2);
     }
 
+    public void addMapping(Term source, String target, ExternalVocabulary vocab) throws SQLException {
+	PreparedStatement statement = prepareStatement(
+		"INSERT INTO mappings (source_concept_id, target_concept_id, target_vocabulary_id, mapping_relation) VALUES (?,?,?,?);");
+	statement.setInt(1, source.getConceptId());
+	statement.setString(2, target);
+	statement.setString(3, vocab.toString());
+	statement.setString(4, "close"); // todo: support other mapping relations
+	statement.executeUpdate();
+	updateModified(source);
+    }
+
     private void updateModified(Term concept) throws SQLException {
 	PreparedStatement statement = connection.prepareStatement("UPDATE concepts SET modified = CURRENT_TIMESTAMP WHERE concept_id = ?;");
 	statement.setInt(1, concept.getConceptId());
