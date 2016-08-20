@@ -4873,39 +4873,36 @@ public class Sonjavindu extends javax.swing.JFrame {
             int antall = currentTerm.msc.size();
             // fins det noen i det hele tatt
             if (antall > 0) {
-                String mld = null;
                 if (antall == 1) {
                     // fins det bare en
-                    mld = "fjernet msc "
-                            + currentTerm.msc.get(0) + " i " + currentTerm.term;
-                    currentTerm.msc = new ArrayList<String>();
+                    removeMsc(currentTerm.msc.get(0));
                 } else {
                     // fins det flere
-                    String[] liste = new String[antall];
-                    for (int i = 0; i < antall; i++) {
-                        liste[i] = currentTerm.msc.get(i);
-                    }
+		    String[] liste = currentTerm.msc.toArray(new String[antall]);
                     String selectedValue = (String) JOptionPane.showInputDialog(null,
                             "Velg term som skal fjernes", "Fjerne MSC",
                             JOptionPane.INFORMATION_MESSAGE, null,
                             liste, liste[0]);
                     if (selectedValue != null) {
-                        currentTerm.fjernmsc(selectedValue);
-                        mld = "fjernet msc "
-                                + selectedValue + " i " + currentTerm.term;
-                        currentTerm.endret();
-
+			removeMsc(selectedValue);
                     }
                 }
-                if (mld != null) {
-                    endringsrutiner(mld, currentTerm);
-                    if (currentTerm.msc.size() > 0) {
-                        visvalgtinfo("msc", currentTerm);
-                    }
-                }
-
             }
         }
+    }
+
+    private void removeMsc(String target) {
+	try (Database db = new Database()) {
+	    db.removeMapping(currentTerm, target, ExternalVocabulary.msc1970);
+	    currentTerm.fjernmsc(target);
+
+	    endringsrutiner("fjernet msc " + target + " i " + currentTerm.term, currentTerm);
+	    if (currentTerm.msc.size() > 0) {
+		visvalgtinfo("msc", currentTerm);
+	    }
+	} catch (SQLException e) {
+	    melding("Feil ved lagring:", e.getMessage());
+	}
     }
 
     public void leggetilddc() {
