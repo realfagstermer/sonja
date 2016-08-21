@@ -4907,22 +4907,21 @@ public class Sonjavindu extends javax.swing.JFrame {
 
     public void leggetilddc() {
         if (currentTerm != null) {
-            String mld = null;
             //String dewey = currentTerm.dewey;
             String selectedValue = (String) JOptionPane.showInputDialog(null,
                     "Skriv inn ny DDC", null);
             //dewey);
             selectedValue = Sonja.fjernmultipleblanke(selectedValue);
-            if (selectedValue != null) {
-                currentTerm.dewey.add(selectedValue);
-                mld = currentTerm.term + " har fått DDC " + selectedValue;
-                jRadioButton11.setEnabled(true);
-            }
-            if (mld != null) {
-                endringsrutiner(mld, currentTerm);
-                visvalgtinfo("dewey", currentTerm);
-            }
-
+	    if (selectedValue != null) {
+		try (Database db = new Database()) {
+		    db.addMapping(currentTerm, selectedValue, ExternalVocabulary.ddc23);
+		    currentTerm.dewey.add(selectedValue);
+		    endringsrutiner(currentTerm.term + " har fått DDC " + selectedValue, currentTerm);
+		    visvalgtinfo("dewey", currentTerm);
+		} catch (SQLException e) {
+		    melding("Feil ved lagring:", e.getMessage());
+		}
+	    }
         }
     }
 
@@ -4931,39 +4930,36 @@ public class Sonjavindu extends javax.swing.JFrame {
             int antall = currentTerm.dewey.size();
             // fins det noen i det hele tatt
             if (antall > 0) {
-                String mld = null;
                 if (antall == 1) {
                     // fins det bare en
-                    mld = "fjernet ddc "
-                            + currentTerm.dewey.get(0) + " i " + currentTerm.term;
-                    currentTerm.dewey = new ArrayList<String>();
+                    removeDdc(currentTerm.dewey.get(0));
                 } else {
                     // fins det flere
-                    String[] liste = new String[antall];
-                    for (int i = 0; i < antall; i++) {
-                        liste[i] = currentTerm.dewey.get(i);
-                    }
+                    String[] liste = currentTerm.dewey.toArray(new String[antall]);
                     String selectedValue = (String) JOptionPane.showInputDialog(null,
                             "Velg term som skal fjernes", "Fjerne DDC",
                             JOptionPane.INFORMATION_MESSAGE, null,
                             liste, liste[0]);
                     if (selectedValue != null) {
-                        currentTerm.fjernddc(selectedValue);
-                        mld = "fjernet DDC "
-                                + selectedValue + " i " + currentTerm.term;
-                        currentTerm.endret();
-
+			removeDdc(selectedValue);
                     }
                 }
-                if (mld != null) {
-                    endringsrutiner(mld, currentTerm);
-                    if (currentTerm.dewey.size() > 0) {
-                        visvalgtinfo("dewey", currentTerm);
-                    }
-                }
-
             }
         }
+    }
+
+    private void removeDdc(String target) {
+	try (Database db = new Database()) {
+	    db.removeMapping(currentTerm, target, ExternalVocabulary.ddc23);
+	    currentTerm.fjernddc(target);
+	    endringsrutiner("fjernet DDC " + target + " i " + currentTerm.term, currentTerm);
+
+	    if (currentTerm.dewey.size() > 0) {
+		visvalgtinfo("dewey", currentTerm);
+	    }
+	} catch (SQLException e) {
+	    melding("Feil ved lagring:", e.getMessage());
+	}
     }
 
     private void revideredefinisjon() {
