@@ -4969,12 +4969,15 @@ public class Sonjavindu extends javax.swing.JFrame {
                     "Skriv inn ny definisjon",
                     definisjon);
             if (selectedValue != null) {
-                if (selectedValue.equals("")) {
-                    currentTerm.definisjon = null;
-                } else {
-                    currentTerm.definisjon = Sonja.storforbokstav(selectedValue);
-                }
-                endringsrutiner("Definisjon endret for " + currentTerm.term, currentTerm);
+        	selectedValue=Sonja.storforbokstav(selectedValue.trim());
+        	
+		try (Database db = new Database()) {
+		    db.setDefinition(currentTerm, selectedValue);
+		    currentTerm.definisjon = selectedValue;
+		    endringsrutiner("Definisjon endret for " + currentTerm.term, currentTerm);
+		} catch (SQLException e) {
+		    melding("Feil ved lagring:", e.getMessage());
+		}
             }
         }
     }
@@ -4986,13 +4989,16 @@ public class Sonjavindu extends javax.swing.JFrame {
                     "Skriv inn ny intern note",
                     note);
             if (selectedValue != null) {
-                if (selectedValue.equals("")) {
-                    currentTerm.note = null;
-                } else {
-                    currentTerm.note = Sonja.storforbokstav(selectedValue);
-                }
+        	selectedValue=Sonja.storforbokstav(selectedValue.trim());
+        	
+		try (Database db = new Database()) {
+		    db.setNote(currentTerm, selectedValue);
+		    currentTerm.note = Sonja.storforbokstav(selectedValue);
+		    endringsrutiner("Intern note endret for " + currentTerm.term, currentTerm);
+		} catch (SQLException e) {
+		    melding("Feil ved lagring:", e.getMessage());
+		}
             }
-            endringsrutiner("Intern note endret for " + currentTerm.term, currentTerm);
         }
     }
 

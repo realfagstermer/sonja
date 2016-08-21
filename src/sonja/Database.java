@@ -158,6 +158,22 @@ public class Database implements AutoCloseable {
 	updateModified(source);
     }
 
+    public void setNote(Term concept, String note) throws SQLException {
+	PreparedStatement statement = prepareStatement("UPDATE concepts SET note=? WHERE concept_id=?;");
+	statement.setString(1, note);
+	statement.setInt(2, concept.getConceptId());
+	statement.executeUpdate();
+	updateModified(concept);
+    }
+
+    public void setDefinition(Term concept, String definition) throws SQLException {
+	PreparedStatement statement = prepareStatement("UPDATE concepts SET definition=? WHERE concept_id=?;");
+	statement.setString(1, definition);
+	statement.setInt(2, concept.getConceptId());
+	statement.executeUpdate();
+	updateModified(concept);
+    }
+
     private void updateModified(Term concept) throws SQLException {
 	PreparedStatement statement = connection.prepareStatement("UPDATE concepts SET modified = CURRENT_TIMESTAMP WHERE concept_id = ?;");
 	statement.setInt(1, concept.getConceptId());
