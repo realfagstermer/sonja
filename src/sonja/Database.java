@@ -88,7 +88,7 @@ public class Database implements AutoCloseable {
 		rs.getInt("concept_id"),
 		rs.getInt("external_id"),
 		ConceptType.fromEnglish(rs.getString("concept_type")),
-		rs.getString("note"),
+		rs.getString("editorial_note"),
 		rs.getTimestamp("created"),
 		rs.getTimestamp("modified"),
 		rs.getTimestamp("deprecated"),
@@ -159,7 +159,7 @@ public class Database implements AutoCloseable {
     }
 
     public void setNote(Term concept, String note) throws SQLException {
-	PreparedStatement statement = prepareStatement("UPDATE concepts SET note=? WHERE concept_id=?;");
+	PreparedStatement statement = prepareStatement("UPDATE concepts SET editorial_note=? WHERE concept_id=?;");
 	statement.setString(1, note);
 	statement.setInt(2, concept.getConceptId());
 	statement.executeUpdate();
