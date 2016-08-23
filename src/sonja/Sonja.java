@@ -4,6 +4,8 @@
  */
 package sonja;
 
+import static sonja.RelationType.*;
+
 import java.awt.Image;
 import java.awt.event.InputEvent;
 import java.io.BufferedReader;
@@ -26,10 +28,13 @@ import java.sql.Timestamp;
 import java.text.Normalizer;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Locale;
 import java.util.Properties;
+import java.util.Set;
 
 import javax.imageio.ImageIO;
 import javax.swing.JFileChooser;
@@ -2013,127 +2018,220 @@ public class Sonja {
 
     static void fletttotermer(Term begrep1, Term begrep2) {
         ArrayList<String> mld = new ArrayList<String>();
-        // kopierer data fra begrep2 til begrep1
-        // term2 skal inn som se-henvisning
-        begrep1.nyttsynonym(begrep2.term);
-        mld.add(begrep2.term + " lagt inn som synonym til " + begrep1.term);
-        // definisjon
-        if (begrep1.definisjon != null && begrep2.definisjon != null) {
-            begrep1.definisjon = begrep1.definisjon + " " + begrep2.definisjon;
-            mld.add(begrep1.term + " har fått definisjonstillegg " + begrep2.definisjon);
-        } else if (begrep2.definisjon != null) {
-            begrep1.definisjon = begrep2.definisjon;
-            mld.add(begrep1.term + " har fått definisjonen " + begrep2.definisjon);
-        }
-        //note
-        if (begrep1.note != null && begrep2.note != null) {
-            begrep1.note = begrep1.note + " " + begrep2.note;
-            mld.add(begrep1.term + " har fått notetillegg " + begrep2.note);
-        } else if (begrep2.note != null) {
-            begrep1.note = begrep2.note;
-            mld.add(begrep1.term + " har fått noten " + begrep2.note);
-        }
+        
+	try (Database db = new Database()) {
+	    // kopierer data fra begrep2 til begrep1
+	    // Update database first, then local data
+	    db.setAutoCommit(false);// rollback on exception
 
-        // se-henvisninger
-        if (begrep2.synonymer.size() > 0) {
-            for (int i = 0; i < begrep2.synonymer.size(); i++) {
-                begrep1.nyttsynonym(begrep2.synonymer.get(i));
-                mld.add(begrep1.term + " har fått synonymet " + begrep2.synonymer.get(i));
-            }
-        }
-        // se-også relasjoner
-        if (begrep2.seog.size() > 0) {
-            for (int i = 0; i < begrep2.seog.size(); i++) {
-                begrep1.nyseog(begrep2.seog.get(i));
-                mld.add(begrep1.term + " har fått se-også til " + begrep2.seog.get(i));
-            }
-        }
-        // overordnete termer overføres til den termen som blir stående
-        if (begrep2.overordnet.size() > 0) {
-            for (int i = 0; i < begrep2.overordnet.size(); i++) {
-                begrep1.nyoverordnet(begrep2.overordnet.get(i));
-                mld.add(begrep1.term + " har fått ny overordnet " + begrep2.overordnet.get(i));
-            }
-        }
+	    if (!begrep1.synonymer.contains(begrep2.term)) {
+		db.addTerm(begrep1, begrep2.term, TermStatus.non_pref, getDefaultLanguage());
+	    }
 
-        // underordnete termer overføres til den termen som blir stående
-        if (begrep2.underordnet.size() > 0) {
-            for (int i = 0; i < begrep2.underordnet.size(); i++) {
-                begrep1.nyunderordnet(begrep2.underordnet.get(i));
-                mld.add(begrep1.term + " har fått ny underordnet " + begrep2.underordnet.get(i));
-            }
-        }
+	    db.setDefinition(begrep1, concatenate(begrep1.definisjon, begrep2.definisjon));
+	    db.setNote(begrep1, concatenate(begrep1.note, begrep2.note));
 
-        // engelsk
-        if (begrep2.engelsk.size() > 0) {
-            for (int i = 0; i < begrep2.engelsk.size(); i++) {
-                begrep1.nyengelsk(begrep2.engelsk.get(i));
-                mld.add(begrep1.term + " har fått engelsktermen " + begrep2.engelsk.get(i));
-            }
-        }
-        // latin
-        if (begrep2.latin.size() > 0) {
-            for (int i = 0; i < begrep2.latin.size(); i++) {
-                begrep1.nylatin(begrep2.latin.get(i));
-                mld.add(begrep1.term + " har fått latintermen " + begrep2.latin.get(i));
-            }
-        }
-        // nynorsk
-        if (begrep2.nynorsk.size() > 0) {
-            for (int i = 0; i < begrep2.nynorsk.size(); i++) {
-                begrep1.nynynorsk(begrep2.nynorsk.get(i));
-                mld.add(begrep1.term + " har fått nynorsktermen " + begrep2.nynorsk.get(i));
-            }
-        }
-        // forkortelser
-        if (begrep2.akronymer.size() > 0) {
-            for (int i = 0; i < begrep2.akronymer.size(); i++) {
-                begrep1.nyttakronym(begrep2.akronymer.get(i));
-                mld.add(begrep1.term + " har fått forkortelsen " + begrep2.akronymer.get(i));
-            }
-        }
-        // MSC første begrep har forrang
-        if (begrep1.msc == null && begrep2.msc != null) {
-            begrep1.msc = begrep2.msc;
-            mld.add(begrep1.term + " har fått MSC-koden " + begrep2.msc);
-        }
-        // DDC første begrep har forrang
-        if (begrep1.dewey == null && begrep2.dewey != null) {
-            begrep1.dewey = begrep2.dewey;
-            mld.add(begrep1.term + " har fått DDC-koden " + begrep2.dewey);
-        }
-        // gå gjennom strengene og bytt ut minid2 med minid1
-        byttidistrenger(begrep2.minID, begrep1.minID);
+	    // Copy all terms
+	    for (Locale locale : Sonjavindu.locales) {
+		if (locale == getDefaultLanguage()) {
+		    for (String term : difference(begrep2.synonymer, begrep1.synonymer)) {
+			db.addTerm(begrep1, term, TermStatus.non_pref, getDefaultLanguage());
+		    }
+		} else {
+		    int numTerms = begrep1.getTerms(locale).size();
 
-        // flytt strengene fra begrep2 til begrep1
-        flyttstrenger(begrep2, begrep1);
+		    for (String term : difference(begrep2.getTerms(locale), begrep1.getTerms(locale))) {
+			if (numTerms == 0) {
+			    db.addTerm(begrep1, term, TermStatus.preferred, locale);
+			} else {
+			    db.addTerm(begrep1, term, TermStatus.non_pref, locale);
+			}
+			numTerms++;
+		    }
+		}
+	    }
 
-        // gå gjennom termene og bytt ut minid2 med minid1 i evt so-relasjoner
-        byttidiseog(begrep2.minID, begrep1.minID);
+	    // related concepts
+	    for (String id : difference(begrep2.seog, begrep1.seog)) {
+		db.addRelation(begrep1, getTerm(id), related);
+	    }
 
-        // sette inn begrep1 sin ID i historikk til begrep2
-        begrep2.flyttettilID = begrep1.minID;
+	    // Broader concepts
+	    for (String id : difference(begrep2.overordnet, begrep1.overordnet)) {
+		db.addRelation(begrep1, getTerm(id), broader);
+		db.removeRelation(begrep2, getTerm(id), broader);
+	    }
 
-        // fjerne begrep2 fra datagrunnlag
-        fjerneterm(begrep2);
+	    // Narrower
+	    for (String id : difference(begrep2.underordnet, begrep1.underordnet)) {
+		db.addRelation(getTerm(id), begrep1, broader); // add inverse
+		db.removeRelation(getTerm(id), begrep2, broader);
+	    }
 
-        // lager lokarstreng
-        lokar(begrep2.term, begrep1.term);
-        lokarbytt(begrep2.type, begrep2.term, begrep1.term, begrep1.minID);
+	    for (String id : difference(begrep2.msc, begrep1.msc)) {
+		db.addMapping(begrep1, id, ExternalVocabulary.msc1970);
+	    }
 
-        String melding = begrep1.type + ": "
-                + begrep2.term
-                + " endret til "
-                + begrep1.term;
-        //bibsyshuskeliste.add(melding);
-        vindu.addtologg(melding, false);
-        // mld.add(melding);
-        if (mld.size() > 0) {
-            for (int i = 0; i < mld.size(); i++) {
-                lagrelogg(mld.get(i));
-            }
-        }
+	    for (String id : difference(begrep2.dewey, begrep1.dewey)) {
+		db.addMapping(begrep1, id, ExternalVocabulary.ddc23);
+	    }
 
+	    db.setReplacedBy(begrep2, begrep1);
+	    db.commit();
+	    db.setAutoCommit(true);
+
+	    // term2 skal inn som se-henvisning
+	    begrep1.nyttsynonym(begrep2.term);
+	    mld.add(begrep2.term + " lagt inn som synonym til " + begrep1.term);
+	    // definisjon
+	    if (begrep1.definisjon != null && begrep2.definisjon != null) {
+		begrep1.definisjon = begrep1.definisjon + " " + begrep2.definisjon;
+		mld.add(begrep1.term + " har fått definisjonstillegg " + begrep2.definisjon);
+	    } else if (begrep2.definisjon != null) {
+		begrep1.definisjon = begrep2.definisjon;
+		mld.add(begrep1.term + " har fått definisjonen " + begrep2.definisjon);
+	    }
+	    // note
+	    if (begrep1.note != null && begrep2.note != null) {
+		begrep1.note = begrep1.note + " " + begrep2.note;
+		mld.add(begrep1.term + " har fått notetillegg " + begrep2.note);
+	    } else if (begrep2.note != null) {
+		begrep1.note = begrep2.note;
+		mld.add(begrep1.term + " har fått noten " + begrep2.note);
+	    }
+
+	    // se-henvisninger
+	    if (begrep2.synonymer.size() > 0) {
+		for (int i = 0; i < begrep2.synonymer.size(); i++) {
+		    begrep1.nyttsynonym(begrep2.synonymer.get(i));
+		    mld.add(begrep1.term + " har fått synonymet " + begrep2.synonymer.get(i));
+		}
+	    }
+	    // se-også relasjoner
+	    if (begrep2.seog.size() > 0) {
+		for (int i = 0; i < begrep2.seog.size(); i++) {
+		    begrep1.nyseog(begrep2.seog.get(i));
+		    mld.add(begrep1.term + " har fått se-også til " + begrep2.seog.get(i));
+		}
+	    }
+	    // overordnete termer overføres til den termen som blir stående
+	    if (begrep2.overordnet.size() > 0) {
+		for (int i = 0; i < begrep2.overordnet.size(); i++) {
+		    begrep1.nyoverordnet(begrep2.overordnet.get(i));
+		    mld.add(begrep1.term + " har fått ny overordnet " + begrep2.overordnet.get(i));
+		}
+	    }
+
+	    // underordnete termer overføres til den termen som blir stående
+	    if (begrep2.underordnet.size() > 0) {
+		for (int i = 0; i < begrep2.underordnet.size(); i++) {
+		    begrep1.nyunderordnet(begrep2.underordnet.get(i));
+		    mld.add(begrep1.term + " har fått ny underordnet " + begrep2.underordnet.get(i));
+		}
+	    }
+
+	    // engelsk
+	    if (begrep2.engelsk.size() > 0) {
+		for (int i = 0; i < begrep2.engelsk.size(); i++) {
+		    begrep1.nyengelsk(begrep2.engelsk.get(i));
+		    mld.add(begrep1.term + " har fått engelsktermen " + begrep2.engelsk.get(i));
+		}
+	    }
+	    // latin
+	    if (begrep2.latin.size() > 0) {
+		for (int i = 0; i < begrep2.latin.size(); i++) {
+		    begrep1.nylatin(begrep2.latin.get(i));
+		    mld.add(begrep1.term + " har fått latintermen " + begrep2.latin.get(i));
+		}
+	    }
+	    // nynorsk
+	    if (begrep2.nynorsk.size() > 0) {
+		for (int i = 0; i < begrep2.nynorsk.size(); i++) {
+		    begrep1.nynynorsk(begrep2.nynorsk.get(i));
+		    mld.add(begrep1.term + " har fått nynorsktermen " + begrep2.nynorsk.get(i));
+		}
+	    }
+	    // forkortelser
+	    if (begrep2.akronymer.size() > 0) {
+		for (int i = 0; i < begrep2.akronymer.size(); i++) {
+		    begrep1.nyttakronym(begrep2.akronymer.get(i));
+		    mld.add(begrep1.term + " har fått forkortelsen " + begrep2.akronymer.get(i));
+		}
+	    }
+	    // MSC første begrep har forrang
+	    if (begrep1.msc == null && begrep2.msc != null) {
+		begrep1.msc = begrep2.msc;
+		mld.add(begrep1.term + " har fått MSC-koden " + begrep2.msc);
+	    }
+	    // DDC første begrep har forrang
+	    if (begrep1.dewey == null && begrep2.dewey != null) {
+		begrep1.dewey = begrep2.dewey;
+		mld.add(begrep1.term + " har fått DDC-koden " + begrep2.dewey);
+	    }
+	    // gå gjennom strengene og bytt ut minid2 med minid1
+	    byttidistrenger(begrep2.minID, begrep1.minID);
+
+	    // flytt strengene fra begrep2 til begrep1
+	    flyttstrenger(begrep2, begrep1);
+
+	    // gå gjennom termene og bytt ut minid2 med minid1 i evt so-relasjoner
+	    byttidiseog(begrep2.minID, begrep1.minID);
+
+	    // sette inn begrep1 sin ID i historikk til begrep2
+	    begrep2.flyttettilID = begrep1.minID;
+
+	    // fjerne begrep2 fra datagrunnlag
+	    fjerneterm(begrep2);
+
+	    // lager lokarstreng
+	    lokar(begrep2.term, begrep1.term);
+	    lokarbytt(begrep2.type, begrep2.term, begrep1.term, begrep1.minID);
+
+	    String melding = begrep1.type + ": "
+		    + begrep2.term
+		    + " endret til "
+		    + begrep1.term;
+	    // bibsyshuskeliste.add(melding);
+	    vindu.addtologg(melding, false);
+	    // mld.add(melding);
+	    if (mld.size() > 0) {
+		for (int i = 0; i < mld.size(); i++) {
+		    lagrelogg(mld.get(i));
+		}
+	    }
+	} catch (SQLException e) {
+	    Sonjavindu.melding("Feil ved lagring:", e.getMessage());
+	}
+    }
+
+    /**
+     * Find Collection (set) difference
+     * 
+     * @param coll1 basis collection
+     * @param coll2 elements to be removed
+     * @return Set consisting of coll1 - coll2
+     */
+    private static <T> Set<T> difference(Collection<T> coll1, Collection<T> coll2) {
+	Set<T> difference = new HashSet<>(coll1);
+	difference.removeAll(coll2);
+	return difference;
+    }
+
+    /**
+     * Concatenate 2 strings, ignoring null values
+     * 
+     * @param string1 a String
+     * @param string2 a String
+     * @return the concatenation
+     */
+    private static String concatenate(String string1, String string2) {
+	if (string1 != null && string2 != null) {
+	    return (string1 + " " + string2).trim();
+	} else if (string2 != null) {
+	    return string2;
+	} else {
+	    return string1;
+	}
     }
 
     public static void flyttstrenger(Term b2, Term b1) {

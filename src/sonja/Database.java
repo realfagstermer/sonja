@@ -189,12 +189,37 @@ public class Database implements AutoCloseable {
 	}
     }
 
+    public void setReplacedBy(Term deprecated, Term replacement) throws SQLException {
+	try (PreparedStatement statement = prepareStatement("UPDATE concepts SET replaced_by=? WHERE concept_id=?;")) {
+	    statement.setInt(1, replacement.getConceptId());
+	    statement.setInt(2, deprecated.getConceptId());
+	    statement.executeUpdate();
+	    deprecate(deprecated); //also does updateModified()
+	}
+    }
+
+    private void deprecate(Term concept) throws SQLException {
+	try (PreparedStatement statement = connection.prepareStatement("UPDATE concepts SET deprecated = CURRENT_TIMESTAMP WHERE concept_id = ?;");) {
+	    statement.setInt(1, concept.getConceptId());
+	    statement.executeUpdate();
+	    updateModified(concept);
+	}
+    }
+
     public PreparedStatement prepareStatement(String query) throws SQLException {
 	return connection.prepareStatement(query);
     }
 
     public Statement createStatement() throws SQLException {
 	return connection.createStatement();
+    }
+
+    public void commit() throws SQLException {
+	connection.commit();
+    }
+
+    public void setAutoCommit(boolean b) throws SQLException {
+	connection.setAutoCommit(b);
     }
 
 }

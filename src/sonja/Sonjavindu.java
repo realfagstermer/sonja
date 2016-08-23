@@ -37,6 +37,7 @@ public class Sonjavindu extends javax.swing.JFrame {
     static final Locale nb = new Locale("nb");
     static final Locale nn = new Locale("nn");
     static final Locale la = new Locale("la");
+    static final Locale[] locales = new Locale[] { en, nb, nn, la };
     public static String listefokus = "term";
     public static boolean strengesok = false;
     private String[] tomliste = new String[0];
