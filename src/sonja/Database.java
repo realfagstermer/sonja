@@ -194,7 +194,7 @@ public class Database implements AutoCloseable {
 	    statement.setInt(1, replacement.getConceptId());
 	    statement.setInt(2, deprecated.getConceptId());
 	    statement.executeUpdate();
-	    deprecate(deprecated); //also does updateModified()
+	    deprecate(deprecated); // also does updateModified()
 	}
     }
 

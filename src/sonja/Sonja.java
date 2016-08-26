@@ -1153,7 +1153,9 @@ public class Sonja {
 		ResultSet results = stmt.executeQuery(query)) {
 	    while (results.next()) {
 		Streng s = new Streng();
-		s.addID(Streng.makeId(results.getInt("string_id")));
+		final int id = results.getInt("string_id");
+		s.stringId = id;
+		s.addID(Streng.makeId(id));
 		s.addterm(getExternalId(results.getInt("topic")));
 		s.addunderterm(getExternalId(results.getInt("subtopic")));
 		s.addform(getExternalId(results.getInt("form")));
@@ -2076,6 +2078,7 @@ public class Sonja {
 		db.addMapping(begrep1, id, ExternalVocabulary.ddc23);
 	    }
 
+	    changeStringConcept(db, begrep2, begrep1);
 	    db.setReplacedBy(begrep2, begrep1);
 	    db.commit();
 	    db.setAutoCommit(true);
@@ -2204,6 +2207,20 @@ public class Sonja {
 	}
     }
 
+    private static void changeStringConcept(Database db, Term from, Term to) {
+	for (Streng.Fields field : Streng.Fields.values()) {
+	    System.out.printf("Replacing concepts in %s\n", field);
+
+	    try (PreparedStatement statement = db.prepareStatement("UPDATE strings SET " + field + "=? WHERE " + field + "=?");) {
+		statement.setInt(1, to.getConceptId());
+		statement.setInt(2, from.getConceptId());
+		statement.executeUpdate();
+	    } catch (SQLException e) {
+		Sonjavindu.melding("Feil ved oppdatering av streng:", e.getMessage());
+	    }
+	}
+    }
+    
     /**
      * Find Collection (set) difference
      * 

@@ -7,13 +7,20 @@ package sonja;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 
+import sonja.Streng.Fields;
+
 /**
  *
  * @author knuthe
  */
 public class Streng extends Term {
 
+    public static enum Fields {
+	topic, subtopic, form, temporal, geographic;
+    }
+
     String minID = null;
+    int stringId; //SQL primary key
     String lokalid = null;
     String almaid = null;
     String da = null;
